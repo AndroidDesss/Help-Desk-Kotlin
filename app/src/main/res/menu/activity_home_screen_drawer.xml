@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/createTickets"
+            android:icon="@drawable/new_ticket"
+            android:title="New Tickets" />
+
+        <item
+            android:id="@+id/openTickets"
+            android:icon="@drawable/open_ticket"
+            android:title="Open Tickets" />
+        <item
+            android:id="@+id/progressTickets"
+            android:icon="@drawable/progress_ticket"
+            android:title="Progress Tickets" />
+
+        <item
+            android:id="@+id/closedTickets"
+            android:icon="@drawable/close_ticket"
+            android:title="Closed Tickets" />
+        <item
+            android:id="@+id/completedTickets"
+            android:icon="@drawable/complete_ticket"
+            android:title="Completed Tickets" />
+
+        <item
+            android:id="@+id/timeSheet"
+            android:icon="@drawable/timesheet_icon"
+            android:title="Time Sheet" />
+
+        <item
+            android:id="@+id/projects"
+            android:icon="@drawable/timesheet_icon"
+            android:title="Projects" />
+
+        <item
+            android:id="@+id/board"
+            android:icon="@drawable/timesheet_icon"
+            android:title="Board" />
+
+        <item
+            android:id="@+id/sprint"
+            android:icon="@drawable/timesheet_icon"
+            android:title="Sprint" />
+
+        <item
+            android:id="@+id/backLog"
+            android:icon="@drawable/timesheet_icon"
+            android:title="BackLog List" />
+    </group>
+
+</menu>
+
