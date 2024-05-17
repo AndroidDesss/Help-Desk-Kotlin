@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.android.volley.toolbox.StringRequest
 import com.androidx.helpdesk.R
+import com.androidx.helpdesk.databinding.ActivityNewBackLogScreenBinding
 
 class NewBackLogScreen : AppCompatActivity() {
 
