@@ -143,4 +143,18 @@ object Api {
     var deleteAssignResourcesById = "http://helpdeskservice.desss-portfolio.com/api/RemoveButton/DeleteRow?PrjEmpID="
 
     var getBackLogList = "https://helpdeskservice.desss-portfolio.com/api/BackLogList/LoadGrid?CompanyID="
+
+    var getBackLogProjectList = "https://helpdeskservice.desss-portfolio.com/api/GetProjectName/GetProjectName?CompanyID="
+
+    var getBackLogIssueType = "https://helpdeskservice.desss-portfolio.com/api/ProjectTaskType/LoadTasktype"
+
+    var getBackLogWorkFlow = "https://helpdeskservice.desss-portfolio.com/api/SubModTaskCat/GetTaskCategory?CompanyID="
+
+    var getBackLogReportedType = "https://helpdeskservice.desss-portfolio.com/api/AssignedBy/loadall?CompanyID="
+
+    var getBackLogModuleType = "https://helpdeskservice.desss-portfolio.com/api/ModuleList/LoadGrid?CompanyID="
+
+    var getBackLogBoardType = "https://helpdeskservice.desss-portfolio.com/api/Board/LoadBoard?ProjectID="
+
+    var getBackLogSprintType = "https://helpdeskservice.desss-portfolio.com/api/GridSprint/LoadBoard?ProjectID="
 }

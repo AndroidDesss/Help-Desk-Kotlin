@@ -100,7 +100,7 @@ class TicketDetails : AppCompatActivity() {
                 }
 
                 override fun onNothingSelected(parentView: AdapterView<*>?) {}
-            }
+        }
         binding!!.taskTypeSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View, position: Int, id: Long)
