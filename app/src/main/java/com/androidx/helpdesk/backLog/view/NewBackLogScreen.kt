@@ -1,23 +1,29 @@
 package com.androidx.helpdesk.backLog.view
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
+import android.widget.Spinner
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
+import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.androidx.helpdesk.CommonMethod
 import com.androidx.helpdesk.R
+import com.androidx.helpdesk.VolleyMultipartRequest
 import com.androidx.helpdesk.apilist.Api
 import com.androidx.helpdesk.databinding.ActivityNewBackLogScreenBinding
 import com.androidx.helpdesk.sharedStorage.SharedPref
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.ArrayList
+import java.io.File
 
 class NewBackLogScreen : AppCompatActivity() {
 
@@ -33,8 +39,6 @@ class NewBackLogScreen : AppCompatActivity() {
 
     private var workFlowId = 0
 
-    private var selectedProjectId = 0
-
     private var reportedById = 0
 
     private var moduleId= 0
@@ -42,6 +46,18 @@ class NewBackLogScreen : AppCompatActivity() {
     private var boardId= 0
 
     private var sprintId= 0
+
+    private var selectedProjectId = 0
+
+    private var selectedModuleId = 0
+
+    private var selectedIssueTypeId = 0
+
+    private var selectedWorkFlowId = 0
+
+    private var selectedBoardId = 0
+
+    private var selectedSprintId = 0
 
     private var projectName: String? = null
 
@@ -56,6 +72,12 @@ class NewBackLogScreen : AppCompatActivity() {
     private var boardName: String? = null
 
     private var sprintName: String? = null
+
+    private var errorMsg: String? = null
+
+    private var selectedPriorityValue: String? = null
+
+    private var selectedFilePath: String? = null
 
     private val projectIdList: MutableList<Int> = ArrayList()
 
@@ -99,23 +121,113 @@ class NewBackLogScreen : AppCompatActivity() {
 
     private var sprintType: ArrayAdapter<*>? = null
 
+    private var sourceType: ArrayAdapter<*>? = null
+
+    var sourceList = arrayOf<String?>("Select", "Issue", "Task", "Ticket","Email")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_back_log_screen)
         binding!!.cardView.visibility = View.VISIBLE
         projectList()
+        setAdapter(8)
+        initListener()
 
         binding!!.projectNameSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long)
             {
                 if (parentView.getItemAtPosition(position) != "Select")
                 {
+                    binding!!.cardView.visibility = View.VISIBLE
                     selectedProjectId = projectIdList[position]
-//                    getEmail(selectedProjectId)
+                    getModuleType(selectedProjectId)
+                    getBoardType(selectedProjectId)
+                    getSprintType(selectedProjectId)
                 }
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {}
+        }
+
+        binding!!.moduleEpicSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long)
+            {
+                if (parentView.getItemAtPosition(position) != "Select")
+                {
+                    selectedModuleId = moduleIdList[position]
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {}
+        }
+
+        binding!!.issueTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long)
+            {
+                if (parentView.getItemAtPosition(position) != "Select")
+                {
+                    selectedIssueTypeId = issueIdList[position]
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {}
+        }
+
+        binding!!.workFlowSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long)
+            {
+                if (parentView.getItemAtPosition(position) != "Select")
+                {
+                    selectedWorkFlowId = workFlowIdList[position]
+                }
+            }
+            override fun onNothingSelected(parentView: AdapterView<*>?) {}
+        }
+
+        binding!!.boardSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long)
+            {
+                if (parentView.getItemAtPosition(position) != "Select")
+                {
+                    selectedBoardId = boardIdList[position]
+                }
+            }
+            override fun onNothingSelected(parentView: AdapterView<*>?) {}
+        }
+
+        binding!!.sprintSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long)
+            {
+                if (parentView.getItemAtPosition(position) != "Select")
+                {
+                    selectedSprintId = sprintIdList[position]
+                }
+            }
+            override fun onNothingSelected(parentView: AdapterView<*>?) {}
+        }
+
+    }
+
+    private fun initListener() {
+        binding!!.backButton.setOnClickListener(onClickListener)
+        binding!!.btnSave.setOnClickListener(onClickListener)
+        binding!!.chooseFile.setOnClickListener(onClickListener)
+
+    }
+
+    private val onClickListener = View.OnClickListener { view ->
+        when (view.id) {
+            R.id.backButton -> finish()
+            R.id.chooseFile -> doBrowseFile()
+            R.id.btnSave -> if (validateDetails()) {
+                if (CommonMethod.Companion.isNetworkAvailable(this))
+                {
+                    binding!!.cardView.visibility = View.VISIBLE
+                    createTask()
+                } else {
+                    CommonMethod.Companion.showToast(this, "Check Internet")
+                }
+            }
         }
     }
 
@@ -142,8 +254,7 @@ class NewBackLogScreen : AppCompatActivity() {
                             projectNameList.add(projectName)
                         }
                         setAdapter(1)
-                    } else {
-                        CommonMethod.Companion.showToast(this, "No data")
+                        getIssueType()
                     }
                 } catch (e: JSONException) {
                     binding!!.cardView.visibility = View.GONE
@@ -163,7 +274,7 @@ class NewBackLogScreen : AppCompatActivity() {
         issueIdList.clear()
         issueNameList.clear()
         stringRequest = StringRequest(
-            Request.Method.GET,
+            Request.Method.POST,
             Api.getBackLogIssueType ,
             { ServerResponse ->
                 try {
@@ -177,12 +288,11 @@ class NewBackLogScreen : AppCompatActivity() {
                             val loginObject = dataArray.getJSONObject(i)
                             issueId = loginObject.getInt("ModuleTypeID")
                             issueName = loginObject.getString("ModuleTypeName")
-                            issueIdList.add(projectId)
-                            issueNameList.add(projectName)
+                            issueIdList.add(issueId)
+                            issueNameList.add(issueName)
                         }
                         setAdapter(2)
-                    } else {
-                        CommonMethod.Companion.showToast(this, "No data")
+                        getWorkFlowType()
                     }
                 } catch (e: JSONException) {
                     binding!!.cardView.visibility = View.GONE
@@ -220,8 +330,7 @@ class NewBackLogScreen : AppCompatActivity() {
                             workFlowNameList.add(workFlowName)
                         }
                         setAdapter(3)
-                    } else {
-                        CommonMethod.Companion.showToast(this, "No data")
+                        getReportedByType()
                     }
                 } catch (e: JSONException) {
                     binding!!.cardView.visibility = View.GONE
@@ -241,10 +350,11 @@ class NewBackLogScreen : AppCompatActivity() {
         reportedByIdList.clear()
         reportedByNameList.clear()
         stringRequest = StringRequest(
-            Request.Method.GET,
+            Request.Method.POST,
             Api.getBackLogReportedType + SharedPref.getCompanyId(this) ,
             { ServerResponse ->
                 try {
+                    binding!!.cardView.visibility = View.GONE
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -255,12 +365,10 @@ class NewBackLogScreen : AppCompatActivity() {
                             val loginObject = dataArray.getJSONObject(i)
                             reportedById = loginObject.getInt("EmpID")
                             reportedByName = loginObject.getString("EmpName")
-                            reportedByIdList.add(workFlowId)
-                            reportedByNameList.add(workFlowName)
+                            reportedByIdList.add(reportedById)
+                            reportedByNameList.add(reportedByName)
                         }
                         setAdapter(4)
-                    } else {
-                        CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
                     binding!!.cardView.visibility = View.GONE
@@ -280,7 +388,7 @@ class NewBackLogScreen : AppCompatActivity() {
         moduleIdList.clear()
         moduleNameList.clear()
         stringRequest = StringRequest(
-            Request.Method.GET,
+            Request.Method.POST,
             Api.getBackLogModuleType + SharedPref.getCompanyId(this) + "&ProjectID=" + projectIdSelected,
             { ServerResponse ->
                 try {
@@ -298,8 +406,6 @@ class NewBackLogScreen : AppCompatActivity() {
                             moduleNameList.add(moduleName)
                         }
                         setAdapter(5)
-                    } else {
-                        CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
                     binding!!.cardView.visibility = View.GONE
@@ -319,7 +425,7 @@ class NewBackLogScreen : AppCompatActivity() {
         boardIdList.clear()
         boardNameList.clear()
         stringRequest = StringRequest(
-            Request.Method.GET,
+            Request.Method.POST,
             Api.getBackLogBoardType + projectIdSelected ,
             { ServerResponse ->
                 try {
@@ -337,8 +443,6 @@ class NewBackLogScreen : AppCompatActivity() {
                             boardNameList.add(boardName)
                         }
                         setAdapter(6)
-                    } else {
-                        CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
                     binding!!.cardView.visibility = View.GONE
@@ -358,10 +462,11 @@ class NewBackLogScreen : AppCompatActivity() {
         sprintIdList.clear()
         sprintNameList.clear()
         stringRequest = StringRequest(
-            Request.Method.GET,
+            Request.Method.POST,
             Api.getBackLogSprintType + projectIdSelected ,
             { ServerResponse ->
                 try {
+                    binding!!.cardView.visibility = View.GONE
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -376,8 +481,6 @@ class NewBackLogScreen : AppCompatActivity() {
                             sprintNameList.add(sprintName)
                         }
                         setAdapter(7)
-                    } else {
-                        CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
                     binding!!.cardView.visibility = View.GONE
@@ -417,6 +520,7 @@ class NewBackLogScreen : AppCompatActivity() {
             reportedByType = ArrayAdapter(this, android.R.layout.simple_spinner_item, reportedByNameList)
             reportedByType!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding!!.reportedBySpinner.adapter = reportedByType
+            getSpinnerIndex(binding!!.reportedBySpinner, reportedByIdList, SharedPref.getEmployeeId(this), true)
         }
         else if (id == 5)
         {
@@ -436,5 +540,160 @@ class NewBackLogScreen : AppCompatActivity() {
             sprintType!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding!!.sprintSpinner.adapter = sprintType
         }
+        else if (id == 8)
+        {
+            sourceType = ArrayAdapter<Any?>(this, android.R.layout.simple_spinner_item, sourceList)
+            sourceType!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding!!.sourceSpinner.adapter = sourceType
+        }
+    }
+
+    fun getSpinnerIndex(requiredSpinner: Spinner, spinnerList: List<Int>, mySetId: Int, action: Boolean) {
+        var index = 0
+        var i = 0
+        while (i < spinnerList.size) {
+            if (spinnerList[i] == mySetId) {
+                index = i
+                i = spinnerList.size
+            }
+            i++
+        }
+        requiredSpinner.setSelection(index)
+        if (action) {
+            requiredSpinner.isEnabled = false
+        }
+    }
+
+    private fun validateDetails(): Boolean {
+        if (selectedProjectId == 0)
+        {
+            CommonMethod.Companion.showToast(this, "Select Project")
+            return false
+        }
+        else if (selectedModuleId == 0)
+        {
+            CommonMethod.Companion.showToast(this, "Select Module Type")
+            return false
+        }
+        else if (selectedIssueTypeId == 0)
+        {
+            CommonMethod.Companion.showToast(this, "Select Issue Type")
+            return false
+        }
+        else if (binding!!.etIssueName.text.toString().isEmpty())
+        {
+            binding!!.etIssueName.error = "Enter Issue Name"
+            return false
+        }
+        else if (selectedWorkFlowId == 0)
+        {
+            CommonMethod.Companion.showToast(this, "Select Work Flow Type")
+            return false
+        }
+        else
+        {
+            return true
+        }
+    }
+
+    private fun doBrowseFile() {
+        val intent = Intent().setType("*/*").setAction(Intent.ACTION_GET_CONTENT)
+        startActivityForResult(Intent.createChooser(intent, "Select a file"), 111)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            val selectedFile = data?.data
+            selectedFilePath = getRealPathFromURI(selectedFile)
+        }
+    }
+
+
+    fun createTask()
+    {
+        binding!!.cardView.visibility = View.VISIBLE
+        val volleyMultipartRequest: VolleyMultipartRequest = object : VolleyMultipartRequest(
+            Method.POST, Api.insertNewBackLog,
+            Response.Listener<JSONObject> { jsondata ->
+                binding!!.cardView.visibility = View.GONE
+                try {
+                    status = jsondata.getInt("status")
+                    if (status == 200) {
+                        val dataArray = jsondata.getJSONArray("data")
+                        for (i in 0 until dataArray.length()) {
+                            val loginObject = dataArray.getJSONObject(i)
+                            errorMsg = loginObject.getString("errorMsg")
+                        }
+                        if (errorMsg.equals("Record Inserted", ignoreCase = true)) {
+                            CommonMethod.showToast(this, errorMsg)
+                            finish()
+                        }
+                    } else {
+                        CommonMethod.showToast(this, " Wrong")
+                    }
+
+                } catch (e: JSONException) {
+                    CommonMethod.showToast(this, "Something Went Wrong")
+                    binding!!.cardView.visibility = View.GONE
+                    e.printStackTrace()
+                }
+            },
+            Response.ErrorListener {
+                binding!!.cardView.visibility = View.GONE
+                CommonMethod.showToast(this, "Error")
+            }
+        )
+        {
+            override fun getByteData(): Map<String, DataPart>? {
+                val dataMap = HashMap<String, DataPart>()
+//                val file = File(selectedFilePath!!)
+//                val fileContent = file.readBytes()
+//                val fileName = file.name
+//                dataMap["FileUpload"] = DataPart(fileName, fileContent)
+                return dataMap
+            }
+
+            override fun getParams(): Map<String, String> {
+                if (binding!!.priorityRadioGroup.checkedRadioButtonId != -1) {
+                    val selectedRadioButton =
+                        findViewById<RadioButton>(binding!!.priorityRadioGroup.checkedRadioButtonId)
+                    selectedPriorityValue = selectedRadioButton.text.toString()
+                }
+
+                val params = HashMap<String, String>()
+                params["CompanyID"] = SharedPref.getCompanyId(this@NewBackLogScreen).toString()
+                params["IssueName"] = binding!!.etIssueName.text.toString()
+                params["ProjectName"] = selectedProjectId.toString()
+                params["WorkFlow"] = selectedWorkFlowId.toString()
+                params["Description"] = binding!!.etDescription.text.toString()
+                params["Analysis"] = binding!!.etTaskAnalysis.text.toString()
+                params["Module"] = selectedModuleId.toString()
+                params["IssueType"] = selectedIssueTypeId.toString()
+                params["UserName"] = SharedPref.getUserName(this@NewBackLogScreen).toString()
+                params["BoardID"] = selectedBoardId.toString()
+                params["SprintID"] = selectedSprintId.toString()
+                params["Billable"] = if (binding!!.isBillableCb.isChecked) "true" else "false"
+                params["AllotedBy"] = SharedPref.getEmployeeId(this@NewBackLogScreen).toString()
+                params["Source"] = binding!!.sourceSpinner.selectedItem.toString()
+                params["Priority"] = selectedPriorityValue.toString()
+                params["Active"] = if (binding!!.isActiveCb.isChecked) "true" else "false"
+                return params
+            }
+        }
+        Volley.newRequestQueue(this).add(volleyMultipartRequest)
+    }
+
+    private fun getRealPathFromURI(uri: Uri?): String? {
+        var filePath: String? = null
+        var file: File?
+        try {
+            file = File(uri!!.path!!)
+            filePath = file.path
+        } catch (e: Exception) {
+            CommonMethod.showToast(this, e.toString())
+        }
+        return filePath
     }
 }

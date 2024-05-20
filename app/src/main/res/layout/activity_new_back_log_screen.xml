@@ -474,6 +474,7 @@
                     android:buttonTint="@color/white"
                     android:fontFamily="@font/just_sans_regular"
                     android:text="@string/yes"
+                    android:checked="true"
                     android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/isActiveHeading"

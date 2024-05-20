@@ -157,4 +157,12 @@ object Api {
     var getBackLogBoardType = "https://helpdeskservice.desss-portfolio.com/api/Board/LoadBoard?ProjectID="
 
     var getBackLogSprintType = "https://helpdeskservice.desss-portfolio.com/api/GridSprint/LoadBoard?ProjectID="
+
+    var insertNewBackLog = "https://helpdeskservice.desss-portfolio.com/api/InsertBackLog/Insert"
+
+    var getBackLogDetailsById = "https://helpdeskservice.desss-portfolio.com/api/AllotedTaskList/Getboarddeatilsbyprjid?PrjTaskID="
+
+    var deleteBackLog = "https://helpdeskservice.desss-portfolio.com/api/DeleteSubModule/Grid_RowDelete?PrjTaskID="
+
+    var updateBackLog = "https://helpdeskservice.desss-portfolio.com/api/UpdateBackLog/Update"
 }

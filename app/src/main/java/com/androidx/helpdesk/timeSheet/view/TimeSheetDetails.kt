@@ -784,7 +784,7 @@ class TimeSheetDetails : AppCompatActivity() {
                     e.printStackTrace()
                 }
             },
-            Response.ErrorListener {
+             {
                 binding!!.cardView.visibility = View.GONE
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
                 CommonMethod.showToast(this, "Error")

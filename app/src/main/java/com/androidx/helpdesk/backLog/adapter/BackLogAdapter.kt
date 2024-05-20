@@ -1,5 +1,6 @@
 package com.androidx.helpdesk.backLog.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,10 +11,14 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.backLog.model.BackLogModel
+import com.androidx.helpdesk.backLog.view.EditBackLogScreen
+import java.util.Locale
 
 
-class BackLogAdapter(private val context: Context?, private val backLogModelList: List<BackLogModel>) : RecyclerView.Adapter<BackLogAdapter.ConnectionsHolder>() {
+class BackLogAdapter(private val context: Context?, private var backLogModelList: List<BackLogModel>) : RecyclerView.Adapter<BackLogAdapter.ConnectionsHolder>() {
     var backLogModel: BackLogModel? = null
+    private var  onClickListener: BackLogAdapter.OnClickListener?= null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConnectionsHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.adapter_backlog_list, parent, false)
         return ConnectionsHolder(v)
@@ -28,10 +33,26 @@ class BackLogAdapter(private val context: Context?, private val backLogModelList
         holder.startDate.text = dateArray[0]
         holder.taskStatus.text = backLogModel!!.cardViewStatus
         holder.priority.text = backLogModel!!.priority
+
+        holder.deleteImageView.setOnClickListener {
+            if (onClickListener != null)
+            {
+                backLogModel = backLogModelList[position]
+                onClickListener!!.onClick("delete",position, backLogModel!!.projectTaskId!!)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return backLogModelList.size
+    }
+
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
+    }
+
+    interface OnClickListener {
+        fun onClick(btnName: String,position: Int, model: Int)
     }
 
     inner class ConnectionsHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -60,18 +81,17 @@ class BackLogAdapter(private val context: Context?, private val backLogModelList
 
         override fun onClick(v: View) {
             if (v === editImageView) {
-//                val skillModel = closedTicketModelList[adapterPosition]
-//                val mIntent = Intent(context, TicketDetails::class.java)
-//                mIntent.putExtra("TaskId", skillModel.miscId)
-//                context!!.startActivity(mIntent)
-            }
-            else if(v === deleteImageView)
-            {
-//                val skillModel = closedTicketModelList[adapterPosition]
-//                val mIntent = Intent(context, ChatScreen::class.java)
-//                mIntent.putExtra("TaskId", skillModel.miscId)
-//                context!!.startActivity(mIntent)
+                val backLogModel = backLogModelList[position]
+                val mIntent = Intent(context, EditBackLogScreen::class.java)
+                mIntent.putExtra("ProjectTaskId", backLogModel.projectTaskId)
+                context!!.startActivity(mIntent)
             }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filterList(filterlist: ArrayList<BackLogModel>) {
+        backLogModelList = filterlist
+        notifyDataSetChanged()
     }
 }
