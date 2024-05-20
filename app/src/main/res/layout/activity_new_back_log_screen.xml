@@ -541,41 +541,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/sourceHeading" />
 
                 <TextView
-                    android:id="@+id/ticketNoHeading"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="start"
-                    android:fontFamily="@font/just_sans_semibold"
-                    android:text="Ticket No:"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sourceSpinner"/>
-
-                <EditText
-                    android:id="@+id/etTicketNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:paddingStart="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingBottom="5dp"
-                    android:textSize="15dp"
-                    android:fontFamily="@font/just_sans_regular"
-                    android:background="@drawable/edittext_frame"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ticketNoHeading"/>
-
-                <TextView
                     android:id="@+id/attachmentTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -588,7 +553,7 @@
                     android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etTicketNo"/>
+                    app:layout_constraintTop_toBottomOf="@+id/sourceSpinner"/>
 
                 <Button
                     android:id="@+id/chooseFile"
@@ -600,7 +565,7 @@
                     android:layout_marginStart="10dp"
                     android:background="@drawable/background_button"
                     app:layout_constraintStart_toEndOf="@+id/attachmentTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/etTicketNo"/>
+                    app:layout_constraintTop_toBottomOf="@+id/sourceSpinner"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

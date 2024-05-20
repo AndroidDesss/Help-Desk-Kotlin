@@ -18,11 +18,21 @@
         android:theme="@style/AppTheme"
         tools:targetApi="33">
         <activity
+            android:name=".sprint.view.EditSprintScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".sprint.view.NewSprintScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".backLog.view.EditBackLogScreen"
-            android:exported="false" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".backLog.view.NewBackLogScreen"
-            android:exported="false" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".editQuickProject.view.QuickEditEstimateAllotGrid"
             android:screenOrientation="portrait"

@@ -4,8 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -164,8 +162,8 @@ class EditBackLogScreen : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_back_log_screen)
         binding!!.cardView.visibility = View.VISIBLE
         bundleData()
-        getBackLogDetails(projectTaskId)
         setAdapter(8)
+        getBackLogDetails(projectTaskId)
         initListener()
 
         binding!!.projectNameSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -680,7 +678,7 @@ class EditBackLogScreen : AppCompatActivity() {
                         val loginObject = dataArray.getJSONObject(i)
                         detailsProjectId = loginObject.getInt("ProjectID")
                         detailsModuleId = loginObject.getInt("ModuleID")
-                        detailsIssueTypeId = loginObject.getInt("IssueType")
+                        detailsIssueTypeId = loginObject.getInt("ModuleTypeID")
                         detailsTaskName = loginObject.getString("TaskName")
                         detailsWorkFlowId = loginObject.getInt("TaskCategory")
                         detailsIsActiveId = loginObject.getBoolean("Active")
@@ -700,23 +698,10 @@ class EditBackLogScreen : AppCompatActivity() {
                     binding!!.etTaskAnalysis.setText(detailsAnalysis)
                     if (detailsIsActiveId!!) binding!!.isActiveCb.isChecked = true else binding!!.isActiveCb.isChecked = false
                     if (detailsIsBillableId!!) binding!!.isBillableCb.isChecked = true else binding!!.isBillableCb.isChecked = false
-                    if (detailsSource == "Issue" || detailsSource.equals("Issue"))
-                    {
-                        binding!!.reportedBySpinner.setSelection(1)
+                    val selectedIndex = sourceList.indexOf(detailsSource)
+                    if (selectedIndex != -1) {
+                        binding!!.sourceSpinner.setSelection(selectedIndex)
                     }
-                    else if (detailsSource == "Task" || detailsSource.equals("Task"))
-                    {
-                        binding!!.reportedBySpinner.setSelection(2)
-                    }
-                    else if (detailsSource == "Ticket" || detailsSource.equals("Ticket"))
-                    {
-                        binding!!.reportedBySpinner.setSelection(3)
-                    }
-                    else if (detailsSource == "Email" || detailsSource.equals("Email"))
-                    {
-                        binding!!.reportedBySpinner.setSelection(4)
-                    }
-
                     when (detailsPriority) {
                         "Low" -> binding!!.lowRadioButton.isChecked = true
                         "Medium" -> binding!!.mediumRadioButton.isChecked = true
