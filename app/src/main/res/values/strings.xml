@@ -84,14 +84,15 @@
     <string name="availableProgrammers">Available Programmers</string>
     <string name="addEmployee">Add Employee</string>
     <string name="createModule">Module</string>
-    <string name="startDate">Start Date</string>
-    <string name="endDate">End Date</string>
+    <string name="startDate">Start Date :</string>
+    <string name="endDate">End Date :</string>
     <string name="estimatedHours">Estimated Hours</string>
     <string name="noModule">No Modules Created..!</string>
     <string name="addModules">Add Module</string>
     <string name="moduleName">Module Name</string>
     <string name="isActive">isActive</string>
     <string name="deliveryDate">Delivery Date :</string>
+    <string name="estimateHour">Estimated Hours :</string>
     <string name="sequenceNo">Sequence No :</string>
     <string name="noSubModule">No Sub Modules Created..!</string>
     <string name="subModule">Sub Module</string>
@@ -115,7 +116,7 @@
     <string name="hours">Hours:</string>
     <string name="modules">Module:</string>
     <string name="webPageName">WebPage/Screen Name:</string>
-    <string name="board">Board:</string>
+    <string name="board">Board :</string>
     <string name="scrum">Scrum:</string>
     <string name="estStartDate">Estd Start Date:</string>
     <string name="estEndDate">Estd End Date:</string>
@@ -123,6 +124,8 @@
     <string name="pushToTaskAllotment">Push To Task Allotment</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sprintName">Sprint Name :</string>
+
 
 
     <!--    clientLogin Credentials-->
