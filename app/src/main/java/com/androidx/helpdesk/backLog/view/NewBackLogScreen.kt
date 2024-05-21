@@ -212,7 +212,6 @@ class NewBackLogScreen : AppCompatActivity() {
         binding!!.backButton.setOnClickListener(onClickListener)
         binding!!.btnSave.setOnClickListener(onClickListener)
         binding!!.chooseFile.setOnClickListener(onClickListener)
-
     }
 
     private val onClickListener = View.OnClickListener { view ->
