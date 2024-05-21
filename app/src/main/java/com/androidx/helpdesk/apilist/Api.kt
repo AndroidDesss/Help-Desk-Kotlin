@@ -165,4 +165,7 @@ object Api {
     var deleteBackLog = "https://helpdeskservice.desss-portfolio.com/api/DeleteSubModule/Grid_RowDelete?PrjTaskID="
 
     var updateBackLog = "https://helpdeskservice.desss-portfolio.com/api/UpdateBackLog/Update"
+
+    var getCurrentSprintList = "http://helpdeskservice.desss-portfolio.com/api/GetSprintData/LoadSprintGrid?ProjectID&UserTypeID="
+
 }
