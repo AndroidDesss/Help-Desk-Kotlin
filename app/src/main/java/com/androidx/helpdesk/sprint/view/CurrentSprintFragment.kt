@@ -1,6 +1,7 @@
 package com.androidx.helpdesk.sprint.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,6 +18,7 @@ import com.androidx.helpdesk.CommonMethod
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.apilist.Api
 import com.androidx.helpdesk.backLog.model.BackLogModel
+import com.androidx.helpdesk.backLog.view.NewBackLogScreen
 import com.androidx.helpdesk.databinding.FragmentCurrentSprintBinding
 import com.androidx.helpdesk.sharedStorage.SharedPref
 import com.androidx.helpdesk.sprint.adapter.CurrentSprintAdapter
@@ -64,6 +66,7 @@ class CurrentSprintFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_current_sprint, container, false)
         firstVisit = true
         getCurrentSprintList()
+        initListener()
 
         binding!!.etProjectName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -79,6 +82,19 @@ class CurrentSprintFragment : Fragment() {
             }
         })
         return binding!!.getRoot()
+    }
+
+    private fun initListener() {
+        binding!!.btnNewSprint.setOnClickListener(onClickListener)
+    }
+
+    private val onClickListener = View.OnClickListener { view ->
+        when (view.id) {
+            R.id.btnNewSprint ->{
+                val intent = Intent (requireActivity(), NewSprintScreen::class.java)
+                requireActivity().startActivity(intent)
+            }
+        }
     }
 
     override fun onResume() {

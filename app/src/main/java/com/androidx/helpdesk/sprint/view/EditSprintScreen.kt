@@ -250,6 +250,7 @@ class EditSprintScreen : AppCompatActivity() {
                             boardNameList.add(boardName)
                         }
                         setAdapter(2)
+                        binding!!.cardView.visibility = View.GONE
                     }
                 } catch (e: JSONException) {
                     binding!!.cardView.visibility = View.GONE
