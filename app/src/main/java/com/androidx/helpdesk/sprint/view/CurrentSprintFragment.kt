@@ -98,7 +98,7 @@ class CurrentSprintFragment : Fragment() {
         binding!!.rlError.visibility = View.GONE
         currentSprintModelList.clear()
         stringRequest = StringRequest(
-            Request.Method.GET, Api.getCurrentSprintList +1+"&BoardID"+"&EmpID",
+            Request.Method.GET, Api.getCurrentSprintList +SharedPref.getUserId(context)+"&BoardID"+"&EmpID",
             { ServerResponse ->
                 binding!!.cardView.visibility = View.GONE
                 try {
