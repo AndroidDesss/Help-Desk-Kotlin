@@ -216,6 +216,7 @@ class NewSprintScreen : AppCompatActivity() {
             Request.Method.POST,
             Api.getBackLogBoardType + projectIdSelected ,
             { ServerResponse ->
+                binding!!.cardView.visibility = View.GONE
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
