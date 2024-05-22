@@ -88,7 +88,8 @@ class CurrentSprintAdapter(private val context: Context?, private var sprintMode
         }
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun filterList(filterlist: ArrayList<SprintModel>) {
+    fun filter
+    List(filterlist: ArrayList<SprintModel>) {
         sprintModelList = filterlist
         notifyDataSetChanged()
     }

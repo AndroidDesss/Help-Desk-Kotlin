@@ -331,7 +331,12 @@ class EditSprintScreen : AppCompatActivity() {
 
                     binding!!.etSprintEstimatedHours.setText(detailsSprintEstimatedHours)
                     binding!!.etSprintCompleteHoursName.setText(detailsSprintCompletedHours)
-                    binding!!.etCommentsName.setText(detailsSprintComments)
+
+                    if(detailsSprintComments != null || !detailsSprintComments.isEmpty() || detailsSprintComments != "")
+                    {
+                        binding!!.etCommentsName.setText(detailsSprintComments)
+                    }
+
                     projectList()
 
                 }
