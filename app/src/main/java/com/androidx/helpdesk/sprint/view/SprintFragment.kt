@@ -1,4 +1,4 @@
-package com.androidx.helpdesk.sprint
+package com.androidx.helpdesk.sprint.view
 
 import android.os.Bundle
 import android.os.SystemClock
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.databinding.FragmentSprintBinding
 import com.androidx.helpdesk.sprint.view.CurrentSprintFragment

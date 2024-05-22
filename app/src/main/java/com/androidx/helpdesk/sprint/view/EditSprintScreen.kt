@@ -3,6 +3,7 @@ package com.androidx.helpdesk.sprint.view
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -332,9 +333,13 @@ class EditSprintScreen : AppCompatActivity() {
                     binding!!.etSprintEstimatedHours.setText(detailsSprintEstimatedHours)
                     binding!!.etSprintCompleteHoursName.setText(detailsSprintCompletedHours)
 
-                    if(detailsSprintComments != null || !detailsSprintComments!!.isEmpty() || detailsSprintComments != "")
+                    if(detailsSprintComments != null)
                     {
                         binding!!.etCommentsName.setText(detailsSprintComments)
+                    }
+                    else
+                    {
+                        binding!!.etCommentsName.setText("")
                     }
 
                     projectList()
@@ -413,37 +418,5 @@ class EditSprintScreen : AppCompatActivity() {
         requestQueue.add(stringRequest)
     }
 
-//    private fun deleteSprint()
-//    {
-//        binding!!.cardView.visibility = View.VISIBLE
-//        stringRequest = StringRequest(
-//            Request.Method.DELETE,
-//            Api.deleteSprint + id ,
-//            { ServerResponse ->
-//                try {
-//                    binding!!.cardView.visibility = View.GONE
-//                    val jsondata = JSONObject(ServerResponse)
-//                    status = jsondata.getInt("status")
-//                    if (status == 200) {
-//                        val dataArray = jsondata.getJSONArray("data")
-//                        for (i in 0 until dataArray.length()) {
-//                            val loginObject = dataArray.getJSONObject(i)
-//                            errorMsg = loginObject.getString("errorMsg")
-//                        }
-//                        if (errorMsg.equals("Deleted Successfully", ignoreCase = true)) {
-//                            CommonMethod.showToast(this, errorMsg)
-//                        }
-//                    }
-//                } catch (e: JSONException) {
-//                    binding!!.cardView.visibility = View.GONE
-//                    e.printStackTrace()
-//                }
-//            }
-//        ) {
-//            binding!!.cardView.visibility = View.GONE
-//            stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
-//        }
-//        val requestQueue = Volley.newRequestQueue(this)
-//        requestQueue.add(stringRequest)
-//    }
+
 }

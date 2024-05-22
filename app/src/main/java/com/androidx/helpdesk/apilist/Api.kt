@@ -142,8 +142,6 @@ object Api {
 
     var deleteAssignResourcesById = "http://helpdeskservice.desss-portfolio.com/api/RemoveButton/DeleteRow?PrjEmpID="
 
-    var getBackLogList = "https://helpdeskservice.desss-portfolio.com/api/BackLogList/LoadGrid?CompanyID="
-
     var getBackLogProjectList = "https://helpdeskservice.desss-portfolio.com/api/GetProjectName/GetProjectName?CompanyID="
 
     var getBackLogIssueType = "https://helpdeskservice.desss-portfolio.com/api/ProjectTaskType/LoadTasktype"
@@ -173,4 +171,14 @@ object Api {
     var updateSprint = "http://helpdeskservice.desss-portfolio.com/api/UpdateSprintData/Update?ProjectID="
 
     var getCurrentSprintList = "http://helpdeskservice.desss-portfolio.com/api/GetSprintData/LoadSprintGrid?ProjectID&UserTypeID="
+
+    var deleteSprint = "http://helpdeskservice.desss-portfolio.com/api/DeleteSprintData/Delete?SprintID="
+
+    var unAssignedBackLogList = "https://helpdeskservice.desss-portfolio.com/api/BackLogList/LoadGrid?CompanyID="
+
+    var assignedBackLogList = "https://helpdeskservice.desss-portfolio.com/api/BackLogList/LoadGridAssigned?CompanyID="
+
+    var inProgressBackLogList = "https://helpdeskservice.desss-portfolio.com/api/BackLogList/LoadGridInProgress?CompanyID="
+
+    var completedBackLogList = "https://helpdeskservice.desss-portfolio.com/api/BackLogList/LoadGridCompleted?CompanyID="
 }

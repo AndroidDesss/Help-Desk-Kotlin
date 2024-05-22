@@ -26,7 +26,7 @@ import com.androidx.helpdesk.profile.ProfileActivity
 import com.androidx.helpdesk.progressTickets.view.ProgressTickets
 import com.androidx.helpdesk.projects.view.ProjectFragment
 import com.androidx.helpdesk.sharedStorage.SharedPref
-import com.androidx.helpdesk.sprint.SprintFragment
+import com.androidx.helpdesk.sprint.view.SprintFragment
 import com.androidx.helpdesk.timeSheet.view.TimeSheetList
 import com.google.android.material.navigation.NavigationView
 

@@ -28,7 +28,7 @@ class PendingSprintFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pending_sprint, container, false)
         firstVisit = true
-        return binding!!.getRoot()
+        return binding!!.root
     }
 
     override fun onResume() {

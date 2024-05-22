@@ -37,6 +37,14 @@ class CurrentSprintAdapter(private val context: Context?, private var sprintMode
         holder.sprintName.text = sprintModel!!.sprintName
         holder.estimateHours.text = sprintModel!!.sprintEstimatedHours
 
+        holder.deleteImageView.setOnClickListener {
+            if (onClickListener != null)
+            {
+                sprintModel = sprintModelList[position]
+                onClickListener!!.onClick("delete",position, sprintModel!!.sprintId!!)
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {

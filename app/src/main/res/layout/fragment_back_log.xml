@@ -9,125 +9,94 @@
         android:background="@drawable/background_gradient"
         tools:context=".backLog.view.BackLogFragment">
 
-        <EditText
-            android:id="@+id/etProjectName"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:paddingStart="5dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="5dp"
-            android:textSize="15dp"
-            android:hint="@string/search"
-            android:fontFamily="@font/just_sans_regular"
-            android:background="@drawable/edittext_frame"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnNewBackLog"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <Button
-            android:id="@+id/btnNewBackLog"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_marginTop="5dp"
-            android:background="@drawable/background_button"
-            android:layout_marginEnd="10dp"
-            android:textAllCaps="false"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="New BackLog"
-            android:fontFamily="@font/just_sans_bold"
-            android:textColor="@color/orange"
-            app:cornerRadius="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnNewBackLog" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_margin="30dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:cardCornerRadius="5dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:orientation="horizontal">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnUnAssigned"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="20dp">
+                android:layout_height="35dp"
+                android:textColor="@color/orange"
+                android:text="Un Assigned"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/just_sans_bold"
+                android:textSize="12sp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_fragment_background"/>
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lanimSplash"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:scaleType="centerCrop"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:lottie_autoPlay="true"
-                    app:lottie_fileName="loading.json"
-                    app:lottie_loop="true" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="15dp"
-                    android:fontFamily="@font/just_sans_semibold"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textColor="@color/orange"
-                    android:text="@string/pleaseWait"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnAssigned"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:textColor="@color/white"
+                android:text="Assigned"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/just_sans_bold"
+                android:textSize="12sp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_fragment_bg_transparent"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnInProgess"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:textColor="@color/white"
+                android:text="In Progress"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/just_sans_bold"
+                android:textSize="12sp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_fragment_bg_transparent"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCompleted"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:textColor="@color/white"
+                android:text="Assigned"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/just_sans_bold"
+                android:textSize="12sp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_fragment_bg_transparent"/>
+
+        </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/rlError"
+            android:id="@+id/backLogLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="gone"
-            android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <TextView
-                android:id="@+id/tvErrorText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="5dp"
-                android:textSize="20dp"
-                android:fontFamily="@font/just_sans_semibold"
-                android:visibility="visible"
-                android:textColor="@color/white"
-                />
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout">
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,214 +1,158 @@
 package com.androidx.helpdesk.backLog.view
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.os.SystemClock
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.android.volley.DefaultRetryPolicy
-import com.android.volley.Request
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
-import com.androidx.helpdesk.CommonMethod
+import androidx.fragment.app.FragmentTransaction
 import com.androidx.helpdesk.R
-import com.androidx.helpdesk.apilist.Api
-import com.androidx.helpdesk.backLog.adapter.BackLogAdapter
-import com.androidx.helpdesk.backLog.model.BackLogModel
 import com.androidx.helpdesk.databinding.FragmentBackLogBinding
-import com.androidx.helpdesk.sharedStorage.SharedPref
-import org.json.JSONException
-import org.json.JSONObject
-import java.util.ArrayList
-import java.util.Locale
 
 class BackLogFragment : Fragment() {
 
-    private var firstVisit = false
-
     private var binding: FragmentBackLogBinding? = null
 
-    private var stringRequest: StringRequest? = null
-
-    private var status = 0
-
-    private var projectTaskId = 0
-
-    private var taskName: String? = null
-
-    private var projectName: String? = null
-
-    private var moduleName: String? = null
-
-    private var startDate: String? = null
-
-    private var cardViewStatus: String? = null
-
-    private var priority: String? = null
-
-    private var backLogModelList: MutableList<BackLogModel> = ArrayList()
-
-    private var backLogAdapter: BackLogAdapter? = null
-
+    private val mLastClickTime: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_back_log, container, false)
-        firstVisit = true
-        getBackLogList()
         initListener()
-        binding!!.etProjectName.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(backLogAdapter!= null)
-                {
-                    val searchQuery = s.toString().trim()
-                    filter(searchQuery)
-                }
-            }
-            override fun afterTextChanged(s: Editable?) {
-            }
-        })
-        return binding!!.getRoot()
+        replaceFragment(UnAssignedBackLogFragment())
+        return binding!!.root
     }
 
     private fun initListener() {
-        binding!!.btnNewBackLog.setOnClickListener(onClickListener)
+        binding!!.btnUnAssigned.setOnClickListener(onClickListener)
+        binding!!.btnAssigned.setOnClickListener(onClickListener)
+        binding!!.btnInProgess.setOnClickListener(onClickListener)
+        binding!!.btnCompleted.setOnClickListener(onClickListener)
     }
 
     private val onClickListener = View.OnClickListener { view ->
         when (view.id) {
-            R.id.btnNewBackLog ->{
-                val intent = Intent (requireActivity(), NewBackLogScreen::class.java)
-                requireActivity().startActivity(intent)
-            }
-        }
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        if (firstVisit) {
-            firstVisit = false
-        }
-        else {
-            getBackLogList()
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun getBackLogList()
-    {
-        binding!!.cardView.visibility = View.VISIBLE
-        binding!!.rlError.visibility = View.GONE
-        backLogModelList.clear()
-        stringRequest = StringRequest(
-            Request.Method.GET, Api.getBackLogList +  SharedPref.getCompanyId(context) ,
-            { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
-                try {
-                    val jsondata = JSONObject(ServerResponse)
-                    status = jsondata.getInt("status")
-                    if (status == 200) {
-                        val dataArray = jsondata.getJSONArray("data")
-                        if (dataArray != null && dataArray.length() > 0) {
-                            for (i in 0 until dataArray.length()) {
-                                val loginObject = dataArray.getJSONObject(i)
-                                projectTaskId = loginObject.getInt("PrjTaskID")
-                                taskName = loginObject.getString("TaskName")
-                                projectName = loginObject.getString("ProjectName")
-                                moduleName = loginObject.getString("ModuleName")
-                                startDate = loginObject.getString("EstStartDate")
-                                cardViewStatus = loginObject.getString("CardviewStatus")
-                                priority = loginObject.getString("Priority")
-                                backLogModelList.add(BackLogModel(projectTaskId,taskName, projectName,moduleName, startDate,cardViewStatus,priority))
-                            }
-                            backLogAdapter = BackLogAdapter(context, backLogModelList)
-                            binding!!.recyclerView.adapter = backLogAdapter
-                            backLogAdapter!!.notifyDataSetChanged()
-                            backLogAdapter!!.setOnClickListener(object :
-                                BackLogAdapter.OnClickListener {
-                                override fun onClick(holder: String, position: Int, model: Int) {
-                                    if(holder == "delete")
-                                    {
-                                        CommonMethod.Companion.showAlertDialog(context, "", "Are you sure you want to delete?", "Yes", "No",
-                                            object : CommonMethod.DialogClickListener {
-                                                override fun dialogOkBtnClicked(value: String?) {
-                                                    backLogDelete(model)
-                                                }
-                                                override fun dialogNoBtnClicked(value: String?) {}
-                                            }
-                                        )
-                                    }
-                                }
-                            })
-                        } else {
-                            binding!!.rlError.visibility = View.VISIBLE
-                        }
-                    } else {
-                        binding!!.rlError.visibility = View.VISIBLE
-                    }
-                } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
-                    e.printStackTrace()
+            R.id.btnUnAssigned ->
+            {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return@OnClickListener
                 }
-            }
-        ) {
-            binding!!.cardView.visibility = View.GONE
-            stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
-            CommonMethod.showToast(context, "Please Check your Internet")
-        }
-        val requestQueue = Volley.newRequestQueue(context)
-        requestQueue.add(stringRequest)
-    }
 
-    private fun backLogDelete(id: Int?) {
-        binding!!.cardView.visibility = View.VISIBLE
-        stringRequest = StringRequest(Request.Method.POST, Api.deleteBackLog + id,
-            { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
-                try {
-                    val jsondata = JSONObject(ServerResponse)
-                    status = jsondata.getInt("status")
-                    if (status == 200) {
-                        val dataArray = jsondata.getJSONArray("data")
-                        if (dataArray != null && dataArray.length() > 0) {
-                            CommonMethod.showToast(context, "Deleted Successfully")
-                            getBackLogList()
-                        }
-                    }
-                } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
-                    e.printStackTrace()
+                binding!!.btnUnAssigned.isClickable = false
+                if (binding!!.btnAssigned.isClickable || binding!!.btnInProgess.isClickable || binding!!.btnCompleted.isClickable) {
+                } else {
+                    binding!!.btnAssigned.setClickable(true)
+                    binding!!.btnInProgess.setClickable(true)
+                    binding!!.btnCompleted.setClickable(true)
                 }
+
+                replaceFragment(UnAssignedBackLogFragment())
+
+                binding!!.btnUnAssigned.setTextColor(resources.getColor(R.color.orange))
+                binding!!.btnUnAssigned.setBackgroundResource(R.drawable.btn_fragment_background)
+
+                binding!!.btnAssigned.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnAssigned.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
+
+                binding!!.btnInProgess.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnInProgess.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
+
+                binding!!.btnCompleted.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnCompleted.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
             }
-        ) {
-            binding!!.cardView.visibility = View.GONE
-            stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
-            CommonMethod.showToast(context, "Please Check your Internet")
+            R.id.btnAssigned ->
+            {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return@OnClickListener
+                }
+                binding!!.btnAssigned.isClickable = false
+                if (binding!!.btnUnAssigned.isClickable || binding!!.btnInProgess.isClickable || binding!!.btnCompleted.isClickable) {
+                } else {
+                    binding!!.btnUnAssigned.setClickable(true)
+                    binding!!.btnInProgess.setClickable(true)
+                    binding!!.btnCompleted.setClickable(true)
+                }
+                replaceFragment(AssignedBackLogFragment())
+
+                binding!!.btnAssigned.setTextColor(resources.getColor(R.color.orange))
+                binding!!.btnAssigned.setBackgroundResource(R.drawable.btn_fragment_background)
+
+                binding!!.btnUnAssigned.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnUnAssigned.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
+
+                binding!!.btnInProgess.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnInProgess.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
+
+                binding!!.btnCompleted.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnCompleted.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
+            }
+            R.id.btnInProgess ->
+            {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return@OnClickListener
+                }
+                binding!!.btnInProgess.isClickable = false
+                if (binding!!.btnAssigned.isClickable || binding!!.btnUnAssigned.isClickable || binding!!.btnCompleted.isClickable) {
+                } else {
+                    binding!!.btnAssigned.setClickable(true)
+                    binding!!.btnUnAssigned.setClickable(true)
+                    binding!!.btnCompleted.setClickable(true)
+                }
+                replaceFragment(InProgressBackLogFragment())
+
+                binding!!.btnInProgess.setTextColor(resources.getColor(R.color.orange))
+                binding!!.btnInProgess.setBackgroundResource(R.drawable.btn_fragment_background)
+
+                binding!!.btnUnAssigned.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnUnAssigned.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
+
+                binding!!.btnAssigned.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnAssigned.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
+
+                binding!!.btnCompleted.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnCompleted.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
+            }
+            R.id.btnCompleted ->
+            {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return@OnClickListener
+                }
+                binding!!.btnCompleted.isClickable = false
+                if (binding!!.btnAssigned.isClickable || binding!!.btnInProgess.isClickable || binding!!.btnUnAssigned.isClickable) {
+                } else {
+                    binding!!.btnAssigned.setClickable(true)
+                    binding!!.btnInProgess.setClickable(true)
+                    binding!!.btnUnAssigned.setClickable(true)
+                }
+                replaceFragment(CompletedBackLogFragment())
+
+                binding!!.btnCompleted.setTextColor(resources.getColor(R.color.orange))
+                binding!!.btnCompleted.setBackgroundResource(R.drawable.btn_fragment_background)
+
+                binding!!.btnUnAssigned.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnUnAssigned.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
+
+                binding!!.btnInProgess.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnInProgess.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
+
+                binding!!.btnAssigned.setTextColor(resources.getColor(R.color.white))
+                binding!!.btnAssigned.setBackgroundResource(R.drawable.btn_fragment_bg_transparent)
+            }
         }
-        val requestQueue = Volley.newRequestQueue(context)
-        requestQueue.add(stringRequest)
     }
 
-    private fun filter(text: String) {
-        val filteredlist: ArrayList<BackLogModel> = ArrayList()
-        for (item in backLogModelList) {
-            if (item.taskName!!.toLowerCase(Locale.getDefault()).startsWith(text.toLowerCase(Locale.getDefault()))|| item.projectName!!.toLowerCase(Locale.getDefault()).startsWith(
-                    text.lowercase(Locale.getDefault())
-                )) {
-                filteredlist.add(item)
-            }
-        }
-        if (!filteredlist.isEmpty()) {
-            backLogAdapter!!.filterList(filteredlist)
-        }
+    private fun replaceFragment(fragment: Fragment) {
+        val fragMan = activity?.supportFragmentManager
+        val fragTrans = fragMan!!.beginTransaction()
+        fragTrans.replace(R.id.backLogLayout, fragment, "MY_FRAGMENT")
+        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        fragTrans.commit()
     }
+
+
+
 }
