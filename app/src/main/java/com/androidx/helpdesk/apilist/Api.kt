@@ -181,4 +181,6 @@ object Api {
     var inProgressBackLogList = "https://helpdeskservice.desss-portfolio.com/api/BackLogList/LoadGridInProgress?CompanyID="
 
     var completedBackLogList = "https://helpdeskservice.desss-portfolio.com/api/BackLogList/LoadGridCompleted?CompanyID="
+
+    var getPendingSprintList = "http://helpdeskservice.desss-portfolio.com/api/GetPendingSprintData/LoadPendingSprintGrid?ProjectID=&UserTypeID="
 }

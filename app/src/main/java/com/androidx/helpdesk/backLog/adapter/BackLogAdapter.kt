@@ -64,6 +64,7 @@ class BackLogAdapter(private val context: Context?, private var backLogModelList
         var taskStatus: TextView
         var priority: TextView
         var editImageView: AppCompatImageView
+        var estimateAllot: AppCompatImageView
         var deleteImageView: AppCompatImageView
 
         init {
@@ -74,6 +75,7 @@ class BackLogAdapter(private val context: Context?, private var backLogModelList
             taskStatus = itemView.findViewById(R.id.taskStatusValue)
             priority = itemView.findViewById(R.id.priorityValue)
             editImageView = itemView.findViewById(R.id.edit)
+            estimateAllot = itemView.findViewById(R.id.estimateAllot)
             deleteImageView = itemView.findViewById(R.id.delete)
             editImageView.setOnClickListener(this)
             deleteImageView.setOnClickListener(this)
@@ -85,6 +87,10 @@ class BackLogAdapter(private val context: Context?, private var backLogModelList
                 val mIntent = Intent(context, EditBackLogScreen::class.java)
                 mIntent.putExtra("ProjectTaskId", backLogModel.projectTaskId)
                 context!!.startActivity(mIntent)
+            }
+            else if(v === estimateAllot)
+            {
+
             }
         }
     }

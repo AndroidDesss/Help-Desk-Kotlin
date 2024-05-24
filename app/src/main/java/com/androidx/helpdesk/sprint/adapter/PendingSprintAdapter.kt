@@ -1,7 +1,6 @@
 package com.androidx.helpdesk.sprint.adapter
 
 import android.annotation.SuppressLint
-import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,19 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.sprint.model.SprintModel
 import com.androidx.helpdesk.sprint.view.EditSprintScreen
 
-class CurrentSprintAdapter(private val context: Context?, private var sprintModelList: List<SprintModel>) : RecyclerView.Adapter<CurrentSprintAdapter.ConnectionsHolder>(){
+class PendingSprintAdapter(private val context: Context?, private var sprintModelList: List<SprintModel>) : RecyclerView.Adapter<PendingSprintAdapter.ConnectionsHolder>(){
+
     var sprintModel: SprintModel? = null
-    private var  onClickListener: CurrentSprintAdapter.OnClickListener?= null
-    override fun onCreateViewHolder(parent: ViewGroup,viewType: Int):ConnectionsHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.adapter_current_sprint, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ConnectionsHolder {
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.adapter_pending_sprint, parent, false)
         return ConnectionsHolder(v)
     }
 
-    override fun onBindViewHolder(holder: CurrentSprintAdapter.ConnectionsHolder, position: Int) {
+    override fun onBindViewHolder(holder: PendingSprintAdapter.ConnectionsHolder, position: Int) {
         sprintModel = sprintModelList[position]
         val startDateArray = sprintModel!!.sprintStartDate!!.split("T").toTypedArray()
         holder.startDate.text = startDateArray[0]
@@ -37,27 +37,10 @@ class CurrentSprintAdapter(private val context: Context?, private var sprintMode
         holder.sprintName.text = sprintModel!!.sprintName
         holder.estimateHours.text = sprintModel!!.sprintEstimatedHours
 
-        holder.deleteImageView.setOnClickListener {
-            if (onClickListener != null)
-            {
-                sprintModel = sprintModelList[position]
-                onClickListener!!.onClick("delete",position, sprintModel!!.sprintId!!)
-            }
-        }
-
     }
 
     override fun getItemCount(): Int {
         return sprintModelList.size
-
-    }
-
-    fun setOnClickListener(onClickListener: OnClickListener) {
-        this.onClickListener = onClickListener
-    }
-
-    interface OnClickListener {
-        fun onClick(btnName: String,position: Int, model: Int)
     }
 
     inner class ConnectionsHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -69,10 +52,8 @@ class CurrentSprintAdapter(private val context: Context?, private var sprintMode
         var endDate: TextView
         var deliveryDate: TextView
         var estimateHours: TextView
-        var editImageView: AppCompatImageView
-        var deleteImageView: AppCompatImageView
-        var allotTaskToSprintImageView: AppCompatImageView
-        var burnOutChartImageView: AppCompatImageView
+        var allotTaskToSprint: AppCompatImageView
+        var burnOutChart: AppCompatImageView
 
         init {
             taskHeadingName = itemView.findViewById(R.id.taskHeadingName)
@@ -82,22 +63,15 @@ class CurrentSprintAdapter(private val context: Context?, private var sprintMode
             endDate = itemView.findViewById(R.id.endDateValue)
             deliveryDate = itemView.findViewById(R.id.deliveryDateValue)
             estimateHours = itemView.findViewById(R.id.estimateValue)
-            editImageView = itemView.findViewById(R.id.edit)
-            deleteImageView = itemView.findViewById(R.id.delete)
-            allotTaskToSprintImageView = itemView.findViewById(R.id.allotTaskToSprint)
-            burnOutChartImageView = itemView.findViewById(R.id.burnOutChart)
-//            editImageView.setOnClickListener(this)
-            deleteImageView.setOnClickListener(this)
-            allotTaskToSprintImageView.setOnClickListener(this)
-            burnOutChartImageView.setOnClickListener(this)
+            allotTaskToSprint = itemView.findViewById(R.id.allotTaskToSprint)
+            burnOutChart = itemView.findViewById(R.id.burnOutChart)
+            allotTaskToSprint.setOnClickListener(this)
+            burnOutChart.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {
-            if (v === editImageView) {
-                val sprintModel = sprintModelList[position]
-                val mIntent = Intent(context, EditSprintScreen::class.java)
-                mIntent.putExtra("sprintId", sprintModel . sprintId)
-                context!!.startActivity(mIntent)
+            if (v === allotTaskToSprint) {
+
             }
         }
     }

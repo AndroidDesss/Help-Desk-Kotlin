@@ -87,7 +87,7 @@ class CurrentSprintFragment : Fragment() {
     }
 
     private fun initListener() {
-        binding!!.btnNewSprint.setOnClickListener(onClickListener)
+//        binding!!.btnNewSprint.setOnClickListener(onClickListener)
     }
 
     private val onClickListener = View.OnClickListener { view ->

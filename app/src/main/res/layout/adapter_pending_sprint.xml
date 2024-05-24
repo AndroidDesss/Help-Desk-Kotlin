@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -44,13 +43,13 @@
 
 
             <TextView
-                android:id="@+id/project"
+                android:id="@+id/board"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/just_sans_semibold"
-                android:text="@string/projects"
+                android:text="@string/board"
                 android:textColor="@color/black"
                 android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +57,7 @@
 
 
             <TextView
-                android:id="@+id/projectValue"
+                android:id="@+id/boardValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -69,25 +68,25 @@
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/project"
+                app:layout_constraintStart_toEndOf="@+id/board"
                 app:layout_constraintTop_toBottomOf="@+id/taskHeadingName" />
 
 
             <TextView
-                android:id="@+id/module"
+                android:id="@+id/sprintName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/just_sans_semibold"
-                android:text="@string/module"
+                android:text="@string/sprintName"
                 android:textColor="@color/black"
                 android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/projectValue" />
+                app:layout_constraintTop_toBottomOf="@+id/boardValue" />
 
             <TextView
-                android:id="@+id/moduleValue"
+                android:id="@+id/sprintNameValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -98,8 +97,8 @@
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/module"
-                app:layout_constraintTop_toBottomOf="@+id/projectValue" />
+                app:layout_constraintStart_toEndOf="@+id/sprintName"
+                app:layout_constraintTop_toBottomOf="@+id/boardValue" />
 
 
             <TextView
@@ -109,11 +108,11 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/just_sans_semibold"
-                android:text="Start Date:"
+                android:text="@string/startDate"
                 android:textColor="@color/black"
                 android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/moduleValue" />
+                app:layout_constraintTop_toBottomOf="@+id/sprintNameValue" />
 
             <TextView
                 android:id="@+id/startDateValue"
@@ -129,23 +128,23 @@
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/startDate"
-                app:layout_constraintTop_toBottomOf="@+id/moduleValue" />
+                app:layout_constraintTop_toBottomOf="@+id/sprintNameValue" />
 
             <TextView
-                android:id="@+id/taskStatus"
+                android:id="@+id/endDate"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/just_sans_semibold"
-                android:text="Task Status:"
+                android:text="@string/endDate"
                 android:textColor="@color/black"
                 android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/startDateValue" />
 
             <TextView
-                android:id="@+id/taskStatusValue"
+                android:id="@+id/endDateValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -157,24 +156,25 @@
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/taskStatus"
+                app:layout_constraintStart_toEndOf="@+id/endDate"
                 app:layout_constraintTop_toBottomOf="@+id/startDateValue" />
 
+
             <TextView
-                android:id="@+id/priority"
+                android:id="@+id/deliveryDate"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/just_sans_semibold"
-                android:text="Start Date:"
+                android:text="@string/deliveryDate"
                 android:textColor="@color/black"
                 android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/taskStatusValue" />
+                app:layout_constraintTop_toBottomOf="@+id/endDateValue" />
 
             <TextView
-                android:id="@+id/priorityValue"
+                android:id="@+id/deliveryDateValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -186,20 +186,50 @@
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/priority"
-                app:layout_constraintTop_toBottomOf="@+id/taskStatusValue" />
+                app:layout_constraintStart_toEndOf="@+id/deliveryDate"
+                app:layout_constraintTop_toBottomOf="@+id/endDateValue" />
+
+            <TextView
+                android:id="@+id/estimateHours"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/just_sans_semibold"
+                android:text="@string/estimateHour"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deliveryDateValue" />
+
+            <TextView
+                android:id="@+id/estimateValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/just_sans_regular"
+                android:maxLines="3"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/estimateHours"
+                app:layout_constraintTop_toBottomOf="@+id/deliveryDateValue" />
+
 
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/orange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/priorityValue" />
+                app:layout_constraintTop_toBottomOf="@+id/estimateValue" />
 
             <LinearLayout
                 android:id="@+id/info"
@@ -216,7 +246,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/edit"
+                    android:id="@+id/allotTaskToSprint"
                     android:layout_width="25dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="5dp"
@@ -224,23 +254,10 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:src="@drawable/edit__ic" />
+                    android:src="@drawable/allot_task_sprint" />
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/estimateAllot"
-                    android:layout_width="25dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/edtimate_allot_icon" />
-
-
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/delete"
+                    android:id="@+id/burnOutChart"
                     android:layout_width="25dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="5dp"
@@ -248,7 +265,7 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:src="@drawable/delete_icon"
+                    android:src="@drawable/burn_out_chat"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/edit"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -258,5 +275,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

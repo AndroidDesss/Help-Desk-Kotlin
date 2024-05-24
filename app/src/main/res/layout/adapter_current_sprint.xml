@@ -257,6 +257,31 @@
                     android:src="@drawable/edit__ic" />
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/allotTaskToSprint"
+                    android:layout_width="25dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/allot_task_sprint" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/burnOutChart"
+                    android:layout_width="25dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/burn_out_chat"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/edit"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/delete"
                     android:layout_width="25dp"
                     android:layout_height="30dp"

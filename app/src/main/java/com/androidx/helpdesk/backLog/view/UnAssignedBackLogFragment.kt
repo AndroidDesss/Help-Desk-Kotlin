@@ -63,6 +63,7 @@ class UnAssignedBackLogFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_un_assigned_back_log, container, false)
         firstVisit = true
         getUnAssignedBackLogList()
+        initListener()
         binding!!.etProjectName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
