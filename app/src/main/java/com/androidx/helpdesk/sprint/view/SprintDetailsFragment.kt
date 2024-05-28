@@ -1,6 +1,5 @@
-package com.androidx.helpdesk.backLog.view
+package com.androidx.helpdesk.sprint.view
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,63 +15,83 @@ import com.android.volley.toolbox.Volley
 import com.androidx.helpdesk.CommonMethod
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.apilist.Api
-import com.androidx.helpdesk.backLog.adapter.BackLogAdapter
-import com.androidx.helpdesk.backLog.model.BackLogModel
-import com.androidx.helpdesk.databinding.FragmentCompletedBackLogBinding
-import com.androidx.helpdesk.sharedStorage.SharedPref
+import com.androidx.helpdesk.databinding.FragmentSprintDetailsBinding
+import com.androidx.helpdesk.sprint.adapter.CurrentSprintAdapter
+import com.androidx.helpdesk.sprint.adapter.SprintDetailsAdapter
+import com.androidx.helpdesk.sprint.model.SprintDetailsModel
+import com.androidx.helpdesk.sprint.model.SprintModel
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.ArrayList
 import java.util.Locale
 
 
-class CompletedBackLogFragment : Fragment() {
+class SprintDetailsFragment : Fragment() {
 
     private var firstVisit = false
 
-    private var binding: FragmentCompletedBackLogBinding? = null
+    private var binding: FragmentSprintDetailsBinding? = null
 
     private var stringRequest: StringRequest? = null
 
     private var status = 0
 
-    private var projectTaskId = 0
-
-    private var projectId = 0
-
-    private var moduleId = 0
-
-    private var taskCategoryId = 0
+    private var sprintDetailsId = 0
 
     private var taskName: String? = null
 
     private var projectName: String? = null
 
-    private var moduleName: String? = null
+    private var description: String? = null
 
-    private var startDate: String? = null
+    private var empName: String? = null
 
-    private var cardViewStatus: String? = null
+    private var allottedHours: Double? = null
 
-    private var priority: String? = null
+    private var actualHours: Double? = null
 
-    private var backLogModelList: MutableList<BackLogModel> = ArrayList()
+    private var taskDate: String? = null
 
-    private var backLogAdapter: BackLogAdapter? = null
+    private var errorMsg: String? = null
 
+    private var sprintDetailsModelList: MutableList<SprintDetailsModel> = ArrayList()
+
+    private var sprintDetailsAdapter: SprintDetailsAdapter? = null
+
+    companion object {
+        private const val ARG_SPRINT_ID = "sprintId"
+
+        fun newInstance(sprintId: Int): SprintDetailsFragment {
+            val fragment = SprintDetailsFragment()
+            val args = Bundle()
+            args.putInt(ARG_SPRINT_ID, sprintId)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    private var sprintId: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            sprintId = it.getInt(ARG_SPRINT_ID)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_completed_back_log, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sprint_details, container, false)
         firstVisit = true
-        getCompletedBackLogList()
+        getSprintDetailsList()
+
         binding!!.etProjectName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(backLogAdapter!= null)
+                if(sprintDetailsAdapter!= null)
                 {
                     val searchQuery = s.toString().trim()
                     filter(searchQuery)
@@ -90,18 +109,17 @@ class CompletedBackLogFragment : Fragment() {
             firstVisit = false
         }
         else {
-            getCompletedBackLogList()
+            getSprintDetailsList()
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun getCompletedBackLogList()
+    private fun getSprintDetailsList()
     {
         binding!!.cardView.visibility = View.VISIBLE
         binding!!.rlError.visibility = View.GONE
-        backLogModelList.clear()
+        sprintDetailsModelList.clear()
         stringRequest = StringRequest(
-            Request.Method.GET, Api.completedBackLogList +  SharedPref.getCompanyId(context) ,
+            Request.Method.POST, Api.sprintDetailsList + sprintId,
             { ServerResponse ->
                 binding!!.cardView.visibility = View.GONE
                 try {
@@ -112,30 +130,28 @@ class CompletedBackLogFragment : Fragment() {
                         if (dataArray != null && dataArray.length() > 0) {
                             for (i in 0 until dataArray.length()) {
                                 val loginObject = dataArray.getJSONObject(i)
-                                projectTaskId = loginObject.getInt("PrjTaskID")
+                                sprintDetailsId = loginObject.getInt("SprintID")
                                 taskName = loginObject.getString("TaskName")
                                 projectName = loginObject.getString("ProjectName")
-                                moduleName = loginObject.getString("ModuleName")
-                                startDate = loginObject.getString("EstStartDate")
-                                cardViewStatus = loginObject.getString("CardviewStatus")
-                                priority = loginObject.getString("Priority")
-                                projectId = loginObject.getInt("ProjectID")
-                                moduleId = loginObject.getInt("ModuleID")
-                                taskCategoryId = loginObject.getInt("TaskCategory")
-                                backLogModelList.add(BackLogModel(projectTaskId,taskName, projectName,moduleName, startDate,cardViewStatus,priority,projectId,moduleId,taskCategoryId))
+                                description = loginObject.getString("Description")
+                                empName = loginObject.getString("EmpName")
+                                allottedHours = loginObject.getDouble("AllotedHrs")
+                                actualHours = loginObject.getDouble("ActualHours")
+                                taskDate = loginObject.getString("TaskDate")
+                                sprintDetailsModelList.add(SprintDetailsModel(sprintDetailsId,taskName,projectName,description,empName,allottedHours,actualHours,taskDate))
                             }
-                            backLogAdapter = BackLogAdapter(context, backLogModelList)
-                            binding!!.recyclerView.adapter = backLogAdapter
-                            backLogAdapter!!.notifyDataSetChanged()
-                            backLogAdapter!!.setOnClickListener(object :
-                                BackLogAdapter.OnClickListener {
+                            sprintDetailsAdapter = SprintDetailsAdapter(context, sprintDetailsModelList)
+                            binding!!.recyclerView.adapter = sprintDetailsAdapter
+                            sprintDetailsAdapter!!.notifyDataSetChanged()
+                            sprintDetailsAdapter!!.setOnClickListener(object :
+                                SprintDetailsAdapter.OnClickListener {
                                 override fun onClick(holder: String, position: Int, model: Int) {
                                     if(holder == "delete")
                                     {
-                                        CommonMethod.Companion.showAlertDialog(context, "", "Are you sure you want to delete?", "Yes", "No",
+                                        CommonMethod.showAlertDialog(context, "", "Are you sure you want to delete?", "Yes", "No",
                                             object : CommonMethod.DialogClickListener {
                                                 override fun dialogOkBtnClicked(value: String?) {
-                                                    completedBackLogDelete(model)
+                                                    deleteSprintDetails(model)
                                                 }
                                                 override fun dialogNoBtnClicked(value: String?) {}
                                             }
@@ -163,20 +179,41 @@ class CompletedBackLogFragment : Fragment() {
         requestQueue.add(stringRequest)
     }
 
-    private fun completedBackLogDelete(id: Int?) {
+    private fun filter(text: String) {
+        val filteredList: ArrayList<SprintDetailsModel> = ArrayList()
+        for (item in sprintDetailsModelList) {
+            if (item.taskName!!.toLowerCase(Locale.getDefault()).startsWith(text.toLowerCase(Locale.getDefault()))|| item.projectName!!.toLowerCase(
+                    Locale.getDefault()).startsWith(
+                    text.lowercase(Locale.getDefault())
+                )) {
+                filteredList.add(item)
+            }
+        }
+        if (!filteredList.isEmpty()) {
+            sprintDetailsAdapter!!.filterList(filteredList)
+        }
+    }
+
+    private fun deleteSprintDetails(id: Int?)
+    {
         binding!!.cardView.visibility = View.VISIBLE
         stringRequest = StringRequest(
-            Request.Method.POST, Api.deleteBackLog + id,
+            Request.Method.DELETE,
+            Api.deleteSprintDetails + id ,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
                 try {
+                    binding!!.cardView.visibility = View.GONE
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
                         val dataArray = jsondata.getJSONArray("data")
-                        if (dataArray != null && dataArray.length() > 0) {
-                            CommonMethod.showToast(context, "Deleted Successfully")
-                            getCompletedBackLogList()
+                        for (i in 0 until dataArray.length()) {
+                            val loginObject = dataArray.getJSONObject(i)
+                            errorMsg = loginObject.getString("errorMsg")
+                        }
+                        if (errorMsg.equals("Deleted Successfully", ignoreCase = true)) {
+                            CommonMethod.showToast(context, errorMsg)
+                            getSprintDetailsList()
                         }
                     }
                 } catch (e: JSONException) {
@@ -187,25 +224,9 @@ class CompletedBackLogFragment : Fragment() {
         ) {
             binding!!.cardView.visibility = View.GONE
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
-            CommonMethod.showToast(context, "Please Check your Internet")
         }
         val requestQueue = Volley.newRequestQueue(context)
         requestQueue.add(stringRequest)
-    }
-
-    private fun filter(text: String) {
-        val filteredlist: ArrayList<BackLogModel> = ArrayList()
-        for (item in backLogModelList) {
-            if (item.taskName!!.toLowerCase(Locale.getDefault()).startsWith(text.toLowerCase(Locale.getDefault()))|| item.projectName!!.toLowerCase(
-                    Locale.getDefault()).startsWith(
-                    text.lowercase(Locale.getDefault())
-                )) {
-                filteredlist.add(item)
-            }
-        }
-        if (!filteredlist.isEmpty()) {
-            backLogAdapter!!.filterList(filteredlist)
-        }
     }
 
 

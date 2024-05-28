@@ -18,6 +18,14 @@
         android:theme="@style/AppTheme"
         tools:targetApi="33">
         <activity
+            android:name=".sprint.view.SprintDetailsTabScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".backLog.view.BackLogEstimateAllotScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".sprint.view.EditSprintScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />

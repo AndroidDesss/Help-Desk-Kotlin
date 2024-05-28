@@ -8,5 +8,8 @@ class BackLogModel (
     var moduleName: String?,
     var startDate: String?,
     var cardViewStatus: String?,
-    var priority: String?
+    var priority: String?,
+    var projectID: Int,
+    var moduleID: Int,
+    var taskCategory: Int
 )

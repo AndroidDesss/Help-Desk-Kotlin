@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.sprint.model.SprintModel
 import com.androidx.helpdesk.sprint.view.EditSprintScreen
+import com.androidx.helpdesk.sprint.view.SprintDetailsTabScreen
 
 class PendingSprintAdapter(private val context: Context?, private var sprintModelList: List<SprintModel>) : RecyclerView.Adapter<PendingSprintAdapter.ConnectionsHolder>(){
 
@@ -71,6 +72,13 @@ class PendingSprintAdapter(private val context: Context?, private var sprintMode
 
         override fun onClick(v: View) {
             if (v === allotTaskToSprint) {
+                val sprintModel = sprintModelList[position]
+                val mIntent = Intent(context, SprintDetailsTabScreen::class.java)
+                mIntent.putExtra("sprintId", sprintModel.sprintId)
+                mIntent.putExtra("projectId", sprintModel.projectId)
+                context!!.startActivity(mIntent)
+            }
+            if (v === burnOutChart) {
 
             }
         }

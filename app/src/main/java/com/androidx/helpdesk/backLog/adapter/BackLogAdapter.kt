@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.backLog.model.BackLogModel
+import com.androidx.helpdesk.backLog.view.BackLogEstimateAllotScreen
 import com.androidx.helpdesk.backLog.view.EditBackLogScreen
 import java.util.Locale
 
@@ -79,6 +80,7 @@ class BackLogAdapter(private val context: Context?, private var backLogModelList
             deleteImageView = itemView.findViewById(R.id.delete)
             editImageView.setOnClickListener(this)
             deleteImageView.setOnClickListener(this)
+            estimateAllot.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {
@@ -90,7 +92,14 @@ class BackLogAdapter(private val context: Context?, private var backLogModelList
             }
             else if(v === estimateAllot)
             {
-
+                val backLogModel = backLogModelList[position]
+                val mIntent = Intent(context, BackLogEstimateAllotScreen::class.java)
+                mIntent.putExtra("projectId", backLogModel.projectID)
+                mIntent.putExtra("moduleId", backLogModel.moduleID)
+                mIntent.putExtra("projectTaskId", backLogModel.projectTaskId)
+                mIntent.putExtra("taskCategoryId", backLogModel.taskCategory)
+                mIntent.putExtra("projectName", backLogModel.projectName)
+                context!!.startActivity(mIntent)
             }
         }
     }

@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.sprint.model.SprintModel
 import com.androidx.helpdesk.sprint.view.EditSprintScreen
+import com.androidx.helpdesk.sprint.view.SprintDetailsTabScreen
 
 class CurrentSprintAdapter(private val context: Context?, private var sprintModelList: List<SprintModel>) : RecyclerView.Adapter<CurrentSprintAdapter.ConnectionsHolder>(){
     var sprintModel: SprintModel? = null
@@ -86,7 +87,7 @@ class CurrentSprintAdapter(private val context: Context?, private var sprintMode
             deleteImageView = itemView.findViewById(R.id.delete)
             allotTaskToSprintImageView = itemView.findViewById(R.id.allotTaskToSprint)
             burnOutChartImageView = itemView.findViewById(R.id.burnOutChart)
-//            editImageView.setOnClickListener(this)
+            editImageView.setOnClickListener(this)
             deleteImageView.setOnClickListener(this)
             allotTaskToSprintImageView.setOnClickListener(this)
             burnOutChartImageView.setOnClickListener(this)
@@ -98,6 +99,16 @@ class CurrentSprintAdapter(private val context: Context?, private var sprintMode
                 val mIntent = Intent(context, EditSprintScreen::class.java)
                 mIntent.putExtra("sprintId", sprintModel . sprintId)
                 context!!.startActivity(mIntent)
+            }
+            else if (v === allotTaskToSprintImageView) {
+                val sprintModel = sprintModelList[position]
+                val mIntent = Intent(context, SprintDetailsTabScreen::class.java)
+                mIntent.putExtra("sprintId", sprintModel.sprintId)
+                mIntent.putExtra("projectId", sprintModel.projectId)
+                context!!.startActivity(mIntent)
+            }
+            if (v === burnOutChartImageView) {
+
             }
         }
     }

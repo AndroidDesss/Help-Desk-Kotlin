@@ -106,7 +106,7 @@ object Api {
 
     var getEstimateAllotProjectTaskId = "http://helpdeskservice.desss-portfolio.com/api/SearchButton/GetprojectTaskBySearch?module="
 
-    var getEstimateAllotTaskList = " https://helpdeskservice.desss-portfolio.com/api/LoadTaskName/LoadGrid?TaskCategory="
+    var getEstimateAllotTaskList = "https://helpdeskservice.desss-portfolio.com/api/LoadTaskName/LoadGrid?TaskCategory="
 
     var addTaskEstimateAllot = "https://helpdeskservice.desss-portfolio.com/api/AddTaskName/AddTask?taskId="
 
@@ -183,4 +183,14 @@ object Api {
     var completedBackLogList = "https://helpdeskservice.desss-portfolio.com/api/BackLogList/LoadGridCompleted?CompanyID="
 
     var getPendingSprintList = "http://helpdeskservice.desss-portfolio.com/api/GetPendingSprintData/LoadPendingSprintGrid?ProjectID=&UserTypeID="
+
+    var getBackLogTaskList = "https://helpdeskservice.desss-portfolio.com/api/LoadTaskName/LoadGrid?TaskCategory="
+
+    var getPendingTaskSprintList = "http://helpdeskservice.desss-portfolio.com/api/GetPendingSprintData/LoadPendingTaskGrid?ProjectID="
+
+    var sprintDetailsList = "https://helpdeskservice.desss-portfolio.com/api/GetSprintData/LoadSprintDetails?SprintID="
+
+    var deleteSprintDetails = "https://helpdeskservice.desss-portfolio.com/api/DeleteSprintDetails/Delete?SprintID="
+
+    var addPendingTask = "https://helpdeskservice.desss-portfolio.com/api/AddSprint/AddsprintButton?PrjTaskAllotID="
 }

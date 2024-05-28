@@ -388,7 +388,7 @@ class EditSprintScreen : AppCompatActivity() {
         binding!!.cardView.visibility = View.VISIBLE
         stringRequest = StringRequest(
             Request.Method.POST,
-            Api.updateSprint + selectedProjectId  + "&BoardID=" + selectedBoardId + "&SprintID=" + sprintId + "&SprintName=" + binding!!.etSprintStartDate.text.toString() +  "&DeliveryDate=" + binding!!.etSprintDeliveryDate.text.toString() + "&EstimatedHours=" + binding!!.etSprintEstimatedHours.text.toString() + "&CompletedHours=" + binding!!.etSprintCompleteHoursName.text.toString() + "&Comments=" + binding!!.etCommentsName.text.toString() +"&EndDate="+ binding!!.etSprintEndDate.text.toString(),
+            Api.updateSprint + selectedProjectId  + "&BoardID=" + selectedBoardId + "&SprintID=" + sprintId + "&SprintName=" + binding!!.etSprintStartDate.text.toString() +  "&DeliveryDate=" + binding!!.etSprintDeliveryDate.text.toString() + "&EstimatedHours=" + binding!!.etSprintEstimatedHours.text.toString() + "&CompletedHours=" + binding!!.etSprintCompleteHoursName.text.toString() + "&Comments=" + binding!!.etCommentsName.text.toString() +"&EndDate="+ binding!!.etSprintEndDate.text.toString()+"&StartDate="+ binding!!.etSprintStartDate.text.toString(),
             { ServerResponse ->
                 try {
                     binding!!.cardView.visibility = View.GONE

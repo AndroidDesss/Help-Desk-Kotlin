@@ -36,6 +36,8 @@ class PendingSprintFragment : Fragment() {
 
     private var sprintId = 0
 
+    private var projectId = 0
+
     private var projectName: String? = null
 
     private var boardName: String? = null
@@ -107,6 +109,7 @@ class PendingSprintFragment : Fragment() {
                             for (i in 0 until dataArray.length()) {
                                 val loginObject = dataArray.getJSONObject(i)
                                 sprintId = loginObject.getInt("SprintID")
+                                projectId = loginObject.getInt("ProjectID")
                                 projectName = loginObject.getString("ProjectName")
                                 boardName = loginObject.getString("BoardName")
                                 sprintName = loginObject.getString("SprintName")
@@ -114,7 +117,7 @@ class PendingSprintFragment : Fragment() {
                                 sprintEndDate = loginObject.getString("SprintEndDate")
                                 sprintDeliveryDate = loginObject.getString("SprintDeliveryDate")
                                 sprintEstimatedHours = loginObject.getString("SprintEstimatedHours")
-                                pendingSprintModelList.add(SprintModel(sprintId,projectName,boardName,sprintName,sprintStartDate,sprintEndDate,sprintDeliveryDate,sprintEstimatedHours))
+                                pendingSprintModelList.add(SprintModel(sprintId,projectId,projectName,boardName,sprintName,sprintStartDate,sprintEndDate,sprintDeliveryDate,sprintEstimatedHours))
                             }
                             pendingSprintAdapter = PendingSprintAdapter(context, pendingSprintModelList)
                             binding!!.recyclerView.adapter = pendingSprintAdapter

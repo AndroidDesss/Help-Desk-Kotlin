@@ -41,6 +41,8 @@ class CurrentSprintFragment : Fragment() {
 
     private var sprintId = 0
 
+    private var projectId = 0
+
     private var projectName: String? = null
 
     private var boardName: String? = null
@@ -87,7 +89,7 @@ class CurrentSprintFragment : Fragment() {
     }
 
     private fun initListener() {
-//        binding!!.btnNewSprint.setOnClickListener(onClickListener)
+        binding!!.btnNewSprint.setOnClickListener(onClickListener)
     }
 
     private val onClickListener = View.OnClickListener { view ->
@@ -128,6 +130,7 @@ class CurrentSprintFragment : Fragment() {
                             for (i in 0 until dataArray.length()) {
                                 val loginObject = dataArray.getJSONObject(i)
                                 sprintId = loginObject.getInt("SprintID")
+                                projectId = loginObject.getInt("ProjectID")
                                 projectName = loginObject.getString("ProjectName")
                                 boardName = loginObject.getString("BoardName")
                                 sprintName = loginObject.getString("SprintName")
@@ -135,7 +138,7 @@ class CurrentSprintFragment : Fragment() {
                                 sprintEndDate = loginObject.getString("SprintEndDate")
                                 sprintDeliveryDate = loginObject.getString("SprintDeliveryDate")
                                 sprintEstimatedHours = loginObject.getString("SprintEstimatedHours")
-                                currentSprintModelList.add(SprintModel(sprintId,projectName,boardName,sprintName,sprintStartDate,sprintEndDate,sprintDeliveryDate,sprintEstimatedHours))
+                                currentSprintModelList.add(SprintModel(sprintId,projectId,projectName,boardName,sprintName,sprintStartDate,sprintEndDate,sprintDeliveryDate,sprintEstimatedHours))
                             }
                             currentSprintAdapter = CurrentSprintAdapter(context, currentSprintModelList)
                             binding!!.recyclerView.adapter = currentSprintAdapter

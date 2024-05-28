@@ -29,9 +29,9 @@ class BackLogFragment : Fragment() {
 
     private fun initListener() {
         binding!!.btnUnAssigned.setOnClickListener(onClickListener)
-//        binding!!.btnAssigned.setOnClickListener(onClickListener)
-//        binding!!.btnInProgess.setOnClickListener(onClickListener)
-//        binding!!.btnCompleted.setOnClickListener(onClickListener)
+        binding!!.btnAssigned.setOnClickListener(onClickListener)
+        binding!!.btnInProgess.setOnClickListener(onClickListener)
+        binding!!.btnCompleted.setOnClickListener(onClickListener)
     }
 
     private val onClickListener = View.OnClickListener { view ->

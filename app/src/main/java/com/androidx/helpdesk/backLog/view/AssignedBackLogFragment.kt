@@ -38,6 +38,12 @@ class AssignedBackLogFragment : Fragment() {
 
     private var projectTaskId = 0
 
+    private var projectId = 0
+
+    private var moduleId = 0
+
+    private var taskCategoryId = 0
+
     private var taskName: String? = null
 
     private var projectName: String? = null
@@ -112,7 +118,10 @@ class AssignedBackLogFragment : Fragment() {
                                 startDate = loginObject.getString("EstStartDate")
                                 cardViewStatus = loginObject.getString("CardviewStatus")
                                 priority = loginObject.getString("Priority")
-                                backLogModelList.add(BackLogModel(projectTaskId,taskName, projectName,moduleName, startDate,cardViewStatus,priority))
+                                projectId = loginObject.getInt("ProjectID")
+                                moduleId = loginObject.getInt("ModuleID")
+                                taskCategoryId = loginObject.getInt("TaskCategory")
+                                backLogModelList.add(BackLogModel(projectTaskId,taskName, projectName,moduleName, startDate,cardViewStatus,priority,projectId,moduleId,taskCategoryId))
                             }
                             backLogAdapter = BackLogAdapter(context, backLogModelList)
                             binding!!.recyclerView.adapter = backLogAdapter
