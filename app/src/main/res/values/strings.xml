@@ -122,8 +122,8 @@
     <string name="estEndDate">Estd End Date:</string>
     <string name="duplicate">Duplicate</string>
     <string name="pushToTaskAllotment">Push To Task Allotment</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addBackLog">Add BackLog</string>
+    <string name="backLog">Back Log</string>
     <string name="sprintName">Sprint Name :</string>
     <string name="noData">No Data..!</string>
 

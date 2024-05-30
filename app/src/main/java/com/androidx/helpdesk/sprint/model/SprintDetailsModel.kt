@@ -1,6 +1,7 @@
 package com.androidx.helpdesk.sprint.model
 
 class SprintDetailsModel (
+    var sprintListDetailsId: Int,
     var sprintId: Int,
     var taskName: String?,
     var projectName: String?,

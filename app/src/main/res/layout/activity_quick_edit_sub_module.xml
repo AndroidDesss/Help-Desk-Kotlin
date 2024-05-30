@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:text="@string/subModule"
+                android:text="@string/backLog"
                 android:textSize="18dp"
                 android:gravity="center"
                 android:fontFamily="@font/just_sans_bold"

@@ -193,4 +193,22 @@ object Api {
     var deleteSprintDetails = "https://helpdeskservice.desss-portfolio.com/api/DeleteSprintDetails/Delete?SprintID="
 
     var addPendingTask = "https://helpdeskservice.desss-portfolio.com/api/AddSprint/AddsprintButton?PrjTaskAllotID="
+
+    var getBoardList = "https://helpdeskservice.desss-portfolio.com/api/GetBoard/LoadGrid"
+
+    var boardDelete = "https://helpdeskservice.desss-portfolio.com/api/DeleteBoard/Delete?BoardID="
+
+    var editBoardDetails = "https://helpdeskservice.desss-portfolio.com/api/EditBoard/Edit?BoardID="
+
+    var updateBoardDetails = "https://helpdeskservice.desss-portfolio.com/api/UpdateBoard/Update?BoardID="
+
+    var insertNewBoard = "https://helpdeskservice.desss-portfolio.com/api/InsertBoard/InsertData?ProjectID="
+
+    var getBoardMembersList = "https://helpdeskservice.desss-portfolio.com/api/BoardMembersList/LoadGrid?BoardID="
+
+    var deleteBoardMembers = "http://helpdeskservice.desss-portfolio.com/api/DeleteBoardMembers/Delete?BoardMemberID="
+
+    var getAvailableBoardProjectMembers = "https://helpdeskservice.desss-portfolio.com/api/ProjectMembersList/LoadGrid?ProjectID="
+
+    var addAvailableBoardMembers = "http://helpdeskservice.desss-portfolio.com/api/AddBoard/Add_button?EmpID="
 }

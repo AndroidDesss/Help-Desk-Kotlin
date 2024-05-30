@@ -1,6 +1,7 @@
 package com.androidx.helpdesk.quickProject.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
+import com.androidx.helpdesk.editQuickProject.view.QuickEditSubModule
 import com.androidx.helpdesk.quickProject.model.ModuleModel
 
 class ModuleAdapter(private val context: Context?, private val moduleList: List<ModuleModel>) : RecyclerView.Adapter<ModuleAdapter.ConnectionsHolder>() {
@@ -58,7 +60,7 @@ class ModuleAdapter(private val context: Context?, private val moduleList: List<
         fun onClick(btnName: String,position: Int, model: Int)
     }
 
-    inner class ConnectionsHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class ConnectionsHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener
     {
         var moduleName: TextView
         var moduleStartDate: TextView
@@ -74,6 +76,17 @@ class ModuleAdapter(private val context: Context?, private val moduleList: List<
             moduleEstimatedDate = itemView.findViewById(R.id.estimatedHoursValue)
             moduleEdit = itemView.findViewById(R.id.edit)
             moduleDelete = itemView.findViewById(R.id.delete)
+            itemView.setOnClickListener(this)
+        }
+        override fun onClick(v: View) {
+            if (v === itemView) {
+                val moduleModel = moduleList[position]
+                val mIntent = Intent(context, QuickEditSubModule::class.java)
+                mIntent.putExtra("projectId", moduleModel!!.projectId)
+                mIntent.putExtra("projectName", moduleModel!!.projectName)
+                mIntent.putExtra("bundleModuleId", moduleModel!!.moduleId)
+                context!!.startActivity(mIntent)
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
+import com.androidx.helpdesk.editQuickProject.view.QuickEditModule
 import com.androidx.helpdesk.editQuickProject.view.QuickEditProject
 import com.androidx.helpdesk.projects.model.ProjectModel
 
@@ -53,6 +54,7 @@ class ProjectAdapter(private val context: Context?, private val projectModelList
         var taskHeadingName: TextView
         var projectTypeValue: TextView
         var currentTaskValue: TextView
+        var directModule: AppCompatImageView
         var editImageView: AppCompatImageView
         var deleteImageView: AppCompatImageView
 
@@ -60,8 +62,10 @@ class ProjectAdapter(private val context: Context?, private val projectModelList
             taskHeadingName = itemView.findViewById(R.id.taskHeadingName)
             projectTypeValue = itemView.findViewById(R.id.projectTypeValue)
             currentTaskValue = itemView.findViewById(R.id.currentTaskValue)
+            directModule = itemView.findViewById(R.id.directModule)
             editImageView = itemView.findViewById(R.id.edit)
             deleteImageView = itemView.findViewById(R.id.delete)
+            directModule.setOnClickListener(this)
             editImageView.setOnClickListener(this)
         }
 
@@ -70,6 +74,13 @@ class ProjectAdapter(private val context: Context?, private val projectModelList
                 val skillModel = projectModelList[adapterPosition]
                 val mIntent = Intent(context, QuickEditProject::class.java)
                 mIntent.putExtra("projectId", skillModel.projectId)
+                context!!.startActivity(mIntent)
+            }
+            else if (v === directModule) {
+                val skillModel = projectModelList[adapterPosition]
+                val mIntent = Intent(context, QuickEditModule::class.java)
+                mIntent.putExtra("projectId", skillModel.projectId)
+                mIntent.putExtra("projectName", skillModel.projectName)
                 context!!.startActivity(mIntent)
             }
         }

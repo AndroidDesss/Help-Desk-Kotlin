@@ -157,7 +157,6 @@ class LoginActivity : AppCompatActivity() {
                 override fun dialogOkBtnClicked(value: String?) {
                     finishAffinity()
                 }
-
                 override fun dialogNoBtnClicked(value: String?) {}
             }
         )

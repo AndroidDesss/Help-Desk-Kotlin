@@ -1,5 +1,7 @@
-package com.androidx.helpdesk.sprint.view
+package com.androidx.helpdesk.board.view
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,85 +17,50 @@ import com.android.volley.toolbox.Volley
 import com.androidx.helpdesk.CommonMethod
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.apilist.Api
-import com.androidx.helpdesk.databinding.FragmentSprintDetailsBinding
-import com.androidx.helpdesk.sprint.adapter.CurrentSprintAdapter
-import com.androidx.helpdesk.sprint.adapter.SprintDetailsAdapter
-import com.androidx.helpdesk.sprint.model.SprintDetailsModel
-import com.androidx.helpdesk.sprint.model.SprintModel
+import com.androidx.helpdesk.board.adapter.BoardAdapter
+import com.androidx.helpdesk.board.model.BoardModel
+import com.androidx.helpdesk.databinding.FragmentBoardBinding
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.ArrayList
 import java.util.Locale
 
 
-class SprintDetailsFragment : Fragment() {
+class BoardFragment : Fragment() {
 
     private var firstVisit = false
 
-    private var binding: FragmentSprintDetailsBinding? = null
+    private var binding: FragmentBoardBinding? = null
 
     private var stringRequest: StringRequest? = null
 
     private var status = 0
 
-    private var sprintListDetailsId = 0
+    private var projectId = 0
 
-    private var sprintDetailsId = 0
-
-    private var taskName: String? = null
+    private var boardId = 0
 
     private var projectName: String? = null
 
-    private var description: String? = null
+    private var boardName: String? = null
 
-    private var empName: String? = null
+    private var boardModelList: MutableList<BoardModel> = ArrayList()
 
-    private var allottedHours: Double? = null
-
-    private var actualHours: Double? = null
-
-    private var taskDate: String? = null
-
-    private var errorMsg: String? = null
-
-    private var sprintDetailsModelList: MutableList<SprintDetailsModel> = ArrayList()
-
-    private var sprintDetailsAdapter: SprintDetailsAdapter? = null
-
-    companion object {
-        private const val ARG_SPRINT_ID = "sprintId"
-
-        fun newInstance(sprintId: Int): SprintDetailsFragment {
-            val fragment = SprintDetailsFragment()
-            val args = Bundle()
-            args.putInt(ARG_SPRINT_ID, sprintId)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
-    private var sprintId: Int = 0
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            sprintId = it.getInt(ARG_SPRINT_ID)
-        }
-    }
+    private var boardAdapter: BoardAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sprint_details, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_board, container, false)
         firstVisit = true
-        getSprintDetailsList()
-
+//        getBoardList()
+        initListener()
         binding!!.etProjectName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(sprintDetailsAdapter!= null)
+                if(boardAdapter!= null)
                 {
                     val searchQuery = s.toString().trim()
                     filter(searchQuery)
@@ -105,23 +72,36 @@ class SprintDetailsFragment : Fragment() {
         return binding!!.root
     }
 
+    private fun initListener() {
+        binding!!.btnBoard.setOnClickListener(onClickListener)
+    }
+
+    private val onClickListener = View.OnClickListener { view ->
+        when (view.id) {
+            R.id.btnBoard ->{
+                val intent = Intent (requireActivity(), NewBoardScreen::class.java)
+                requireActivity().startActivity(intent)
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         if (firstVisit) {
             firstVisit = false
-        }
-        else {
-            getSprintDetailsList()
+        } else {
+//            getBoardList()
         }
     }
 
-    private fun getSprintDetailsList()
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getBoardList()
     {
         binding!!.cardView.visibility = View.VISIBLE
         binding!!.rlError.visibility = View.GONE
-        sprintDetailsModelList.clear()
+        boardModelList.clear()
         stringRequest = StringRequest(
-            Request.Method.POST, Api.sprintDetailsList + sprintId,
+            Request.Method.POST, Api.getBoardList ,
             { ServerResponse ->
                 binding!!.cardView.visibility = View.GONE
                 try {
@@ -132,29 +112,24 @@ class SprintDetailsFragment : Fragment() {
                         if (dataArray != null && dataArray.length() > 0) {
                             for (i in 0 until dataArray.length()) {
                                 val loginObject = dataArray.getJSONObject(i)
-                                sprintListDetailsId = loginObject.getInt("SprintDetailID")
-                                sprintDetailsId = loginObject.getInt("SprintID")
-                                taskName = loginObject.getString("TaskName")
+                                boardId = loginObject.getInt("BoardID")
+                                projectId = loginObject.getInt("ProjectID")
                                 projectName = loginObject.getString("ProjectName")
-                                description = loginObject.getString("Description")
-                                empName = loginObject.getString("EmpName")
-                                allottedHours = loginObject.getDouble("AllotedHrs")
-                                actualHours = loginObject.getDouble("ActualHours")
-                                taskDate = loginObject.getString("TaskDate")
-                                sprintDetailsModelList.add(SprintDetailsModel(sprintListDetailsId,sprintDetailsId,taskName,projectName,description,empName,allottedHours,actualHours,taskDate))
+                                boardName = loginObject.getString("BoardName")
+                                boardModelList.add(BoardModel(boardId,projectId, projectName,boardName))
                             }
-                            sprintDetailsAdapter = SprintDetailsAdapter(context, sprintDetailsModelList)
-                            binding!!.recyclerView.adapter = sprintDetailsAdapter
-                            sprintDetailsAdapter!!.notifyDataSetChanged()
-                            sprintDetailsAdapter!!.setOnClickListener(object :
-                                SprintDetailsAdapter.OnClickListener {
+                            boardAdapter = BoardAdapter(context, boardModelList)
+                            binding!!.recyclerView.adapter = boardAdapter
+                            boardAdapter!!.notifyDataSetChanged()
+                            boardAdapter!!.setOnClickListener(object :
+                                BoardAdapter.OnClickListener {
                                 override fun onClick(holder: String, position: Int, model: Int) {
                                     if(holder == "delete")
                                     {
                                         CommonMethod.showAlertDialog(context, "", "Are you sure you want to delete?", "Yes", "No",
                                             object : CommonMethod.DialogClickListener {
                                                 override fun dialogOkBtnClicked(value: String?) {
-                                                    deleteSprintDetails(model)
+                                                    boardDelete(model)
                                                 }
                                                 override fun dialogNoBtnClicked(value: String?) {}
                                             }
@@ -182,41 +157,20 @@ class SprintDetailsFragment : Fragment() {
         requestQueue.add(stringRequest)
     }
 
-    private fun filter(text: String) {
-        val filteredList: ArrayList<SprintDetailsModel> = ArrayList()
-        for (item in sprintDetailsModelList) {
-            if (item.taskName!!.toLowerCase(Locale.getDefault()).startsWith(text.toLowerCase(Locale.getDefault()))|| item.projectName!!.toLowerCase(
-                    Locale.getDefault()).startsWith(
-                    text.lowercase(Locale.getDefault())
-                )) {
-                filteredList.add(item)
-            }
-        }
-        if (!filteredList.isEmpty()) {
-            sprintDetailsAdapter!!.filterList(filteredList)
-        }
-    }
-
-    private fun deleteSprintDetails(id: Int?)
-    {
+    private fun boardDelete(id: Int?) {
         binding!!.cardView.visibility = View.VISIBLE
         stringRequest = StringRequest(
-            Request.Method.DELETE,
-            Api.deleteSprintDetails + id ,
+            Request.Method.POST, Api.boardDelete + id,
             { ServerResponse ->
+                binding!!.cardView.visibility = View.GONE
                 try {
-                    binding!!.cardView.visibility = View.GONE
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
                         val dataArray = jsondata.getJSONArray("data")
-                        for (i in 0 until dataArray.length()) {
-                            val loginObject = dataArray.getJSONObject(i)
-                            errorMsg = loginObject.getString("errorMsg")
-                        }
-                        if (errorMsg.equals("Deleted Successfully", ignoreCase = true)) {
-                            CommonMethod.showToast(context, errorMsg)
-                            getSprintDetailsList()
+                        if (dataArray != null && dataArray.length() > 0) {
+                            CommonMethod.showToast(context, "Deleted Successfully")
+                            getBoardList()
                         }
                     }
                 } catch (e: JSONException) {
@@ -227,9 +181,25 @@ class SprintDetailsFragment : Fragment() {
         ) {
             binding!!.cardView.visibility = View.GONE
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+            CommonMethod.showToast(context, "Please Check your Internet")
         }
         val requestQueue = Volley.newRequestQueue(context)
         requestQueue.add(stringRequest)
+    }
+
+    private fun filter(text: String) {
+        val filteredlist: ArrayList<BoardModel> = ArrayList()
+        for (item in boardModelList) {
+            if (item.projectName!!.toLowerCase(Locale.getDefault()).startsWith(text.toLowerCase(Locale.getDefault()))|| item.boardName!!.toLowerCase(
+                    Locale.getDefault()).startsWith(
+                    text.lowercase(Locale.getDefault())
+                )) {
+                filteredlist.add(item)
+            }
+        }
+        if (!filteredlist.isEmpty()) {
+            boardAdapter!!.filterList(filteredlist)
+        }
     }
 
 

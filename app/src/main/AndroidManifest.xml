@@ -18,6 +18,22 @@
         android:theme="@style/AppTheme"
         tools:targetApi="33">
         <activity
+            android:name=".board.view.BoardMembersScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".board.view.BoardSprintScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".board.view.EditBoardScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".board.view.NewBoardScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".sprint.view.SprintDetailsTabScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />

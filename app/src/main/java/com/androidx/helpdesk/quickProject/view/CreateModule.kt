@@ -115,7 +115,7 @@ class CreateModule : AppCompatActivity() {
             }
             R.id.btnNext ->
             {
-                startActivity(Intent(this, CreateSubModule::class.java).putExtra("projectId",projectId).putExtra("projectName",projectName))
+                startActivity(Intent(this, CreateSubModule::class.java).putExtra("projectId",projectId).putExtra("projectName",projectName).putExtra("bundleModuleId",0))
             }
         }
     }
@@ -149,7 +149,7 @@ class CreateModule : AppCompatActivity() {
                                 moduleStartDate = loginObject.optString("EstStartDate")
                                 moduleEndDate = loginObject.optString("EstEndDate")
                                 moduleEstimatedHours = loginObject.optInt("EstTotalHours")
-                                moduleList.add(ModuleModel(moduleId, moduleName,moduleStartDate,moduleEndDate,moduleEstimatedHours))
+                                moduleList.add(ModuleModel(projectId,projectName,moduleId, moduleName,moduleStartDate,moduleEndDate,moduleEstimatedHours))
                             }
                             binding!!.btnNext.visibility = View.VISIBLE
                             moduleAdapter = ModuleAdapter(this, moduleList)

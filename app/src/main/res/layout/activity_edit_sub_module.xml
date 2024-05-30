@@ -29,6 +29,20 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:tint="@color/white" />
 
+            <TextView
+                android:id="@+id/heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:fontFamily="@font/just_sans_bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
@@ -46,346 +60,549 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-
                 <TextView
-                    android:id="@+id/moduleTitle"
+                    android:id="@+id/projectNameHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="@string/module"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/just_sans_semibold"
-                    android:textSize="18dp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="@string/projectName"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <Spinner
-                    android:id="@+id/moduleSpinner"
-                    android:layout_width="match_parent"
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/projectNameSpinner"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     style="@style/styleSpinner"
                     android:background="@drawable/spinner_background"
-                    android:layout_marginRight="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/moduleTitle" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/projectNameHeading" />
+
 
                 <TextView
-                    android:id="@+id/screenName"
+                    android:id="@+id/moduleEpicHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="@string/screenTaskName"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/just_sans_semibold"
-                    android:textSize="18dp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="Module / EPIC:"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/moduleSpinner"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/projectNameSpinner"/>
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/moduleEpicSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    style="@style/styleSpinner"
+                    android:background="@drawable/spinner_background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/moduleEpicHeading" />
+
+                <TextView
+                    android:id="@+id/issueTypeHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="Issue Type:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/moduleEpicSpinner"/>
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/issueTypeSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    style="@style/styleSpinner"
+                    android:background="@drawable/spinner_background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/issueTypeHeading" />
+
+                <TextView
+                    android:id="@+id/issueNameHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="Issue Name:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/issueTypeSpinner"/>
 
                 <EditText
-                    android:id="@+id/screenNameValue"
+                    android:id="@+id/etIssueName"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="15dp"
                     android:fontFamily="@font/just_sans_regular"
                     android:background="@drawable/edittext_frame"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/screenName" />
+                    app:layout_constraintTop_toBottomOf="@id/issueNameHeading"/>
 
                 <TextView
-                    android:id="@+id/phaseTitle"
+                    android:id="@+id/workFlowHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="@string/phase"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/just_sans_semibold"
-                    android:textSize="18dp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/screenNameValue"/>
-
-                <Spinner
-                    android:id="@+id/phaseSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="Work Flow:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/etIssueName"/>
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/workFlowSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     style="@style/styleSpinner"
                     android:background="@drawable/spinner_background"
-                    android:layout_marginRight="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/phaseTitle" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/workFlowHeading" />
 
                 <TextView
-                    android:id="@+id/taskCategoryTitle"
+                    android:id="@+id/priorityHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="@string/taskCategoryWorkFlow"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/just_sans_semibold"
-                    android:textSize="18dp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/phaseSpinner"/>
-
-                <Spinner
-                    android:id="@+id/taskCategorySpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    style="@style/styleSpinner"
-                    android:background="@drawable/spinner_background"
-                    android:layout_marginRight="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/taskCategoryTitle" />
-
-                <TextView
-                    android:id="@+id/issueTypeTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="@string/issueType"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/just_sans_semibold"
                     android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/taskCategorySpinner"/>
-
-                <Spinner
-                    android:id="@+id/issueTypeSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/just_sans_semibold"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    style="@style/styleSpinner"
-                    android:background="@drawable/spinner_background"
-                    android:layout_marginRight="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:text="Priority:"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/issueTypeTitle" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/workFlowSpinner"/>
 
-                <LinearLayout
-                    android:id="@+id/dateInfo"
-                    android:layout_width="fill_parent"
+                <RadioGroup
+                    android:id="@+id/priorityRadioGroup"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    app:layout_constraintTop_toBottomOf="@+id/issueTypeSpinner"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/priorityHeading">
 
-                    <EditText
-                        android:id="@+id/startDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:paddingStart="5dp"
-                        android:hint="@string/startDate"
-                        android:layout_weight="1"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:textColorHint="@color/black"
-                        android:fontFamily="@font/just_sans_regular"
-                        android:background="@drawable/edittext_frame"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/totalHours" />
+                    <RadioButton
+                        android:id="@+id/lowRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Low"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:fontFamily="@font/just_sans_semibold"
+                        android:checked="true" />
 
-                    <EditText
-                        android:id="@+id/endDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:paddingStart="5dp"
-                        android:hint="@string/endDate"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:textColorHint="@color/black"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/just_sans_regular"
-                        android:background="@drawable/edittext_frame"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/totalHours" />
-                </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/mediumRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:fontFamily="@font/just_sans_semibold"
+                        android:text="Medium" />
+
+                    <RadioButton
+                        android:id="@+id/highRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="High"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:fontFamily="@font/just_sans_semibold"/>
+
+                    <RadioButton
+                        android:id="@+id/criticalRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Critical"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:fontFamily="@font/just_sans_semibold"/>
+                </RadioGroup>
 
                 <TextView
-                    android:id="@+id/estimatedHoursTitle"
+                    android:id="@+id/boardHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="@string/hoursEstimated"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/just_sans_semibold"
-                    android:textSize="18dp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="Board:"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dateInfo"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/priorityRadioGroup"/>
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/boardSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    style="@style/styleSpinner"
+                    android:background="@drawable/spinner_background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/boardHeading" />
+
+                <TextView
+                    android:id="@+id/sprintHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="Sprint:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/boardSpinner"/>
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/sprintSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    style="@style/styleSpinner"
+                    android:background="@drawable/spinner_background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sprintHeading" />
+
+                <TextView
+                    android:id="@+id/descriptionHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="Description:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sprintSpinner"/>
 
                 <EditText
-                    android:id="@+id/estimatedHoursValue"
+                    android:id="@+id/etDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edittext_frame"
+                    android:fontFamily="@font/just_sans_regular"
                     android:paddingStart="5dp"
-                    android:inputType="number"
+                    android:paddingTop="5dp"
+                    android:textSize="15dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="5dp"
+                    android:gravity="top"
+                    android:isScrollContainer="true"
+                    app:layout_constraintTop_toBottomOf="@id/descriptionHeading"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/taskAnalysisHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="Task Analysis:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/etDescription"/>
+
+                <EditText
+                    android:id="@+id/etTaskAnalysis"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edittext_frame"
+                    android:fontFamily="@font/just_sans_regular"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:textSize="15dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="5dp"
+                    android:gravity="top"
+                    android:isScrollContainer="true"
+                    app:layout_constraintTop_toBottomOf="@id/taskAnalysisHeading"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/reportedByHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="Reported By:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/etTaskAnalysis"/>
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/reportedBySpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    style="@style/styleSpinner"
+                    android:background="@drawable/spinner_background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/reportedByHeading" />
+
+                <TextView
+                    android:id="@+id/isActiveHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="isActive"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/reportedBySpinner" />
+
+                <CheckBox
+                    android:id="@+id/isActiveCb"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:buttonTint="@color/white"
+                    android:fontFamily="@font/just_sans_regular"
+                    android:text="@string/yes"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/isActiveHeading"
+                    app:layout_constraintTop_toBottomOf="@+id/reportedBySpinner" />
+
+
+
+                <TextView
+                    android:id="@+id/isBillableHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="@string/billable"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/isActiveCb" />
+
+                <CheckBox
+                    android:id="@+id/isBillableCb"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:buttonTint="@color/white"
+                    android:fontFamily="@font/just_sans_regular"
+                    android:text="@string/yes"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/isBillableHeading"
+                    app:layout_constraintTop_toBottomOf="@+id/isActiveCb" />
+
+                <TextView
+                    android:id="@+id/sourceHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="Source:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/isBillableCb"/>
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/sourceSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    style="@style/styleSpinner"
+                    android:background="@drawable/spinner_background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sourceHeading" />
+
+                <TextView
+                    android:id="@+id/ticketNoHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:text="Ticket No:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sourceSpinner"/>
+
+                <EditText
+                    android:id="@+id/etTicketNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
+                    android:paddingBottom="5dp"
+                    android:textSize="15dp"
                     android:fontFamily="@font/just_sans_regular"
                     android:background="@drawable/edittext_frame"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/estimatedHoursTitle" />
+                    app:layout_constraintTop_toBottomOf="@id/ticketNoHeading"/>
 
                 <TextView
-                    android:id="@+id/priorityTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="@string/priority"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/just_sans_semibold"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/estimatedHoursValue"/>
-
-                <Spinner
-                    android:id="@+id/prioritySpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    style="@style/styleSpinner"
-                    android:background="@drawable/spinner_background"
-                    android:layout_marginRight="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/priorityTitle" />
-
-                <TextView
-                    android:id="@+id/taskStatusTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="@string/taskStatus"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/just_sans_semibold"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/prioritySpinner"/>
-
-                <Spinner
-                    android:id="@+id/taskStatusSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    style="@style/styleSpinner"
-                    android:background="@drawable/spinner_background"
-                    android:layout_marginRight="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/taskStatusTitle" />
-
-                <CheckBox
-                    android:id="@+id/isActive"
+                    android:id="@+id/attachmentTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/isActive"
-                    android:textColor="@color/white"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textSize="18dp"
-                    android:buttonTint="@color/white"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/just_sans_regular"
+                    android:padding="10dp"
+                    android:text="@string/uploadAttachments"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/just_sans_semibold"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/taskStatusSpinner"/>
+                    app:layout_constraintTop_toBottomOf="@+id/etTicketNo"/>
 
-                <CheckBox
-                    android:id="@+id/isBillable"
+                <Button
+                    android:id="@+id/chooseFile"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/isBillable"
-                    android:textColor="@color/white"
+                    android:layout_height="45dp"
+                    android:text="@string/chooseFile"
+                    android:textColor="@color/orange"
                     android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textSize="18dp"
-                    android:buttonTint="@color/white"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/just_sans_regular"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/isActive"/>
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/background_button"
+                    app:layout_constraintStart_toEndOf="@+id/attachmentTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/etTicketNo"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -397,7 +614,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:layout_marginRight="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -410,18 +627,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/background_button"
-                android:text="@string/update"
+                android:text="@string/save"
                 android:textAllCaps="false"
-                android:fontFamily="@font/just_sans_bold"
+                android:fontFamily="@font/just_sans_semibold"
                 android:textColor="@color/orange"
                 android:layout_marginEnd="20dp"
                 app:cornerRadius="5dp"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"

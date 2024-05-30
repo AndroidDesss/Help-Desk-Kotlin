@@ -82,7 +82,7 @@ class QuickEditModule : AppCompatActivity() {
             }
             R.id.btnNext ->
             {
-                startActivity(Intent(this, QuickEditSubModule::class.java).putExtra("projectId",projectId).putExtra("projectName",projectName))
+                startActivity(Intent(this, QuickEditSubModule::class.java).putExtra("projectId",projectId).putExtra("projectName",projectName).putExtra("bundleModuleId",0))
             }
         }
     }
@@ -120,7 +120,7 @@ class QuickEditModule : AppCompatActivity() {
                                 moduleStartDate = loginObject.optString("EstStartDate")
                                 moduleEndDate = loginObject.optString("EstEndDate")
                                 moduleEstimatedHours = loginObject.optInt("EstTotalHours")
-                                editModuleList.add(EditModuleModel(moduleId, moduleName,moduleStartDate,moduleEndDate,moduleEstimatedHours))
+                                editModuleList.add(EditModuleModel(projectId,projectName,moduleId, moduleName,moduleStartDate,moduleEndDate,moduleEstimatedHours))
                             }
                             binding!!.btnNext.visibility = View.VISIBLE
                             editModuleAdapter = EditModuleAdapter(this, editModuleList)

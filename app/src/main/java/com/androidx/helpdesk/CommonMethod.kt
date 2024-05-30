@@ -69,7 +69,6 @@ class CommonMethod(private val context: Context) {
         }
 
 
-
         fun isNetworkAvailable(act: Activity): Boolean {
             val connectivityManager = act.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetworkInfo = connectivityManager.activeNetworkInfo

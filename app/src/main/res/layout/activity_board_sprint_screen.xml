@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_gradient">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parentLogin"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/background_gradient">
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="@color/white" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/parentLogin"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCurrentSprint"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:textColor="@color/orange"
+                android:text="Current Sprint"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/just_sans_bold"
+                android:textSize="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_fragment_background"/>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPendingSprint"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:textColor="@color/white"
+                android:text="Pending Sprint"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/just_sans_bold"
+                android:textSize="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_fragment_bg_transparent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/boardSprintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

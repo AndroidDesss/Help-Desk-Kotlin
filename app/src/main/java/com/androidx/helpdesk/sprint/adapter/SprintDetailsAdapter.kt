@@ -35,7 +35,7 @@ class SprintDetailsAdapter(private val context: Context?, private var sprintDeta
             if (onClickListener != null)
             {
                 sprintDetailsModel = sprintDetailsModelList[position]
-                onClickListener!!.onClick("delete",position, sprintDetailsModel!!.sprintId)
+                onClickListener!!.onClick("delete",position, sprintDetailsModel!!.sprintListDetailsId)
             }
         }
 

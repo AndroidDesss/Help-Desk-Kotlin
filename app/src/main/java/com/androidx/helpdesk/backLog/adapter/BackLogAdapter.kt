@@ -80,7 +80,7 @@ class BackLogAdapter(private val context: Context?, private var backLogModelList
             deleteImageView = itemView.findViewById(R.id.delete)
             editImageView.setOnClickListener(this)
             deleteImageView.setOnClickListener(this)
-            estimateAllot.setOnClickListener(this)
+//            estimateAllot.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {

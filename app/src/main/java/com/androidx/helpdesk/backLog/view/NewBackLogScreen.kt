@@ -221,8 +221,7 @@ class NewBackLogScreen : AppCompatActivity() {
             R.id.btnSave -> if (validateDetails()) {
                 if (CommonMethod.Companion.isNetworkAvailable(this))
                 {
-                    binding!!.cardView.visibility = View.VISIBLE
-                    createTask()
+                    createBackLog()
                 } else {
                     CommonMethod.Companion.showToast(this, "Check Internet")
                 }
@@ -610,7 +609,7 @@ class NewBackLogScreen : AppCompatActivity() {
     }
 
 
-    fun createTask()
+    fun createBackLog()
     {
         binding!!.cardView.visibility = View.VISIBLE
         val volleyMultipartRequest: VolleyMultipartRequest = object : VolleyMultipartRequest(

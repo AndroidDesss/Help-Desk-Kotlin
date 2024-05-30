@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.androidx.helpdesk.CommonMethod
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.backLog.view.BackLogFragment
-import com.androidx.helpdesk.board.BoardFragment
+import com.androidx.helpdesk.board.view.BoardFragment
 import com.androidx.helpdesk.closedTickets.view.ClosedTickets
 import com.androidx.helpdesk.completedTickets.view.CompletedTickets
 import com.androidx.helpdesk.createTickets.ClientTicketCreationActivity
@@ -195,6 +195,10 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             SharedPref.setScreenId(this, 4)
             screenName!!.text = "Completed Tickets"
             replaceFragment(CompletedTickets())
+        }else if (id == R.id.timeSheet) {
+            SharedPref.setScreenId(this, 9)
+            screenName!!.setText("Time Sheet")
+            replaceFragment(TimeSheetList())
         }else if (id == R.id.projects) {
             SharedPref.setScreenId(this, 5)
             screenName!!.text = "Projects"
