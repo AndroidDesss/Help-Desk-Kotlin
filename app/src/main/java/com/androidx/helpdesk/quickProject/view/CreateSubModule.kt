@@ -180,7 +180,7 @@ class CreateSubModule : AppCompatActivity() {
     }
 
     private fun subModuleEdit(pid: Int?,mid: Int?) {
-        startActivity(Intent(this, EditSubModule::class.java).putExtra("projectId",pid).putExtra("subModulePrjTaskId",mid))
+        startActivity(Intent(this, EditSubModule::class.java).putExtra("projectId",pid).putExtra("ProjectTaskId",mid))
     }
 
     private val onClickListener = View.OnClickListener { view ->
