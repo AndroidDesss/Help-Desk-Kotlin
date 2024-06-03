@@ -1,5 +1,6 @@
 package com.androidx.helpdesk.projects.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,11 +10,12 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
+import com.androidx.helpdesk.backLog.model.BackLogModel
 import com.androidx.helpdesk.editQuickProject.view.QuickEditModule
 import com.androidx.helpdesk.editQuickProject.view.QuickEditProject
 import com.androidx.helpdesk.projects.model.ProjectModel
 
-class ProjectAdapter(private val context: Context?, private val projectModelList: List<ProjectModel>) : RecyclerView.Adapter<ProjectAdapter.ConnectionsHolder>() {
+class ProjectAdapter(private val context: Context?, private var projectModelList: List<ProjectModel>) : RecyclerView.Adapter<ProjectAdapter.ConnectionsHolder>() {
     var projectModel: ProjectModel? = null
     private var  onClickListener: OnClickListener?= null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectAdapter.ConnectionsHolder {
@@ -84,5 +86,11 @@ class ProjectAdapter(private val context: Context?, private val projectModelList
                 context!!.startActivity(mIntent)
             }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filterList(filterlist: ArrayList<ProjectModel>) {
+        projectModelList = filterlist
+        notifyDataSetChanged()
     }
 }

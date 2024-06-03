@@ -71,7 +71,7 @@
     <string name="typeMessage">Type a message...</string>
     <string name="feedBack">Feed Back</string>
     <string name="comments">Comments</string>
-    <string name="createQuickProject">Create Quick Project</string>
+    <string name="createQuickProject">Create Project</string>
     <string name="addProject">Add Project</string>
     <string name="projectName">Project Name:</string>
     <string name="totalHours">Total Hours estimated:</string>
