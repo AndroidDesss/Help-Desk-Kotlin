@@ -1,5 +1,6 @@
 package com.androidx.helpdesk.quickProject.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.quickProject.model.SubModuleModel
 
-class SubModuleAdapter(private val context: Context?, private val subModuleList: List<SubModuleModel>) : RecyclerView.Adapter<SubModuleAdapter.ConnectionsHolder>() {
+class SubModuleAdapter(private val context: Context?, private var subModuleList: List<SubModuleModel>) : RecyclerView.Adapter<SubModuleAdapter.ConnectionsHolder>() {
     private var subModuleModel: SubModuleModel? = null
     private var  onClickListenerSubModule: SubModuleAdapter.OnClickListener?= null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubModuleAdapter.ConnectionsHolder {
@@ -75,5 +76,11 @@ class SubModuleAdapter(private val context: Context?, private val subModuleList:
             subModuleEdit = itemView.findViewById(R.id.edit)
             subModuleDelete = itemView.findViewById(R.id.delete)
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filterList(filterlist: ArrayList<SubModuleModel>) {
+        subModuleList = filterlist
+        notifyDataSetChanged()
     }
 }

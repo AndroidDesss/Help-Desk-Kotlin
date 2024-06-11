@@ -39,6 +39,8 @@ class UnAssignedBackLogFragment : Fragment() {
 
     private var projectTaskId = 0
 
+    private var btnValue = 1
+
     private var projectId = 0
 
     private var moduleId = 0
@@ -138,7 +140,7 @@ class UnAssignedBackLogFragment : Fragment() {
                                 projectId = loginObject.getInt("ProjectID")
                                 moduleId = loginObject.getInt("ModuleID")
                                 taskCategoryId = loginObject.getInt("TaskCategory")
-                                backLogModelList.add(BackLogModel(projectTaskId,taskName, projectName,moduleName, startDate,cardViewStatus,priority,projectId,moduleId,taskCategoryId))
+                                backLogModelList.add(BackLogModel(projectTaskId,taskName, projectName,moduleName, startDate,cardViewStatus,priority,projectId,moduleId,taskCategoryId,btnValue))
                             }
                             backLogAdapter = BackLogAdapter(context, backLogModelList)
                             binding!!.recyclerView.adapter = backLogAdapter

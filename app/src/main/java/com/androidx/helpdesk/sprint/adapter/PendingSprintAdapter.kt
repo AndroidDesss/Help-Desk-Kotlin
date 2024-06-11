@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
+import com.androidx.helpdesk.burnOutChart.BurnOutChartScreen
 import com.androidx.helpdesk.sprint.model.SprintModel
 import com.androidx.helpdesk.sprint.view.EditSprintScreen
 import com.androidx.helpdesk.sprint.view.SprintDetailsTabScreen
@@ -67,7 +68,7 @@ class PendingSprintAdapter(private val context: Context?, private var sprintMode
             allotTaskToSprint = itemView.findViewById(R.id.allotTaskToSprint)
             burnOutChart = itemView.findViewById(R.id.burnOutChart)
 //            allotTaskToSprint.setOnClickListener(this)
-            burnOutChart.setOnClickListener(this)
+//            burnOutChart.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {
@@ -79,7 +80,10 @@ class PendingSprintAdapter(private val context: Context?, private var sprintMode
                 context!!.startActivity(mIntent)
             }
             if (v === burnOutChart) {
-
+                val sprintModel = sprintModelList[position]
+                val mIntent = Intent(context, BurnOutChartScreen::class.java)
+                mIntent.putExtra("sprintId", sprintModel.sprintId)
+                context!!.startActivity(mIntent)
             }
         }
     }

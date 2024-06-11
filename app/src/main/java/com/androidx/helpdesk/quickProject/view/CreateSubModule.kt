@@ -3,6 +3,8 @@ package com.androidx.helpdesk.quickProject.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -156,6 +158,20 @@ class CreateSubModule : AppCompatActivity() {
         binding!!.cardView.visibility = View.VISIBLE
         getBundleData()
         initListener()
+
+        binding!!.etProjectName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(subModuleAdapter!= null)
+                {
+                    val searchQuery = s.toString().trim()
+                    filter(searchQuery)
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
     }
 
     private fun initListener() {
@@ -851,6 +867,24 @@ class CreateSubModule : AppCompatActivity() {
         requiredSpinner.setSelection(index)
         if (action) {
             requiredSpinner.isEnabled = false
+        }
+    }
+
+    private fun filter(text: String) {
+        val filteredlist: ArrayList<SubModuleModel> = ArrayList()
+        for (item in subModuleList) {
+            if ( item.subModuleName!!.toLowerCase(
+                    Locale.getDefault()).startsWith(
+                    text.lowercase(Locale.getDefault())
+                )|| item.subModuleTaskName!!.toLowerCase(
+                    Locale.getDefault()).startsWith(
+                    text.lowercase(Locale.getDefault())
+                )) {
+                filteredlist.add(item)
+            }
+        }
+        if (!filteredlist.isEmpty()) {
+            subModuleAdapter!!.filterList(filteredlist)
         }
     }
 

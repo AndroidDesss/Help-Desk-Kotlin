@@ -11,5 +11,6 @@ class BackLogModel (
     var priority: String?,
     var projectID: Int,
     var moduleID: Int,
-    var taskCategory: Int
+    var taskCategory: Int,
+    var hideButton: Int
 )

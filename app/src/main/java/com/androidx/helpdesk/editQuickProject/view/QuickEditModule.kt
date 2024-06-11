@@ -3,6 +3,8 @@ package com.androidx.helpdesk.editQuickProject.view
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -65,6 +67,19 @@ class QuickEditModule : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_module2)
         getBundleData()
         initListener()
+        binding!!.etProjectName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(editModuleAdapter!= null)
+                {
+                    val searchQuery = s.toString().trim()
+                    filter(searchQuery)
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
     }
 
     private fun initListener() {
@@ -330,5 +345,24 @@ class QuickEditModule : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         getModuleList()
+    }
+
+    private fun filter(text: String) {
+        val filteredlist: ArrayList<EditModuleModel> = ArrayList()
+        for (item in editModuleList) {
+            if ( item.projectName!!.toLowerCase(
+                    Locale.getDefault()).startsWith(
+                    text.lowercase(Locale.getDefault())
+                )
+                || item.moduleName!!.toLowerCase(
+                    Locale.getDefault()).startsWith(
+                    text.lowercase(Locale.getDefault())
+                ) ) {
+                filteredlist.add(item)
+            }
+        }
+        if (!filteredlist.isEmpty()) {
+            editModuleAdapter!!.filterList(filteredlist)
+        }
     }
 }

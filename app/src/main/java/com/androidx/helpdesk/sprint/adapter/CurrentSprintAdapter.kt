@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import com.androidx.helpdesk.R
+import com.androidx.helpdesk.burnOutChart.BurnOutChartScreen
 import com.androidx.helpdesk.sprint.model.SprintModel
 import com.androidx.helpdesk.sprint.view.EditSprintScreen
 import com.androidx.helpdesk.sprint.view.SprintDetailsTabScreen
@@ -90,7 +91,7 @@ class CurrentSprintAdapter(private val context: Context?, private var sprintMode
             editImageView.setOnClickListener(this)
             deleteImageView.setOnClickListener(this)
 //            allotTaskToSprintImageView.setOnClickListener(this)
-            burnOutChartImageView.setOnClickListener(this)
+//            burnOutChartImageView.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {
@@ -108,7 +109,10 @@ class CurrentSprintAdapter(private val context: Context?, private var sprintMode
                 context!!.startActivity(mIntent)
             }
             if (v === burnOutChartImageView) {
-
+                val sprintModel = sprintModelList[position]
+                val mIntent = Intent(context, BurnOutChartScreen::class.java)
+                mIntent.putExtra("sprintId", sprintModel.sprintId)
+                context!!.startActivity(mIntent)
             }
         }
     }

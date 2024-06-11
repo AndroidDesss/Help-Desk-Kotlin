@@ -1,5 +1,6 @@
 package com.androidx.helpdesk.editQuickProject.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -11,10 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.editQuickProject.model.EditModuleModel
 import com.androidx.helpdesk.editQuickProject.view.QuickEditSubModule
-import com.androidx.helpdesk.timeSheet.view.TimeSheetDetails
 
 
-class EditModuleAdapter(private val context: Context?, private val moduleList: List<EditModuleModel>) : RecyclerView.Adapter<EditModuleAdapter.ConnectionsHolder>() {
+class EditModuleAdapter(private val context: Context?, private var moduleList: List<EditModuleModel>) : RecyclerView.Adapter<EditModuleAdapter.ConnectionsHolder>() {
     private var moduleModel: EditModuleModel? = null
     private var  onClickListener: OnClickListener?= null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditModuleAdapter.ConnectionsHolder {
@@ -89,5 +89,11 @@ class EditModuleAdapter(private val context: Context?, private val moduleList: L
                 context!!.startActivity(mIntent)
             }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filterList(filterlist: ArrayList<EditModuleModel>) {
+        moduleList = filterlist
+        notifyDataSetChanged()
     }
 }

@@ -25,7 +25,6 @@ import org.json.JSONObject
 import java.util.ArrayList
 import java.util.Locale
 
-
 class CompletedBackLogFragment : Fragment() {
 
     private var firstVisit = false
@@ -39,6 +38,8 @@ class CompletedBackLogFragment : Fragment() {
     private var projectTaskId = 0
 
     private var projectId = 0
+
+    private var btnValue = 0
 
     private var moduleId = 0
 
@@ -122,7 +123,7 @@ class CompletedBackLogFragment : Fragment() {
                                 projectId = loginObject.getInt("ProjectID")
                                 moduleId = loginObject.getInt("ModuleID")
                                 taskCategoryId = loginObject.getInt("TaskCategory")
-                                backLogModelList.add(BackLogModel(projectTaskId,taskName, projectName,moduleName, startDate,cardViewStatus,priority,projectId,moduleId,taskCategoryId))
+                                backLogModelList.add(BackLogModel(projectTaskId,taskName, projectName,moduleName, startDate,cardViewStatus,priority,projectId,moduleId,taskCategoryId,btnValue))
                             }
                             backLogAdapter = BackLogAdapter(context, backLogModelList)
                             binding!!.recyclerView.adapter = backLogAdapter

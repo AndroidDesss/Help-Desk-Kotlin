@@ -15,7 +15,6 @@ import com.androidx.helpdesk.backLog.view.BackLogEstimateAllotScreen
 import com.androidx.helpdesk.backLog.view.EditBackLogScreen
 import java.util.Locale
 
-
 class BackLogAdapter(private val context: Context?, private var backLogModelList: List<BackLogModel>) : RecyclerView.Adapter<BackLogAdapter.ConnectionsHolder>() {
     var backLogModel: BackLogModel? = null
     private var  onClickListener: BackLogAdapter.OnClickListener?= null
@@ -41,6 +40,15 @@ class BackLogAdapter(private val context: Context?, private var backLogModelList
                 backLogModel = backLogModelList[position]
                 onClickListener!!.onClick("delete",position, backLogModel!!.projectTaskId!!)
             }
+        }
+
+        if(backLogModel!!.hideButton == 1)
+        {
+            holder.estimateAllot.visibility = View.VISIBLE
+        }
+        else
+        {
+            holder.estimateAllot.visibility = View.GONE
         }
     }
 
@@ -80,7 +88,7 @@ class BackLogAdapter(private val context: Context?, private var backLogModelList
             deleteImageView = itemView.findViewById(R.id.delete)
             editImageView.setOnClickListener(this)
             deleteImageView.setOnClickListener(this)
-//            estimateAllot.setOnClickListener(this)
+            estimateAllot.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {

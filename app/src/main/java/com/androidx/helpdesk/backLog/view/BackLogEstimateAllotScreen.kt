@@ -27,6 +27,8 @@ class BackLogEstimateAllotScreen : AppCompatActivity(), OnProgrammerListener {
 
     private var binding: ActivityBackLogEstimateAllotScreenBinding? = null
 
+    private var firstVisit = false
+
     private var stringRequest: StringRequest? = null
 
     private var status = 0
@@ -56,6 +58,7 @@ class BackLogEstimateAllotScreen : AppCompatActivity(), OnProgrammerListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_back_log_estimate_allot_screen)
+        firstVisit = true
         getBundleData()
         initListener()
     }
@@ -95,6 +98,7 @@ class BackLogEstimateAllotScreen : AppCompatActivity(), OnProgrammerListener {
     @SuppressLint("NotifyDataSetChanged")
     private fun getTaskList(projectId: Int, moduleId: Int, projectTaskId: Int, taskCategoryId: Int)
     {
+        binding!!.cardView.visibility = View.VISIBLE
         binding!!.rlError.visibility = View.GONE
         taskList.clear()
         stringRequest = StringRequest(
@@ -186,5 +190,15 @@ class BackLogEstimateAllotScreen : AppCompatActivity(), OnProgrammerListener {
         }
         val requestQueue = Volley.newRequestQueue(this)
         requestQueue.add(stringRequest)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (firstVisit) {
+            firstVisit = false
+        }
+        else {
+            getTaskList(projectId,moduleId,projectTaskId,taskCategoryId)
+        }
     }
 }

@@ -211,4 +211,6 @@ object Api {
     var getAvailableBoardProjectMembers = "https://helpdeskservice.desss-portfolio.com/api/ProjectMembersList/LoadGrid?ProjectID="
 
     var addAvailableBoardMembers = "http://helpdeskservice.desss-portfolio.com/api/AddBoard/Add_button?EmpID="
+
+    var burnOutChart = "https://helpdeskservice.desss-portfolio.com/api/BurnOutChart/LoadBurnOutChart?SprintID="
 }
