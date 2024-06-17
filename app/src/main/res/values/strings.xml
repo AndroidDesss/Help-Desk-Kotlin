@@ -126,6 +126,7 @@
     <string name="backLog">Back Log</string>
     <string name="sprintName">Sprint Name :</string>
     <string name="noData">No Data..!</string>
+    <string name="burnChart">BurnOutChart</string>
 
 
     <!--    clientLogin Credentials-->

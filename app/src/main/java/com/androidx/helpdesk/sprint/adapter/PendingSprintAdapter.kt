@@ -68,7 +68,7 @@ class PendingSprintAdapter(private val context: Context?, private var sprintMode
             allotTaskToSprint = itemView.findViewById(R.id.allotTaskToSprint)
             burnOutChart = itemView.findViewById(R.id.burnOutChart)
 //            allotTaskToSprint.setOnClickListener(this)
-//            burnOutChart.setOnClickListener(this)
+            burnOutChart.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {

@@ -272,7 +272,7 @@ class CreateEstimateAllotGrid : AppCompatActivity(), OnProgrammerListener {
         val mId = moduleList.joinToString(",")
         val smId = subModuleList.joinToString(",")
         binding!!.cardView.visibility = View.VISIBLE
-        stringRequest = StringRequest(Request.Method.POST, Api.pushToTaskAllotment + prjAtId + "&ProjectID=" + pjId + "&UserName=" + SharedPref.getCompanyId(this)+"&ModuleID=" + mId + "&SubModuleID=" + smId,
+        stringRequest = StringRequest(Request.Method.POST, Api.pushToTaskAllotment + prjAtId + "&ProjectID=" + pjId + "&UserName=" + SharedPref.getCompanyId(this)+"&ModuleID=" + mId + "&SubModuleID=" + smId + "&CompanyID="+SharedPref.getCompanyId(this),
             { ServerResponse ->
                 try {
                     val jsondata = JSONObject(ServerResponse)
