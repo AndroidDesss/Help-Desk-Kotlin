@@ -91,7 +91,7 @@ class CurrentSprintAdapter(private val context: Context?, private var sprintMode
             editImageView.setOnClickListener(this)
             deleteImageView.setOnClickListener(this)
 //            allotTaskToSprintImageView.setOnClickListener(this)
-//            burnOutChartImageView.setOnClickListener(this)
+            burnOutChartImageView.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {

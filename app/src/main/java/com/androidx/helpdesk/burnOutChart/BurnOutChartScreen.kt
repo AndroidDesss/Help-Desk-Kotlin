@@ -1,10 +1,14 @@
 package com.androidx.helpdesk.burnOutChart
 
 import android.graphics.Color
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
@@ -29,6 +33,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
 class BurnOutChartScreen : AppCompatActivity() {
 
     private var binding: ActivityBurnOutChartScreenBinding? = null
@@ -77,6 +82,8 @@ class BurnOutChartScreen : AppCompatActivity() {
     {
         val intent = intent
         sprintId = intent.getIntExtra("sprintId", 0)
+
+
     }
 
     private fun initListener() {
@@ -101,6 +108,8 @@ class BurnOutChartScreen : AppCompatActivity() {
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
+                    Log.d("sprint",sprintId.toString())
+
                     if (status == 200) {
                         val dataArray = jsondata.getJSONArray("data")
                         if (dataArray != null && dataArray.length() > 0) {
@@ -111,12 +120,18 @@ class BurnOutChartScreen : AppCompatActivity() {
                                 actualHours = loginObject.getDouble("ActualWorkedHours")
 
 
-                                val separatedDate = taskDate!!.split('T')[0]
-                                dateList.add(separatedDate)
-                                actualWorkList.add(actualHours!!.toFloat())
-                                populateChart(dateList, actualWorkList)
+
+                                    val separatedDate = taskDate!!.split('T')[0]
+                                    dateList.add(separatedDate)
+                                    actualWorkList.add(actualHours!!.toFloat())
+                                    populateChart(dateList, actualWorkList)
                             }
                         }
+                    }else{
+                        binding!!.chart.clear()
+                        binding!!.chart.setNoDataText("No Chart Data Available")
+                        binding!!.chart.setNoDataTextColor(Color.WHITE)
+                        binding!!.chart.setNoDataTextTypeface(ResourcesCompat.getFont(this, R.font.just_sans_semibold))
                     }
                 } catch (e: JSONException) {
                     binding!!.cardView.visibility = View.GONE
@@ -141,11 +156,12 @@ class BurnOutChartScreen : AppCompatActivity() {
     }
 
     private fun populateChart(dates: List<String>, actualWork: List<Float>) {
-
         actualEntries.clear()
 
-        for (i in actualWork.indices)
-        {
+        // Return if the first value is 0
+
+
+        for (i in actualWork.indices) {
             val date = formatter.parse(dates[i])
             if (date != null) {
                 val xValue = date.time.toFloat()
@@ -153,12 +169,12 @@ class BurnOutChartScreen : AppCompatActivity() {
             }
         }
 
-        if (actualEntries.isEmpty()) {
-            return
-        }
+
+
 
         val actualDataSet = LineDataSet(actualEntries, "Actual Work")
-        actualDataSet.color = Color.RED
+        actualDataSet.color = Color.WHITE
+        actualDataSet.lineWidth = 2f
         actualDataSet.setDrawValues(true)
         actualDataSet.valueTextSize = 10f
         actualDataSet.valueTextColor = Color.BLACK
@@ -166,28 +182,42 @@ class BurnOutChartScreen : AppCompatActivity() {
         val data = LineData(actualDataSet)
         binding!!.chart.data = data
 
-
         val xAxis: XAxis = binding!!.chart.xAxis
         xAxis.valueFormatter = DateAxisValueFormatter(data) // Pass the dateMap
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.granularity = 1f // Ensure only actual dates are displayed
-        xAxis.setDrawGridLines(false) // Enable vertical grid lines
-
+        xAxis.setDrawGridLines(false) // Disable vertical grid lines
+        xAxis.axisLineColor = Color.BLACK
+        xAxis.axisLineWidth = 1.6f
+        xAxis.labelCount = 2 // Ensure only 2 labels are visible
         val yAxis: YAxis = binding!!.chart.axisLeft
         yAxis.granularity = 5f
         yAxis.axisMinimum = 0f
         yAxis.axisMaximum = 10f
-        yAxis.setDrawGridLines(false) // Enable horizontal grid lines
+        yAxis.axisLineColor = Color.BLACK
+        yAxis.axisLineWidth = 1.6f
+        yAxis.setDrawGridLines(false) // Disable horizontal grid lines
+
         binding!!.chart.axisRight.isEnabled = false
 
+
+
         // Add LimitLines at the desired date points
-        for (i in actualWork.indices)
-        {
+        for (i in actualWork.indices) {
             val date = formatter.parse(dates[i])
-            if (date != null)
-            {
+
+            if (i == actualWork.size - 1 ){
                 val limitLine = LimitLine(date.time.toFloat(), dates[i])
-                limitLine.lineColor = Color.BLACK
+                limitLine.lineColor = Color.GRAY
+                limitLine.lineWidth = 1f
+                limitLine.textColor = Color.BLACK
+                limitLine.labelPosition = LimitLine.LimitLabelPosition.LEFT_BOTTOM
+                limitLine.textSize = 10f
+                xAxis.addLimitLine(limitLine)
+            }
+            if (date != null) {
+                val limitLine = LimitLine(date.time.toFloat(), dates[i])
+                limitLine.lineColor = Color.GRAY
                 limitLine.lineWidth = 1f
                 limitLine.textColor = Color.BLACK
                 limitLine.labelPosition = LimitLine.LimitLabelPosition.RIGHT_BOTTOM
@@ -195,9 +225,9 @@ class BurnOutChartScreen : AppCompatActivity() {
                 xAxis.addLimitLine(limitLine)
             }
         }
-
         binding!!.chart.invalidate() // Refresh the chart
     }
+
 
     class DateAxisValueFormatter(private val data: LineData) : ValueFormatter() {
         private val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
