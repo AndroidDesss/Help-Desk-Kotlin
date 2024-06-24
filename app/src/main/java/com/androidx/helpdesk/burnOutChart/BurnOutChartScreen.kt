@@ -214,8 +214,7 @@ class BurnOutChartScreen : AppCompatActivity() {
                 limitLine.labelPosition = LimitLine.LimitLabelPosition.LEFT_BOTTOM
                 limitLine.textSize = 10f
                 xAxis.addLimitLine(limitLine)
-            }
-            if (date != null) {
+            }else{
                 val limitLine = LimitLine(date.time.toFloat(), dates[i])
                 limitLine.lineColor = Color.GRAY
                 limitLine.lineWidth = 1f
@@ -224,6 +223,7 @@ class BurnOutChartScreen : AppCompatActivity() {
                 limitLine.textSize = 10f
                 xAxis.addLimitLine(limitLine)
             }
+
         }
         binding!!.chart.invalidate() // Refresh the chart
     }
