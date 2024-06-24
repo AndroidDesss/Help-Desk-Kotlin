@@ -90,7 +90,7 @@ class CurrentSprintAdapter(private val context: Context?, private var sprintMode
             burnOutChartImageView = itemView.findViewById(R.id.burnOutChart)
             editImageView.setOnClickListener(this)
             deleteImageView.setOnClickListener(this)
-//            allotTaskToSprintImageView.setOnClickListener(this)
+            allotTaskToSprintImageView.setOnClickListener(this)
             burnOutChartImageView.setOnClickListener(this)
         }
 

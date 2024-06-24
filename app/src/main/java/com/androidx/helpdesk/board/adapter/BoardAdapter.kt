@@ -70,10 +70,10 @@ class BoardAdapter(private val context: Context?, private var boardModelList: Li
             sprintBtn = itemView.findViewById(R.id.sprints)
             deleteImageView = itemView.findViewById(R.id.delete)
 
-            editImageView.setOnClickListener(this)
-            deleteImageView.setOnClickListener(this)
+//            editImageView.setOnClickListener(this)
+//            deleteImageView.setOnClickListener(this)
             addBoardMembers.setOnClickListener(this)
-            sprintBtn.setOnClickListener(this)
+//            sprintBtn.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {

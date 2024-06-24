@@ -67,7 +67,7 @@ class PendingSprintAdapter(private val context: Context?, private var sprintMode
             estimateHours = itemView.findViewById(R.id.estimateValue)
             allotTaskToSprint = itemView.findViewById(R.id.allotTaskToSprint)
             burnOutChart = itemView.findViewById(R.id.burnOutChart)
-//            allotTaskToSprint.setOnClickListener(this)
+            allotTaskToSprint.setOnClickListener(this)
             burnOutChart.setOnClickListener(this)
         }
 
