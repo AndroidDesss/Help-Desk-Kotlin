@@ -21,6 +21,7 @@ import com.androidx.helpdesk.closedTickets.view.ClosedTickets
 import com.androidx.helpdesk.completedTickets.view.CompletedTickets
 import com.androidx.helpdesk.createTickets.ClientTicketCreationActivity
 import com.androidx.helpdesk.databinding.ActivityDashBoardBinding
+import com.androidx.helpdesk.employeeTask.view.EmployeeTaskUpdate
 import com.androidx.helpdesk.openTickets.view.OpenTickets
 import com.androidx.helpdesk.profile.ProfileActivity
 import com.androidx.helpdesk.progressTickets.view.ProgressTickets
@@ -140,6 +141,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.board).isVisible = false
             nav_Menu.findItem(R.id.sprint).isVisible = false
             nav_Menu.findItem(R.id.backLog).isVisible = false
+
         }
         else if (SharedPref.getUserType(this).equals("User")|| SharedPref.getUserType(this) == "User")
         {
@@ -160,12 +162,13 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.openTickets).isVisible = false
             nav_Menu.findItem(R.id.progressTickets).isVisible = false
             nav_Menu.findItem(R.id.closedTickets).isVisible = false
-            nav_Menu.findItem(R.id.timeSheet).isVisible = false
             nav_Menu.findItem(R.id.completedTickets).isVisible = false
             nav_Menu.findItem(R.id.projects).isVisible = true
             nav_Menu.findItem(R.id.board).isVisible = true
             nav_Menu.findItem(R.id.sprint).isVisible = true
             nav_Menu.findItem(R.id.backLog).isVisible = true
+            nav_Menu.findItem(R.id.timeSheet).isVisible = true
+
         }
     }
 
@@ -198,7 +201,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }else if (id == R.id.timeSheet) {
             SharedPref.setScreenId(this, 9)
             screenName!!.setText("Time Sheet")
-            replaceFragment(TimeSheetList())
+            replaceFragment(EmployeeTaskUpdate())
         }else if (id == R.id.projects) {
             SharedPref.setScreenId(this, 5)
             screenName!!.text = "Projects"
@@ -219,6 +222,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             screenName!!.text = "Back Log"
             replaceFragment(BackLogFragment())
         }
+
         else if (id == R.id.createTickets) {
             startActivity(Intent(this, ClientTicketCreationActivity::class.java))
         }

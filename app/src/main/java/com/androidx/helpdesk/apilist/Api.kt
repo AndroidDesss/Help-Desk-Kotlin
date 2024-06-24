@@ -213,4 +213,12 @@ object Api {
     var addAvailableBoardMembers = "http://helpdeskservice.desss-portfolio.com/api/AddBoard/Add_button?EmpID="
 
     var burnOutChart = "https://helpdeskservice.desss-portfolio.com/api/BurnOutChart/LoadBurnOutChart?SprintID="
+
+    var getDeportment = "http://helpdeskservice.desss-portfolio.com/api/DeptDropdown/LoadDeptDropdown"
+
+    var getNoTaskDetails = "http://helpdeskservice.desss-portfolio.com/api/TodaysTask/LoadNotTaskAlloted?selecteddate="
+
+    var getHourTaskDetails = "http://helpdeskservice.desss-portfolio.com/api/TodaysTask/LoadTaskLessHour?selecteddate="
+
+    var getHaveTaskDetails ="http://helpdeskservice.desss-portfolio.com/api/TodaysTask/LoadTaskList?TaskDate="
 }

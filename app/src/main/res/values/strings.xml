@@ -50,6 +50,7 @@
     <string name="hoursSpent">Hours Spent:</string>
     <string name="workDate">Work Date:</string>
     <string name="taskStatus">Task Status:</string>
+    <string name="allotedDate">Allotted Date:</string>
     <string name="documentCount">Documents Count:</string>
     <string name="billable">Billable:</string>
     <string name="yes">Yes</string>
@@ -61,7 +62,11 @@
     <string name="pleaseWait">Please wait...</string>
     <string name="chooseFile">Choose File</string>
     <string name="noTask">No Task Allotted..!</string>
+    <string name="empNoTask">Employees Have No Task</string>
+    <string name="empHourTask">Employees Have Less Hour Task</string>
+    <string name="empHaveTask">Employees Have Task</string>
     <string name="logOut">Log Out</string>
+    <string name="view">View</string>
     <string name="noTicket">No Tickets Found..!</string>
     <string name="welcomeContent">Hello,</string>
     <string name="welcomeContent1">Welcome to  helpdesk</string>
@@ -80,6 +85,7 @@
     <string name="next">Next</string>
     <string name="remove">Remove</string>
     <string name="department">Department :</string>
+    <string name="date">Date</string>
     <string name="designation">Designation :</string>
     <string name="availableProgrammers">Available Programmers</string>
     <string name="addEmployee">Add Employee</string>
@@ -127,6 +133,8 @@
     <string name="sprintName">Sprint Name :</string>
     <string name="noData">No Data..!</string>
     <string name="burnChart">BurnOutChart</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <!--    clientLogin Credentials-->
