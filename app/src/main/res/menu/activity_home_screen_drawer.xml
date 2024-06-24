@@ -9,6 +9,10 @@
             android:title="Time Sheet" />
 
         <item
+            android:id="@+id/adminTimeSheet"
+            android:icon="@drawable/timesheet_icon"
+            android:title="Time Sheet" />
+        <item
             android:id="@+id/createTickets"
             android:icon="@drawable/new_ticket"
             android:title="New Tickets" />

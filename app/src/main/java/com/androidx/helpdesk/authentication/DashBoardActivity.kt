@@ -139,6 +139,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.completedTickets).isVisible = true
             nav_Menu.findItem(R.id.projects).isVisible = false
             nav_Menu.findItem(R.id.board).isVisible = false
+            nav_Menu.findItem(R.id.adminTimeSheet).isVisible = false
             nav_Menu.findItem(R.id.sprint).isVisible = false
             nav_Menu.findItem(R.id.backLog).isVisible = false
 
@@ -152,6 +153,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.timeSheet).isVisible = true
             nav_Menu.findItem(R.id.completedTickets).isVisible = false
             nav_Menu.findItem(R.id.projects).isVisible = false
+            nav_Menu.findItem(R.id.adminTimeSheet).isVisible = false
             nav_Menu.findItem(R.id.board).isVisible = false
             nav_Menu.findItem(R.id.sprint).isVisible = false
             nav_Menu.findItem(R.id.backLog).isVisible = false
@@ -167,7 +169,8 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.board).isVisible = true
             nav_Menu.findItem(R.id.sprint).isVisible = true
             nav_Menu.findItem(R.id.backLog).isVisible = true
-            nav_Menu.findItem(R.id.timeSheet).isVisible = true
+            nav_Menu.findItem(R.id.timeSheet).isVisible = false
+            nav_Menu.findItem(R.id.adminTimeSheet).isVisible = true
 
         }
     }
@@ -201,7 +204,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }else if (id == R.id.timeSheet) {
             SharedPref.setScreenId(this, 9)
             screenName!!.setText("Time Sheet")
-            replaceFragment(EmployeeTaskUpdate())
+            replaceFragment(TimeSheetList())
         }else if (id == R.id.projects) {
             SharedPref.setScreenId(this, 5)
             screenName!!.text = "Projects"
@@ -221,6 +224,10 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             SharedPref.setScreenId(this, 8)
             screenName!!.text = "Back Log"
             replaceFragment(BackLogFragment())
+        } else if (id == R.id.adminTimeSheet) {
+            SharedPref.setScreenId(this, 10)
+            screenName!!.text = "Time Sheet"
+            replaceFragment(EmployeeTaskUpdate())
         }
 
         else if (id == R.id.createTickets) {
