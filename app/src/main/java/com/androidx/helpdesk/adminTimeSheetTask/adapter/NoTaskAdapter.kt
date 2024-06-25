@@ -1,4 +1,4 @@
-package com.androidx.helpdesk.employeeTask.adapter
+package com.androidx.helpdesk.adminTimeSheetTask.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
-import com.androidx.helpdesk.employeeTask.model.NoTaskModel
+import com.androidx.helpdesk.adminTimeSheetTask.model.NoTaskModel
 
 class NoTaskAdapter(
     private val context: Context?,

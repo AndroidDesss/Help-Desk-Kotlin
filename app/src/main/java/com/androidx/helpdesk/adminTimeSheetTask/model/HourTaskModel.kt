@@ -1,4 +1,4 @@
-package com.androidx.helpdesk.employeeTask.model
+package com.androidx.helpdesk.adminTimeSheetTask.model
 
 data class HourTaskModel(
     var projectName: String?,

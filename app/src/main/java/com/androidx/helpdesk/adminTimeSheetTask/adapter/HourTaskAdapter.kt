@@ -1,4 +1,4 @@
-package com.androidx.helpdesk.employeeTask.adapter
+package com.androidx.helpdesk.adminTimeSheetTask.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,25 +7,24 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
-import com.androidx.helpdesk.employeeTask.model.HaveTaskModel
-import com.androidx.helpdesk.employeeTask.model.HourTaskModel
+import com.androidx.helpdesk.adminTimeSheetTask.model.HourTaskModel
 
-class HaveTaskAdapter (
+class HourTaskAdapter(
     private val context: Context?,
-    private val haveTaskModelList: List<HaveTaskModel>
-) : RecyclerView.Adapter<HaveTaskAdapter.ConnectionsHolder>(){
+    private val hourTaskModelList: List<HourTaskModel>
+) : RecyclerView.Adapter<HourTaskAdapter.ConnectionsHolder>(){
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): HaveTaskAdapter.ConnectionsHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_have_task, parent, false)
+    ): HourTaskAdapter.ConnectionsHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_less_hour, parent, false)
         return ConnectionsHolder(view)
     }
 
 
-    override fun onBindViewHolder(holder: HaveTaskAdapter.ConnectionsHolder, position: Int) {
-        val hourTaskModel = haveTaskModelList[position]
+    override fun onBindViewHolder(holder: HourTaskAdapter.ConnectionsHolder, position: Int) {
+        val hourTaskModel = hourTaskModelList[position]
 
         holder.projectName.text = hourTaskModel.projectName
         holder.moduleName.text = hourTaskModel.moduleName
@@ -36,7 +35,7 @@ class HaveTaskAdapter (
     }
 
     override fun getItemCount(): Int {
-        return haveTaskModelList.size
+        return hourTaskModelList.size
 
     }
 
