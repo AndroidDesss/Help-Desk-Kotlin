@@ -189,7 +189,6 @@ class BurnOutChartScreen : AppCompatActivity() {
         xAxis.setDrawGridLines(false) // Disable vertical grid lines
         xAxis.axisLineColor = Color.BLACK
         xAxis.axisLineWidth = 1.6f
-        xAxis.labelCount = 2 // Ensure only 2 labels are visible
         val yAxis: YAxis = binding!!.chart.axisLeft
         yAxis.granularity = 5f
         yAxis.axisMinimum = 0f
@@ -200,31 +199,24 @@ class BurnOutChartScreen : AppCompatActivity() {
 
         binding!!.chart.axisRight.isEnabled = false
 
-
-
-        // Add LimitLines at the desired date points
         for (i in actualWork.indices) {
             val date = formatter.parse(dates[i])
+            val limitLine = LimitLine(date.time.toFloat(), dates[i])
+            limitLine.lineColor = Color.GRAY
+            limitLine.lineWidth = 1f
+            limitLine.textColor = Color.BLACK
+            limitLine.textSize = 10f
 
-            if (i == actualWork.size - 1 ){
-                val limitLine = LimitLine(date.time.toFloat(), dates[i])
-                limitLine.lineColor = Color.GRAY
-                limitLine.lineWidth = 1f
-                limitLine.textColor = Color.BLACK
-                limitLine.labelPosition = LimitLine.LimitLabelPosition.LEFT_BOTTOM
-                limitLine.textSize = 10f
-                xAxis.addLimitLine(limitLine)
-            }else{
-                val limitLine = LimitLine(date.time.toFloat(), dates[i])
-                limitLine.lineColor = Color.GRAY
-                limitLine.lineWidth = 1f
-                limitLine.textColor = Color.BLACK
+            // Set label position based on index
+            if (i == 0) {
                 limitLine.labelPosition = LimitLine.LimitLabelPosition.RIGHT_BOTTOM
-                limitLine.textSize = 10f
-                xAxis.addLimitLine(limitLine)
+            } else {
+                limitLine.labelPosition = LimitLine.LimitLabelPosition.LEFT_BOTTOM
             }
 
+            xAxis.addLimitLine(limitLine)
         }
+        binding!!.chart.setVisibleXRangeMaximum(2 * 24 * 60 * 60 * 1000f) // 2 days in milliseconds
         binding!!.chart.invalidate() // Refresh the chart
     }
 
