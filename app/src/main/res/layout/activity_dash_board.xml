@@ -29,6 +29,7 @@
             app:itemTextColor="@color/lightOrange"
             app:headerLayout="@layout/nav_header_home_screen"
             app:menu="@menu/activity_home_screen_drawer">
+
             
             <LinearLayout
                 android:id="@+id/logOut"

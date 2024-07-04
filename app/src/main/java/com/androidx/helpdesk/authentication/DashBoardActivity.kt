@@ -142,6 +142,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.adminTimeSheet).isVisible = false
             nav_Menu.findItem(R.id.sprint).isVisible = false
             nav_Menu.findItem(R.id.backLog).isVisible = false
+            nav_Menu.findItem(R.id.cardView).isVisible = false
 
         }
         else if (SharedPref.getUserType(this).equals("User")|| SharedPref.getUserType(this) == "User")
@@ -157,6 +158,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.board).isVisible = false
             nav_Menu.findItem(R.id.sprint).isVisible = false
             nav_Menu.findItem(R.id.backLog).isVisible = false
+            nav_Menu.findItem(R.id.cardView).isVisible = false
         }
         else if (SharedPref.getUserType(this).equals("Admin")|| SharedPref.getUserType(this) == "Admin")
         {
@@ -170,8 +172,8 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.sprint).isVisible = true
             nav_Menu.findItem(R.id.backLog).isVisible = true
             nav_Menu.findItem(R.id.timeSheet).isVisible = false
-            nav_Menu.findItem(R.id.adminTimeSheet).isVisible = true
-
+            nav_Menu.findItem(R.id.adminTimeSheet).isVisible = false
+            nav_Menu.findItem(R.id.cardView).isVisible = true
         }
     }
 

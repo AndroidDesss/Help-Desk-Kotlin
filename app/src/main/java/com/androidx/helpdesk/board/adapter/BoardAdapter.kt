@@ -15,7 +15,6 @@ import com.androidx.helpdesk.board.view.BoardMembersScreen
 import com.androidx.helpdesk.board.view.BoardSprintScreen
 import com.androidx.helpdesk.board.view.EditBoardScreen
 
-
 class BoardAdapter(private val context: Context?, private var boardModelList: List<BoardModel>) : RecyclerView.Adapter<BoardAdapter.ConnectionsHolder>() {
     var boardModel: BoardModel? = null
     private var  onClickListener: BoardAdapter.OnClickListener?= null
@@ -70,10 +69,10 @@ class BoardAdapter(private val context: Context?, private var boardModelList: Li
             sprintBtn = itemView.findViewById(R.id.sprints)
             deleteImageView = itemView.findViewById(R.id.delete)
 
-//            editImageView.setOnClickListener(this)
-//            deleteImageView.setOnClickListener(this)
+            editImageView.setOnClickListener(this)
+            deleteImageView.setOnClickListener(this)
             addBoardMembers.setOnClickListener(this)
-//            sprintBtn.setOnClickListener(this)
+            sprintBtn.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {
