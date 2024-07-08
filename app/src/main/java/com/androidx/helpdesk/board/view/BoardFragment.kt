@@ -121,22 +121,22 @@ class BoardFragment : Fragment() {
                             boardAdapter = BoardAdapter(context, boardModelList)
                             binding!!.recyclerView.adapter = boardAdapter
                             boardAdapter!!.notifyDataSetChanged()
-//                            boardAdapter!!.setOnClickListener(object :
-//                                BoardAdapter.OnClickListener {
-//                                override fun onClick(holder: String, position: Int, model: Int) {
-//                                    if(holder == "delete")
-//                                    {
-//                                        CommonMethod.showAlertDialog(context, "", "Are you sure you want to delete?", "Yes", "No",
-//                                            object : CommonMethod.DialogClickListener {
-//                                                override fun dialogOkBtnClicked(value: String?) {
-//                                                    boardDelete(model)
-//                                                }
-//                                                override fun dialogNoBtnClicked(value: String?) {}
-//                                            }
-//                                        )
-//                                    }
-//                                }
-//                            })
+                            boardAdapter!!.setOnClickListener(object :
+                                BoardAdapter.OnClickListener {
+                                override fun onClick(holder: String, position: Int, model: Int) {
+                                    if(holder == "delete")
+                                    {
+                                        CommonMethod.showAlertDialog(context, "", "Are you sure you want to delete?", "Yes", "No",
+                                            object : CommonMethod.DialogClickListener {
+                                                override fun dialogOkBtnClicked(value: String?) {
+                                                    boardDelete(model)
+                                                }
+                                                override fun dialogNoBtnClicked(value: String?) {}
+                                            }
+                                        )
+                                    }
+                                }
+                            })
                         } else {
                             binding!!.rlError.visibility = View.VISIBLE
                         }

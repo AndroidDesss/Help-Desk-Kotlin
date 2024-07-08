@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
@@ -68,9 +69,38 @@
 
         <item
             android:id="@+id/cardView"
-            android:icon="@drawable/timesheet_icon"
+            android:orderInCategory="1"
             android:title="CardView"
-            tools:ignore="HardcodedText"/>
+            app:showAsAction="ifRoom"
+            tools:ignore="HardcodedText">
+            <menu>
+                <item
+                    android:id="@+id/unAssigned"
+                    android:title="UnAssigned" />
+                <item
+                    android:id="@+id/assigned"
+                    android:title="Assigned" />
+                <item
+                    android:id="@+id/completed"
+                    android:title="Completed" />
+                <item
+                    android:id="@+id/completedTask"
+                    android:title="Completed Task" />
+                <item
+                    android:id="@+id/taskAllotmentList"
+                    android:title="Task Allotment List" />
+                <item
+                    android:id="@+id/timeSheetList"
+                    android:title="TimeSheet List" />
+                <item
+                    android:id="@+id/taskTimeSheetAllotmentList"
+                    android:title="Task Allotment Vs TimeSheet List" />
+                <item
+                    android:id="@+id/weeklyAllotmentList"
+                    android:title="Weekly Allotment List" />
+            </menu>
+        </item>
+
     </group>
 
 </menu>

@@ -26,16 +26,15 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/appName"
+                android:id="@+id/projectName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
                 android:fontFamily="@font/just_sans_semibold"
                 android:textColor="@color/black"
                 android:textSize="17sp"
-                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -44,25 +43,25 @@
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@color/orange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appName"/>
+                app:layout_constraintTop_toBottomOf="@+id/projectName" />
 
 
             <TextView
-                android:id="@+id/workStatus"
+                android:id="@+id/moduleName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/just_sans_semibold"
                 android:textColor="@color/black"
                 android:textSize="17sp"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -77,121 +76,155 @@
                 android:background="@color/orange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/workStatus" />
+                app:layout_constraintTop_toBottomOf="@+id/moduleName" />
 
 
             <TextView
                 android:id="@+id/taskName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/just_sans_semibold"
                 android:textColor="@color/black"
                 android:text="@string/taskName"
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewTwo"/>
+                app:layout_constraintTop_toBottomOf="@+id/viewTwo" />
 
 
             <TextView
                 android:id="@+id/taskNameValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="@font/just_sans_regular"
                 android:textColor="@color/black"
-                android:textSize="17sp"
+                android:textSize="17dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/taskName"
-                app:layout_constraintTop_toBottomOf="@+id/viewTwo" />
+                app:layout_constraintTop_toBottomOf="@+id/viewTwo"/>
 
 
             <TextView
                 android:id="@+id/allotedHour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/just_sans_semibold"
+                android:paddingTop="5dp"
                 android:textColor="@color/black"
                 android:text="@string/allottedHours"
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/taskNameValue" />
+                app:layout_constraintTop_toBottomOf="@+id/taskNameValue"/>
 
             <TextView
                 android:id="@+id/allotedHourValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
                 android:fontFamily="@font/just_sans_regular"
                 android:textColor="@color/black"
-                android:textSize="17sp"
+                android:textSize="17dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/allotedHour"
-                app:layout_constraintTop_toBottomOf="@+id/taskNameValue" />
+                app:layout_constraintTop_toBottomOf="@+id/taskNameValue"/>
+
+            <TextView
+                android:id="@+id/workingHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/just_sans_semibold"
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:text="@string/workingHours"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/allotedHourValue" />
+
+            <TextView
+                android:id="@+id/workingHoursValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/just_sans_regular"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/workingHour"
+                app:layout_constraintTop_toBottomOf="@+id/allotedHourValue" />
 
 
             <TextView
                 android:id="@+id/taskStatus"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="0dp"
                 android:fontFamily="@font/just_sans_semibold"
+                android:paddingTop="5dp"
                 android:textColor="@color/black"
                 android:text="@string/taskStatus"
                 android:textSize="17sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/allotedHourValue" />
+                app:layout_constraintTop_toBottomOf="@+id/workingHoursValue" />
 
             <TextView
                 android:id="@+id/taskStatusValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:paddingTop="5dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
-                android:textSize="17sp"
+                android:ellipsize="end"
                 android:fontFamily="@font/just_sans_regular"
+                android:maxLines="3"
                 android:textColor="@color/black"
+                android:textSize="17dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/taskStatus"
-                app:layout_constraintTop_toBottomOf="@+id/allotedHourValue" />
+                app:layout_constraintTop_toBottomOf="@+id/workingHoursValue" />
 
             <TextView
                 android:id="@+id/allotedDate"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/just_sans_semibold"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:text="@string/allotedDate"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/taskStatusValue" />
-
-            <TextView
-                android:id="@+id/allotedDateValue"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:fontFamily="@font/just_sans_regular"
+                android:fontFamily="@font/just_sans_semibold"
+                android:paddingTop="5dp"
+                android:text="@string/notes"
                 android:textColor="@color/black"
                 android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/taskStatusValue"/>
+
+            <TextView
+                android:id="@+id/notesValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:paddingTop="5dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/just_sans_regular"
+                android:textColor="@color/black"
+                android:textSize="17dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/allotedDate"

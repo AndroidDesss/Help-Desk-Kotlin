@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="admin@desss.com"
+                        android:text="info@desss.com"
                         android:drawableEnd="@drawable/mail_icon"
                         android:fontFamily="@font/just_sans_semibold"
                         android:drawablePadding="10dp" />

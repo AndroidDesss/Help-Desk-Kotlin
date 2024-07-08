@@ -30,6 +30,15 @@
             app:headerLayout="@layout/nav_header_home_screen"
             app:menu="@menu/activity_home_screen_drawer">
 
+            <ExpandableListView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:layout_marginTop="185dp"
+                android:visibility="gone"
+                android:id="@+id/navigationMenu">
+            </ExpandableListView>
+
             
             <LinearLayout
                 android:id="@+id/logOut"

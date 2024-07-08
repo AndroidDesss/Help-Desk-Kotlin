@@ -9,15 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.adminTimeSheetTask.model.HaveTaskModel
 
-class HaveTaskAdapter (
-    private val context: Context?,
-    private val haveTaskModelList: List<HaveTaskModel>
-) : RecyclerView.Adapter<HaveTaskAdapter.ConnectionsHolder>(){
+class HaveTaskAdapter (private val context: Context?, private val haveTaskModelList: List<HaveTaskModel>) : RecyclerView.Adapter<HaveTaskAdapter.ConnectionsHolder>(){
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): HaveTaskAdapter.ConnectionsHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HaveTaskAdapter.ConnectionsHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_have_task, parent, false)
         return ConnectionsHolder(view)
     }

@@ -1,5 +1,6 @@
 package com.androidx.helpdesk.authentication
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -15,13 +16,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.androidx.helpdesk.CommonMethod
 import com.androidx.helpdesk.R
+import com.androidx.helpdesk.adminCardView.assigned.AssignedFragment
+import com.androidx.helpdesk.adminCardView.completed.CompletedFragment
+import com.androidx.helpdesk.adminCardView.completedTask.CompletedTaskFragment
+import com.androidx.helpdesk.adminCardView.taskAllotment.TaskAllotmentFragment
+import com.androidx.helpdesk.adminCardView.timesheet.view.TimeSheetFragment
+import com.androidx.helpdesk.adminCardView.timesheetTaskAllotment.TimeSheetTaskAllotmentFragment
+import com.androidx.helpdesk.adminCardView.unAssigned.UnAssignedFragment
+import com.androidx.helpdesk.adminCardView.weeklyAllotment.WeeklyAllotmentFragment
+import com.androidx.helpdesk.adminTimeSheetTask.view.EmployeeTaskUpdate
 import com.androidx.helpdesk.backLog.view.BackLogFragment
 import com.androidx.helpdesk.board.view.BoardFragment
 import com.androidx.helpdesk.closedTickets.view.ClosedTickets
 import com.androidx.helpdesk.completedTickets.view.CompletedTickets
 import com.androidx.helpdesk.createTickets.ClientTicketCreationActivity
 import com.androidx.helpdesk.databinding.ActivityDashBoardBinding
-import com.androidx.helpdesk.adminTimeSheetTask.view.EmployeeTaskUpdate
 import com.androidx.helpdesk.openTickets.view.OpenTickets
 import com.androidx.helpdesk.profile.ProfileActivity
 import com.androidx.helpdesk.progressTickets.view.ProgressTickets
@@ -30,6 +39,7 @@ import com.androidx.helpdesk.sharedStorage.SharedPref
 import com.androidx.helpdesk.sprint.view.SprintFragment
 import com.androidx.helpdesk.timeSheet.view.TimeSheetList
 import com.google.android.material.navigation.NavigationView
+
 
 class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
@@ -43,6 +53,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     private var screenName: TextView? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dash_board)
@@ -80,15 +91,15 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
         else if (SharedPref.getUserType(this).equals("Admin") || SharedPref.getUserType(this) == "Admin")
         {
-            screenName!!.text = "Projects"
-            replaceFragment(ProjectFragment())
+            screenName!!.text = "Time Sheet"
+            replaceFragment(EmployeeTaskUpdate())
         }
     }
 
     private fun initListener() {
         close!!.setOnClickListener(onClickListener)
         userProfile!!.setOnClickListener(onClickListener)
-        binding!!.logOut!!.setOnClickListener(onClickListener)
+        binding!!.logOut.setOnClickListener(onClickListener)
     }
 
     private val onClickListener = View.OnClickListener { view ->
@@ -172,7 +183,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.sprint).isVisible = true
             nav_Menu.findItem(R.id.backLog).isVisible = true
             nav_Menu.findItem(R.id.timeSheet).isVisible = false
-            nav_Menu.findItem(R.id.adminTimeSheet).isVisible = false
+            nav_Menu.findItem(R.id.adminTimeSheet).isVisible = true
             nav_Menu.findItem(R.id.cardView).isVisible = true
         }
     }
@@ -185,6 +196,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         fragTrans.commit()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.openTickets) {
@@ -230,6 +242,46 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             SharedPref.setScreenId(this, 10)
             screenName!!.text = "Time Sheet"
             replaceFragment(EmployeeTaskUpdate())
+        }
+        else if (id == R.id.unAssigned) {
+            SharedPref.setScreenId(this, 11)
+            screenName!!.text = "Un Assigned"
+            replaceFragment(UnAssignedFragment())
+        }
+        else if (id == R.id.assigned) {
+            SharedPref.setScreenId(this, 12)
+            screenName!!.text = "Assigned"
+            replaceFragment(AssignedFragment())
+        }
+        else if (id == R.id.completed) {
+            SharedPref.setScreenId(this, 13)
+            screenName!!.text = "Completed"
+            replaceFragment(CompletedFragment())
+        }
+        else if (id == R.id.completedTask) {
+            SharedPref.setScreenId(this, 14)
+            screenName!!.text = "Completed Task"
+            replaceFragment(CompletedTaskFragment())
+        }
+        else if (id == R.id.taskAllotmentList) {
+            SharedPref.setScreenId(this, 15)
+            screenName!!.text = "Task Allotment List"
+            replaceFragment(TaskAllotmentFragment())
+        }
+        else if (id == R.id.timeSheetList) {
+            SharedPref.setScreenId(this, 16)
+            screenName!!.text = "Time Sheet List"
+            replaceFragment(TimeSheetFragment())
+        }
+        else if (id == R.id.taskTimeSheetAllotmentList) {
+            SharedPref.setScreenId(this, 17)
+            screenName!!.text = "Task Allotment Vs TimeSheet List"
+            replaceFragment(TimeSheetTaskAllotmentFragment())
+        }
+        else if (id == R.id.weeklyAllotmentList) {
+            SharedPref.setScreenId(this, 18)
+            screenName!!.text = "Weekly Allotment List"
+            replaceFragment(WeeklyAllotmentFragment())
         }
 
         else if (id == R.id.createTickets) {

@@ -221,4 +221,8 @@ object Api {
     var getHourTaskDetails = "http://helpdeskservice.desss-portfolio.com/api/TodaysTask/LoadTaskLessHour?selecteddate="
 
     var getHaveTaskDetails ="http://helpdeskservice.desss-portfolio.com/api/TodaysTask/LoadTaskList?TaskDate="
+
+    var getNotUpdatedTimeSheetDetails = "http://helpdeskservice.desss-portfolio.com/api/CVTimeSheetList/LoadTimeSheetNotUpdated?selecteddate="
+
+    var updatedTimeSheetDetails = "http://helpdeskservice.desss-portfolio.com/api/CVTimeSheetList/LoadTimeSheetUpdated?TaskDate="
 }

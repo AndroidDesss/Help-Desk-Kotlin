@@ -32,6 +32,7 @@
     <string name="correctDate">Crct Date:</string>
     <string name="assignedDate">Assigned Date:</string>
     <string name="allottedHours">Allotted Hours:</string>
+    <string name="workingHours">Working Hours:</string>
     <string name="estCompletedDate">Est-Comp-Date:</string>
     <string name="critical">Critical</string>
     <string name="high">High</string>
@@ -133,8 +134,9 @@
     <string name="sprintName">Sprint Name :</string>
     <string name="noData">No Data..!</string>
     <string name="burnChart">BurnOutChart</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empNotUpdated">Employees Not Updated TimeSheet</string>
+    <string name="empUpdated">Employees Updated TimeSheet</string>
 
 
     <!--    clientLogin Credentials-->
