@@ -19,10 +19,10 @@ import java.text.SimpleDateFormat
 
 class ChatAdapter(private val context: Context?, private val chatList: List<ChatModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
-    val messageSent = 1
-    val messageReceived = 2
-    var getCurrentDateTime = ""
-    var sameDate=""
+    private val messageSent = 1
+    private val messageReceived = 2
+    private var getCurrentDateTime = ""
+    private var sameDate=""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -153,7 +153,8 @@ class ChatAdapter(private val context: Context?, private val chatList: List<Chat
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(date: String, chatModel: ChatModel, context:Context) {
+        fun bind(date: String, chatModel: ChatModel, context:Context)
+        {
             sentMessageContent.text=chatModel.chatMessage
             val time= chatModel.chatDate
             val datearray = time!!.split("T").toTypedArray()

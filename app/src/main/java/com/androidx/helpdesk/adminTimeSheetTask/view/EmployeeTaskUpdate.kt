@@ -256,7 +256,8 @@ class EmployeeTaskUpdate : Fragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun hourTaskValue(formattedDate:String, allDeptId:String){
+    private fun hourTaskValue(formattedDate:String, allDeptId:String)
+    {
         hourTaskModelList.clear()
         stringRequest = StringRequest(
             Request.Method.GET,

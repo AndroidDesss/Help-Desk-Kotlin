@@ -78,14 +78,6 @@ object Api {
 
     var addModule = "http://helpdeskservice.desss-portfolio.com/api/SaveModuleData/SaveModule?StartDate="
 
-    var getModule = "http://helpdeskservice.desss-portfolio.com/api/ModuleByProject/LoadModule?CompanyID="
-
-    var getPhase = "https://helpdeskservice.desss-portfolio.com/api/Phase/Loadphase"
-
-    var getTaskCategory = "https://helpdeskservice.desss-portfolio.com/api/SubModTaskCat/GetTaskCategory?CompanyID="
-
-    var getIssueType = "https://helpdeskservice.desss-portfolio.com/api/SubModIssueType/GetIssueType"
-
     var getEstimateModule = "http://helpdeskservice.desss-portfolio.com/api/GetModule/GetModule?CompanyID="
 
     var getEstimateScreenName = "http://helpdeskservice.desss-portfolio.com/api/GetScreenName/DropDownScreenName?CompanyID="
@@ -97,12 +89,6 @@ object Api {
     var updateModule = "http://helpdeskservice.desss-portfolio.com/api/UpdateModule/Update?ProjectID="
 
     var addSubModule = "https://helpdeskservice.desss-portfolio.com/api/InsertSubModule/InsertData?CompanyID="
-
-    var updateSubModule = "https://helpdeskservice.desss-portfolio.com/api/UpdateSubModule/ProjectTaskUpdate?CompanyID="
-
-    var deleteSubModuleById = "https://helpdeskservice.desss-portfolio.com/api/DeleteSubModule/Grid_RowDelete?PrjTaskID="
-
-    var editSubModuleById = "https://helpdeskservice.desss-portfolio.com/api/EditSubModule/Edit?CompanyID="
 
     var getEstimateAllotProjectTaskId = "http://helpdeskservice.desss-portfolio.com/api/SearchButton/GetprojectTaskBySearch?module="
 
@@ -225,4 +211,8 @@ object Api {
     var getNotUpdatedTimeSheetDetails = "http://helpdeskservice.desss-portfolio.com/api/CVTimeSheetList/LoadTimeSheetNotUpdated?selecteddate="
 
     var updatedTimeSheetDetails = "http://helpdeskservice.desss-portfolio.com/api/CVTimeSheetList/LoadTimeSheetUpdated?TaskDate="
+
+    var getUnAssignedSummary = "http://helpdeskservice.desss-portfolio.com/api/CardViewUnassigned/LoadUnassigned?user_projectname="
+
+    var getWeeklyAllotmentList = "https://helpdeskservice.desss-portfolio.com/api/WeeklyTaskList/GetWeeklyTaskList?"
 }

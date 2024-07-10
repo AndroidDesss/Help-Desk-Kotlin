@@ -113,6 +113,7 @@ class LoginActivity : AppCompatActivity() {
                                 userTypeId = loginObject.getString("UserTypeID")
                                 firstName = loginObject.getString("FirstName")
                                 lastName = loginObject.getString("LastName")
+                                departmentId = loginObject.getInt("DeptID")
                             } else if (userType.equals("User") || userType == "User") {
                                 userTypeId = loginObject.getString("UserTypeID")
                                 companyId = loginObject.getString("CompanyID")

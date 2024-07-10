@@ -9,6 +9,7 @@
     <string name="taskType">Task Type:</string>
     <string name="severity">Severity:</string>
     <string name="notes">Notes:</string>
+    <string name="employee">Employee:</string>
     <string name="body">Body:</string>
     <string name="save">Save</string>
     <string name="update">Update</string>
@@ -51,6 +52,8 @@
     <string name="hoursSpent">Hours Spent:</string>
     <string name="workDate">Work Date:</string>
     <string name="taskStatus">Task Status:</string>
+    <string name="status">Status:</string>
+    <string name="timeSheet">TimeSheet:</string>
     <string name="allotedDate">Allotted Date:</string>
     <string name="documentCount">Documents Count:</string>
     <string name="billable">Billable:</string>
@@ -109,6 +112,7 @@
     <string name="ticketNumber">Ticket No:</string>
     <string name="phase">Phase:</string>
     <string name="finalDate">Final Date:</string>
+    <string name="workHours">Work Hours:</string>
     <string name="issueType">Issue Type:</string>
     <string name="hoursEstimated">Estimated Hours:</string>
     <string name="priority">Priority:</string>

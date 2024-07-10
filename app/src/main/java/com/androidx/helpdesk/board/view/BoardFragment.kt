@@ -90,7 +90,7 @@ class BoardFragment : Fragment() {
         if (firstVisit) {
             firstVisit = false
         } else {
-//            getBoardList()
+            getBoardList()
         }
     }
 
