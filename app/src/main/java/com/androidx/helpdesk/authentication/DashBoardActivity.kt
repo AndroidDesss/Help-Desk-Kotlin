@@ -23,7 +23,7 @@ import com.androidx.helpdesk.adminCardView.taskAllotment.TaskAllotmentFragment
 import com.androidx.helpdesk.adminCardView.timesheet.view.TimeSheetFragment
 import com.androidx.helpdesk.adminCardView.timesheetTaskAllotment.TimeSheetTaskAllotmentFragment
 import com.androidx.helpdesk.adminCardView.unAssigned.view.UnAssignedFragment
-import com.androidx.helpdesk.adminCardView.weeklyAllotment.WeeklyAllotmentFragment
+import com.androidx.helpdesk.adminCardView.weeklyAllotment.view.WeeklyAllotmentFragment
 import com.androidx.helpdesk.adminTimeSheetTask.view.EmployeeTaskUpdate
 import com.androidx.helpdesk.backLog.view.BackLogFragment
 import com.androidx.helpdesk.board.view.BoardFragment

@@ -1,4 +1,4 @@
-package com.androidx.helpdesk.adminCardView.weeklyAllotment
+package com.androidx.helpdesk.adminCardView.weeklyAllotment.view
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog

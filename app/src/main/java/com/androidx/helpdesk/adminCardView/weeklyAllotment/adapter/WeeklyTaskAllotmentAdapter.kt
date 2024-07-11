@@ -18,10 +18,6 @@ class WeeklyTaskAllotmentAdapter(private val context: Context?, private val week
 {
     private val emptyTaskAllotmentList = 1
     private val nonEmptyTaskAllotmentList = 2
-    private var getCurrentDateTime = ""
-    private var sameDate=""
-    private var getCurrentName = ""
-    private var sameName=""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -59,33 +55,24 @@ class WeeklyTaskAllotmentAdapter(private val context: Context?, private val week
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val weeklyTaskAllotmentModel: WeeklyTaskAllotmentModel = weeklyTaskAllotmentModelList[position]
 
-        val duplicateDateCheck= weeklyTaskAllotmentModel.allottedDate
-        if (getCurrentDateTime.compareTo(duplicateDateCheck!!) != 0) {
-            getCurrentDateTime = duplicateDateCheck
-            sameDate="true"
-        }
-        else
+        val currentItem = weeklyTaskAllotmentModelList[position]
+        val previousItem = if (position > 0) weeklyTaskAllotmentModelList[position - 1] else null
+
+        when (holder.itemViewType)
         {
-            sameDate="false"
+            emptyTaskAllotmentList ->
+                (holder as EmptyTaskDataHolder).bind(
+                    previousItem?.fullName ?: "",
+                    previousItem?.allottedDate ?: "",
+                    currentItem.allottedDate ?: "",
+                    currentItem.fullName ?: "")
+            nonEmptyTaskAllotmentList ->
+                (holder as NonEmptyTaskDataHolder).bind(
+                    previousItem?.fullName ?: "",previousItem?.allottedDate ?: "",
+                    currentItem)
         }
 
-        val duplicateNameCheck= weeklyTaskAllotmentModel.fullName
-        if (getCurrentName.compareTo(duplicateNameCheck!!) != 0) {
-            getCurrentName = duplicateNameCheck
-            sameName="true"
-        }
-        else
-        {
-            sameName="false"
-        }
-
-
-        when (holder.itemViewType) {
-            emptyTaskAllotmentList -> (holder as EmptyTaskDataHolder).bind(sameDate,sameName,weeklyTaskAllotmentModel,context!!)
-            nonEmptyTaskAllotmentList -> (holder as NonEmptyTaskDataHolder).bind(sameDate,sameName,weeklyTaskAllotmentModel,context!!)
-        }
     }
 
     private class EmptyTaskDataHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -104,25 +91,27 @@ class WeeklyTaskAllotmentAdapter(private val context: Context?, private val week
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(date: String,empName: String, weeklyTaskAllotmentModel: WeeklyTaskAllotmentModel, context:Context)
+        fun bind(previousName: String,previousDate: String, date: String, empName: String)
         {
-            if (date.equals("true") || date == "true") {
-                dateLayout.visibility=View.VISIBLE
-                val splitDateParts = emptyTaskDataFormatDateFormatDate(weeklyTaskAllotmentModel.allottedDate!!).split(" ")
-                dateTv.text= splitDateParts[0] + "\n" + splitDateParts[1]
-            }
-            else if(date.equals("false") || date == "false")
-            {
-                dateLayout.visibility=View.GONE
+            dateLayout.visibility = View.GONE
+            employeeLayout.visibility = View.GONE
+
+            val showDateLayout = previousDate != date
+            if (showDateLayout && date.isNotEmpty()) {
+                dateLayout.visibility = View.VISIBLE
+                val splitDateParts = emptyTaskDataFormatDateFormatDate(date).split(" ")
+                dateTv.text = "${splitDateParts[0]}\n${splitDateParts[1]}"
+            } else {
+                dateLayout.visibility = View.GONE
             }
 
-            if (empName.equals("true") || empName == "true") {
-                employeeLayout.visibility=View.VISIBLE
-                employeeNameTv.text= weeklyTaskAllotmentModel.fullName
-            }
-            else if(empName.equals("false") || empName == "false")
-            {
-                employeeLayout.visibility=View.GONE
+
+            val showEmployeeLayout = previousName != empName
+            if (showEmployeeLayout && empName.isNotEmpty()) {
+                employeeLayout.visibility = View.VISIBLE
+                employeeNameTv.text = empName
+            } else {
+                employeeLayout.visibility = View.GONE
             }
 
             emptyDataLayout.visibility = View.VISIBLE
@@ -166,25 +155,23 @@ class WeeklyTaskAllotmentAdapter(private val context: Context?, private val week
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(date: String,empName: String, weeklyTaskAllotmentModel: WeeklyTaskAllotmentModel, context:Context) {
+        fun bind(previousName: String,previousDate: String, weeklyTaskAllotmentModel: WeeklyTaskAllotmentModel )
+        {
+            val showEmployeeLayout = previousName != weeklyTaskAllotmentModel.fullName
+            if (showEmployeeLayout && weeklyTaskAllotmentModel.fullName!!.isNotEmpty()) {
+                employeeLayout.visibility = View.VISIBLE
+                employeeNameTv.text = weeklyTaskAllotmentModel.fullName
+            } else {
+                employeeLayout.visibility = View.GONE
+            }
 
-            if (date.equals("true") || date == "true") {
-                dateLayout.visibility=View.VISIBLE
+            val showDateLayout = previousDate != weeklyTaskAllotmentModel.allottedDate
+            if (showDateLayout && weeklyTaskAllotmentModel.allottedDate!!.isNotEmpty()) {
+                dateLayout.visibility = View.VISIBLE
                 val splitDateParts = nonEmptyTaskDataFormatDate(weeklyTaskAllotmentModel.allottedDate!!).split(" ")
-                dateTv.text= splitDateParts[0] + "\n" + splitDateParts[1]
-            }
-            else if(date.equals("false") || date == "false")
-            {
-                dateLayout.visibility=View.GONE
-            }
-
-            if (empName.equals("true") || empName == "true") {
-                employeeLayout.visibility=View.VISIBLE
-                employeeNameTv.text= weeklyTaskAllotmentModel.fullName
-            }
-            else if(empName.equals("false") || empName == "false")
-            {
-                employeeLayout.visibility=View.GONE
+                dateTv.text = "${splitDateParts[0]}\n${splitDateParts[1]}"
+            } else {
+                dateLayout.visibility = View.GONE
             }
 
             nonEmptyDataLayout.visibility = View.VISIBLE
@@ -193,13 +180,11 @@ class WeeklyTaskAllotmentAdapter(private val context: Context?, private val week
             taskNameValue.text=weeklyTaskAllotmentModel.taskName
             allotedHourValue.text= weeklyTaskAllotmentModel.allottedHours.toString()
             taskStatusValue.text=weeklyTaskAllotmentModel.taskStatus
-            
-            if (weeklyTaskAllotmentModel.taskStatus.equals("Completed") || weeklyTaskAllotmentModel.taskStatus == "Completed") {
-                timeSheetValue.text= "Updated"
-            }
-            else
-            {
-                timeSheetValue.text= "Not Updated"
+
+            timeSheetValue.text = if (weeklyTaskAllotmentModel.taskStatus == "Completed") {
+                "Updated"
+            } else {
+                "Not Updated"
             }
             workedHoursValue.text= weeklyTaskAllotmentModel.workedHours.toString()
         }
@@ -211,6 +196,4 @@ class WeeklyTaskAllotmentAdapter(private val context: Context?, private val week
             return outputFormat.format(date)
         }
     }
-
-
 }
