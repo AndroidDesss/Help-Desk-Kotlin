@@ -18,7 +18,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+        <pl.utkala.searchablespinner.SearchableSpinner
             android:id="@+id/deportmentValue"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -27,6 +27,8 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             style="@style/styleSpinner"
+            app:closeText="@string/close"
+            app:dialogTitle="@string/select_item"
             android:background="@drawable/spinner_background"/>
 
             <EditText

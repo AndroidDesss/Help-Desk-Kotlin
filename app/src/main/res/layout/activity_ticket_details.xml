@@ -113,7 +113,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/etSubject"/>
 
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                <pl.utkala.searchablespinner.SearchableSpinner
                     android:id="@+id/projectSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -121,6 +121,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="10dp"
                     style="@style/styleSpinner"
+                    app:closeText="@string/close"
+                    app:dialogTitle="@string/select_item"
                     android:background="@drawable/spinner_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +145,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/projectSpinner"/>
 
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                <pl.utkala.searchablespinner.SearchableSpinner
                     android:id="@+id/taskTypeSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -151,6 +153,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     style="@style/styleSpinner"
+                    app:closeText="@string/close"
+                    app:dialogTitle="@string/select_item"
                     android:background="@drawable/spinner_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +177,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/taskTypeSpinner"/>
 
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                <pl.utkala.searchablespinner.SearchableSpinner
                     android:id="@+id/severitySpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -181,6 +185,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="10dp"
                     style="@style/styleSpinner"
+                    app:closeText="@string/close"
+                    app:dialogTitle="@string/select_item"
                     android:background="@drawable/spinner_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
