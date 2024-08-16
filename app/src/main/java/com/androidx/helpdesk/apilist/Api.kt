@@ -214,5 +214,9 @@ object Api {
 
     var getUnAssignedSummary = "http://helpdeskservice.desss-portfolio.com/api/CardViewUnassigned/LoadUnassigned?user_projectname="
 
+    var getAssignedSummary = "http://helpdeskservice.desss-portfolio.com/api/Cardview_Assigned/GetCVAssigndList?EmpID="
+
+    var getCompletedSummary = "http://helpdeskservice.desss-portfolio.com/api/Cardview_Completed/GetCVCompletedList?EmpID="
+
     var getWeeklyAllotmentList = "https://helpdeskservice.desss-portfolio.com/api/WeeklyTaskList/GetWeeklyTaskList?"
 }

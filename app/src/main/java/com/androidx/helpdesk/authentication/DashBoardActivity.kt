@@ -16,8 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.androidx.helpdesk.CommonMethod
 import com.androidx.helpdesk.R
-import com.androidx.helpdesk.adminCardView.assigned.AssignedFragment
-import com.androidx.helpdesk.adminCardView.completed.CompletedFragment
+import com.androidx.helpdesk.adminCardView.assigned.view.AssignedFragment
+import com.androidx.helpdesk.adminCardView.completed.view.CompletedFragment
 import com.androidx.helpdesk.adminCardView.completedTask.CompletedTaskFragment
 import com.androidx.helpdesk.adminCardView.taskAllotment.TaskAllotmentFragment
 import com.androidx.helpdesk.adminCardView.timesheet.view.TimeSheetFragment
