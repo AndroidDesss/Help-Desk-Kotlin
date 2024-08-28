@@ -219,4 +219,8 @@ object Api {
     var getCompletedSummary = "http://helpdeskservice.desss-portfolio.com/api/Cardview_Completed/GetCVCompletedList?EmpID="
 
     var getWeeklyAllotmentList = "https://helpdeskservice.desss-portfolio.com/api/WeeklyTaskList/GetWeeklyTaskList?"
+
+    var taskAllotmentTimesheetList = "http://helpdeskservice.desss-portfolio.com/api/Cardview_TaskAllotmentVsTimeSheetList/GetCVTaskAllotmentVsTimeSheetList?Taskdate="
+
+    var secondApi = "https://helpdeskservice.desss-portfolio.com/api/Cardview_TaskAllotmentVsTimeSheetList/GetTaskAllotVsTimeSheet?Taskdate="
 }

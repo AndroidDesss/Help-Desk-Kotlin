@@ -143,6 +143,9 @@
     <string name="empUpdated">Employees Updated TimeSheet</string>
     <string name="close">Close</string>
     <string name="select_item">Select Item</string>
+    <string name="task_allotment">Task Allotment</string>
+    <string name="time_sheet">Time Sheet</string>
+    <string name="allotted_hours">Allotted Hours:</string>
 
 
     <!--    clientLogin Credentials-->

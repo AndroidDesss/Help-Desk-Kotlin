@@ -11,4 +11,5 @@ class WeeklyTaskAllotmentModel (
     var allottedHours: Int?,
     var taskStatus: String?,
     var workedHours: Int?,
-    var allottedDate: String?)
+    var allottedDate: String?
+)

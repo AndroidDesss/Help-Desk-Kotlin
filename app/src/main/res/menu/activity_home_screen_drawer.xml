@@ -85,6 +85,7 @@
                     android:title="Completed" />
                 <item
                     android:id="@+id/completedTask"
+                    android:visible="false"
                     android:title="Completed Task" />
                 <item
                     android:id="@+id/taskAllotmentList"
