@@ -249,8 +249,8 @@ class CreateEstimate : AppCompatActivity(), OnProgrammerListener {
                         if (dataArray != null && dataArray.length() > 0) {
                             for (i in 0 until dataArray.length()) {
                                 val loginObject = dataArray.getJSONObject(i)
-                                prjTaskId = loginObject.getInt("PrjTaskID")
-                                taskCategoryId = loginObject.getInt("TaskCategory")
+                                prjTaskId = loginObject.optInt("PrjTaskID")
+                                taskCategoryId = loginObject.optInt("TaskCategory")
                             }
                             searchTaskList(taskCategoryId,pId,mId,prjTaskId)
                         }
@@ -285,9 +285,9 @@ class CreateEstimate : AppCompatActivity(), OnProgrammerListener {
                         if (dataArray != null && dataArray.length() > 0) {
                             for (i in 0 until dataArray.length()) {
                                 val loginObject = dataArray.getJSONObject(i)
-                                taskResponseId = loginObject.getInt("TaskID")
-                                taskResponseName = loginObject.getString("TaskDescription")
-                                taskResponseCategoryId = loginObject.getInt("TaskCategory")
+                                taskResponseId = loginObject.optInt("TaskID")
+                                taskResponseName = loginObject.optString("TaskDescription")
+                                taskResponseCategoryId = loginObject.optInt("TaskCategory")
                                 taskList.add(TaskListModel(taskResponseId, taskResponseName,taskResponseCategoryId))
                             }
                             binding!!.btnNext.visibility = View.VISIBLE

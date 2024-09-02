@@ -2,6 +2,7 @@ package com.androidx.helpdesk.editQuickProject.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.editQuickProject.model.EditSubModuleModel
+import com.androidx.helpdesk.editQuickProject.view.BackLogTaskAlloted
 
 
 class EditSubModuleAdapter(private val context: Context?, private var subModuleList: List<EditSubModuleModel>) : RecyclerView.Adapter<EditSubModuleAdapter.ConnectionsHolder>() {
@@ -58,7 +60,7 @@ class EditSubModuleAdapter(private val context: Context?, private var subModuleL
         fun onClick(btnName: String,position: Int, model: Int)
     }
 
-    inner class ConnectionsHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class ConnectionsHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener
     {
         var subModuleName: TextView
         var subModuleScreenName: TextView
@@ -67,6 +69,7 @@ class EditSubModuleAdapter(private val context: Context?, private var subModuleL
         var subModuleTaskStatus: TextView
         var subModuleEdit: AppCompatImageView
         var subModuleDelete: AppCompatImageView
+        var taskAllotment: AppCompatImageView
 
         init {
             subModuleName = itemView.findViewById(R.id.subModuleName)
@@ -76,6 +79,17 @@ class EditSubModuleAdapter(private val context: Context?, private var subModuleL
             subModuleTaskStatus = itemView.findViewById(R.id.taskStatusValue)
             subModuleEdit = itemView.findViewById(R.id.edit)
             subModuleDelete = itemView.findViewById(R.id.delete)
+            taskAllotment = itemView.findViewById(R.id.taskAllotment)
+            taskAllotment.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View) {
+            if (v === taskAllotment) {
+                val subModuleModel = subModuleList[position]
+                val mIntent = Intent(context, BackLogTaskAlloted::class.java)
+                mIntent.putExtra("projectTaskId", subModuleModel.subModuleProjectTaskId)
+                context!!.startActivity(mIntent)
+            }
         }
     }
 

@@ -146,6 +146,11 @@
     <string name="task_allotment">Task Allotment</string>
     <string name="time_sheet">Time Sheet</string>
     <string name="allotted_hours">Allotted Hours:</string>
+    <string name="task_alloted">Task Alloted</string>
+    <string name="no_task_allotted">No Task Allotted</string>
+    <string name="no_timesheet_allotted">No TimeSheet Allotted..!</string>
+    <string name="task_timesheet">Task Timesheet</string>
+    <string name="task_category">Task Category:</string>
 
 
     <!--    clientLogin Credentials-->

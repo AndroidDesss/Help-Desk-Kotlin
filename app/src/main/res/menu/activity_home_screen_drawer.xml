@@ -102,6 +102,12 @@
             </menu>
         </item>
 
+        <item
+            android:id="@+id/logOut"
+            android:icon="@drawable/logout_icon"
+            android:title="Log Out"
+            tools:ignore="HardcodedText"/>
+
     </group>
 
 </menu>

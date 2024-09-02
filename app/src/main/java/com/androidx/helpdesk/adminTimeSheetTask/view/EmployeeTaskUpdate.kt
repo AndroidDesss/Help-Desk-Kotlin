@@ -3,6 +3,7 @@ package com.androidx.helpdesk.adminTimeSheetTask.view
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -263,6 +264,7 @@ class EmployeeTaskUpdate : Fragment() {
             Request.Method.GET,
             Api.getHourTaskDetails +formattedDate +"&DeptID="+allDeptId +"&projectId=",
             { ServerResponse ->
+                Log.d("ServerResponse",ServerResponse)
                 try {
 
                     val jsondata = JSONObject(ServerResponse)
@@ -272,6 +274,7 @@ class EmployeeTaskUpdate : Fragment() {
                         val dataArray = jsondata.getJSONArray("data")
                         for (i in 0 until dataArray.length()) {
                             val loginObject = dataArray.getJSONObject(i)
+                            empName = loginObject.getString("FullName")
                             projectName = loginObject.getString("ProjectName")
                             moduleName = loginObject.getString("ModuleName")
                             taskName = loginObject.getString("TaskName")
@@ -280,7 +283,7 @@ class EmployeeTaskUpdate : Fragment() {
                             allottedHours = loginObject.getInt("AllotedHrs")
                             val dateTimeParts = allottedDate.toString().split("T")
                             val datePart = dateTimeParts[0]
-                            hourTaskModelList.add(HourTaskModel(projectName,moduleName,taskName,taskStatus,datePart,allottedHours))
+                            hourTaskModelList.add(HourTaskModel(empName,projectName,moduleName,taskName,taskStatus,datePart,allottedHours))
                         }
                         binding!!.lessHourRecycler.visibility = View.VISIBLE
                         binding!!.hourTaskEmpty.visibility = View.GONE
@@ -328,6 +331,7 @@ class EmployeeTaskUpdate : Fragment() {
         haveTaskModelList.clear()
         stringRequest = StringRequest(Request.Method.GET, Api.getHaveTaskDetails +formattedDate +"&DeptID="+allDeptId +"&projectId=",
             { ServerResponse ->
+                Log.d("ServerResponse",ServerResponse)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -336,6 +340,7 @@ class EmployeeTaskUpdate : Fragment() {
                         val dataArray = jsondata.getJSONArray("data")
                         for (i in 0 until dataArray.length()) {
                             val loginObject = dataArray.getJSONObject(i)
+                            empName = loginObject.getString("FullName")
                             projectName = loginObject.getString("ProjectName")
                             moduleName = loginObject.getString("ModuleName")
                             taskName = loginObject.getString("TaskName")
@@ -344,7 +349,7 @@ class EmployeeTaskUpdate : Fragment() {
                             allottedHours = loginObject.getInt("AllotedHrs")
                             val dateTimeParts = allottedDate.toString().split("T")
                             val datePart = dateTimeParts[0]
-                            haveTaskModelList.add(HaveTaskModel(projectName,moduleName,taskName,taskStatus,datePart,allottedHours))
+                            haveTaskModelList.add(HaveTaskModel(empName,projectName,moduleName,taskName,taskStatus,datePart,allottedHours))
                         }
                         binding!!.haveTaskRecycler.visibility = View.VISIBLE
                         binding!!.haveTaskEmpty.visibility = View.GONE

@@ -174,11 +174,11 @@ class EditModule : AppCompatActivity() {
                         if (dataArray != null && dataArray.length() > 0) {
                             for (i in 0 until dataArray.length()) {
                                 val loginObject = dataArray.getJSONObject(i)
-                                moduleId = loginObject.getInt("ModuleID")
-                                moduleName = loginObject.getString("ModuleName")
+                                moduleId = loginObject.optInt("ModuleID")
+                                moduleName = loginObject.optString("ModuleName")
                                 moduleStartDate = loginObject.optString("EstStartDate")
                                 moduleEndDate = loginObject.optString("EstEndDate")
-                                moduleEstimatedHours = loginObject.getInt("EstTotalHours")
+                                moduleEstimatedHours = loginObject.optInt("EstTotalHours")
                                 moduleDeliveryDate = loginObject.optString("FinalEndDate")
                             }
                             binding!!.moduleNameValue.setText(moduleName)

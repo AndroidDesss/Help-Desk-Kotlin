@@ -29,40 +29,6 @@
             app:itemTextColor="@color/lightOrange"
             app:headerLayout="@layout/nav_header_home_screen"
             app:menu="@menu/activity_home_screen_drawer">
-
-            <ExpandableListView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:layout_marginTop="185dp"
-                android:visibility="gone"
-                android:id="@+id/navigationMenu">
-            </ExpandableListView>
-
-            
-            <LinearLayout
-                android:id="@+id/logOut"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:backgroundTint="@color/orange"
-                    android:background="@drawable/logout_icon"/>
-                
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Style_TextView"
-                    android:layout_marginStart="25dp"
-                    android:textColor="@color/lightOrange"
-                    android:text="@string/logOut"/>
-            </LinearLayout>
         </com.google.android.material.navigation.NavigationView>
 
     </androidx.drawerlayout.widget.DrawerLayout>

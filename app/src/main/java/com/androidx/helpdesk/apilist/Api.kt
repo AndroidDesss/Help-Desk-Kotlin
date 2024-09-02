@@ -220,7 +220,11 @@ object Api {
 
     var getWeeklyAllotmentList = "https://helpdeskservice.desss-portfolio.com/api/WeeklyTaskList/GetWeeklyTaskList?"
 
-    var taskAllotmentTimesheetList = "http://helpdeskservice.desss-portfolio.com/api/Cardview_TaskAllotmentVsTimeSheetList/GetCVTaskAllotmentVsTimeSheetList?Taskdate="
+//    var taskAllotmentTimesheetList = "http://helpdeskservice.desss-portfolio.com/api/Cardview_TaskAllotmentVsTimeSheetList/GetCVTaskAllotmentVsTimeSheetList?Taskdate="
 
-    var secondApi = "https://helpdeskservice.desss-portfolio.com/api/Cardview_TaskAllotmentVsTimeSheetList/GetTaskAllotVsTimeSheet?Taskdate="
+    var taskAllotmentTimeSheetList = "https://helpdeskservice.desss-portfolio.com/api/Cardview_TaskAllotmentVsTimeSheetList/GetTaskAllotVsTimeSheet?Taskdate="
+
+    var backLogTaskAllottedList = "https://helpdeskservice.desss-portfolio.com/api/AllotedTaskList/LoadGrid?PrjTaskID="
+
+    var backLogTaskTimeSheetList = "https://helpdeskservice.desss-portfolio.com/api/TimeSheetList/LoadGrid?PrjTaskAllotId="
 }

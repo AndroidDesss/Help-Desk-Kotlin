@@ -191,6 +191,7 @@ class TaskAllotmentFragment : Fragment() {
                         val dataArray = jsondata.getJSONArray("data")
                         for (i in 0 until dataArray.length()) {
                             val loginObject = dataArray.getJSONObject(i)
+                            empName = loginObject.getString("FullName")
                             projectName = loginObject.getString("ProjectName")
                             moduleName = loginObject.getString("ModuleName")
                             taskName = loginObject.getString("TaskName")
@@ -199,7 +200,7 @@ class TaskAllotmentFragment : Fragment() {
                             allottedHours = loginObject.getInt("AllotedHrs")
                             val dateTimeParts = allottedDate.toString().split("T")
                             val datePart = dateTimeParts[0]
-                            lessHourTaskModelList.add(HourTaskModel(projectName,moduleName,taskName,taskStatus,datePart,allottedHours))
+                            lessHourTaskModelList.add(HourTaskModel(empName,projectName,moduleName,taskName,taskStatus,datePart,allottedHours))
                         }
                         binding!!.lessHourRecycler.visibility = View.VISIBLE
                         binding!!.hourTaskEmpty.visibility = View.GONE
@@ -254,6 +255,7 @@ class TaskAllotmentFragment : Fragment() {
                         val dataArray = jsondata.getJSONArray("data")
                         for (i in 0 until dataArray.length()) {
                             val loginObject = dataArray.getJSONObject(i)
+                            empName = loginObject.getString("FullName")
                             projectName = loginObject.getString("ProjectName")
                             moduleName = loginObject.getString("ModuleName")
                             taskName = loginObject.getString("TaskName")
@@ -262,7 +264,7 @@ class TaskAllotmentFragment : Fragment() {
                             allottedHours = loginObject.getInt("AllotedHrs")
                             val dateTimeParts = allottedDate.toString().split("T")
                             val datePart = dateTimeParts[0]
-                            haveTaskModelList.add(HaveTaskModel(projectName,moduleName,taskName,taskStatus,datePart,allottedHours))
+                            haveTaskModelList.add(HaveTaskModel(empName,projectName,moduleName,taskName,taskStatus,datePart,allottedHours))
                         }
                         binding!!.haveTaskRecycler.visibility = View.VISIBLE
                         binding!!.haveTaskEmpty.visibility = View.GONE

@@ -26,8 +26,8 @@ class HourTaskAdapter(
     override fun onBindViewHolder(holder: HourTaskAdapter.ConnectionsHolder, position: Int) {
         val hourTaskModel = hourTaskModelList[position]
 
-        holder.projectName.text = hourTaskModel.projectName
-        holder.moduleName.text = hourTaskModel.moduleName
+        holder.projectName.text = hourTaskModel.empName
+        holder.moduleName.text = hourTaskModel.projectName + " - " +hourTaskModel.moduleName
         holder.taskName.text = hourTaskModel.taskName
         holder.taskStatus.text = hourTaskModel.taskStatus
         holder.allottedHours.text = hourTaskModel.allottedHours.toString()

@@ -1,6 +1,7 @@
 package com.androidx.helpdesk.adminTimeSheetTask.model
 
 data class HourTaskModel(
+    var empName:String?,
     var projectName: String?,
     var moduleName: String?,
     var taskName: String?,

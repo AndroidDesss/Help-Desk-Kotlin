@@ -1,5 +1,6 @@
 package com.androidx.helpdesk.adminTimeSheetTask.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +18,12 @@ class HaveTaskAdapter (private val context: Context?, private val haveTaskModelL
     }
 
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: HaveTaskAdapter.ConnectionsHolder, position: Int) {
         val hourTaskModel = haveTaskModelList[position]
 
-        holder.projectName.text = hourTaskModel.projectName
-        holder.moduleName.text = hourTaskModel.moduleName
+        holder.projectName.text = hourTaskModel.empName
+        holder.moduleName.text = hourTaskModel.projectName + " - " +hourTaskModel.moduleName
         holder.taskName.text = hourTaskModel.taskName
         holder.taskStatus.text = hourTaskModel.taskStatus
         holder.allottedHours.text = hourTaskModel.allottedHours.toString()

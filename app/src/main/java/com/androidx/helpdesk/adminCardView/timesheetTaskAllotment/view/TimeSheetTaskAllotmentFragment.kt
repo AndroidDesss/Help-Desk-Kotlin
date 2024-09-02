@@ -97,7 +97,7 @@ class TimeSheetTaskAllotmentFragment : Fragment() {
         binding!!.cardView.visibility = View.VISIBLE
         taskAllotmentWeeklyAllotmentList.clear()
         stringRequest = StringRequest(
-            Request.Method.GET, Api.secondApi + currentDate,
+            Request.Method.GET, Api.taskAllotmentTimeSheetList + currentDate,
             { ServerResponse ->
                 binding!!.cardView.visibility = View.GONE
                 try {

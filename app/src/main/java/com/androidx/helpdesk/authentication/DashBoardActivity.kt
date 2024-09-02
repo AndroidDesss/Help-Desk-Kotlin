@@ -98,7 +98,6 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private fun initListener() {
         close!!.setOnClickListener(onClickListener)
         userProfile!!.setOnClickListener(onClickListener)
-        binding!!.logOut.setOnClickListener(onClickListener)
     }
 
     private val onClickListener = View.OnClickListener { view ->
@@ -112,11 +111,8 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 }
                 else if (SharedPref.getUserType(this).equals("User") || SharedPref.getUserType(this) == "User")
                 {
+
                 }
-            }
-            R.id.logOut -> {
-                startActivity(Intent(this, LoginActivity::class.java))
-                SharedPref.setUserLoggedIn(this, false)
             }
         }
     }
@@ -153,6 +149,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.sprint).isVisible = false
             nav_Menu.findItem(R.id.backLog).isVisible = false
             nav_Menu.findItem(R.id.cardView).isVisible = false
+            nav_Menu.findItem(R.id.logOut).isVisible = true
 
         }
         else if (SharedPref.getUserType(this).equals("User")|| SharedPref.getUserType(this) == "User")
@@ -169,6 +166,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.sprint).isVisible = false
             nav_Menu.findItem(R.id.backLog).isVisible = false
             nav_Menu.findItem(R.id.cardView).isVisible = false
+            nav_Menu.findItem(R.id.logOut).isVisible = true
         }
         else if (SharedPref.getUserType(this).equals("Admin")|| SharedPref.getUserType(this) == "Admin")
         {
@@ -184,6 +182,7 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             nav_Menu.findItem(R.id.timeSheet).isVisible = false
             nav_Menu.findItem(R.id.adminTimeSheet).isVisible = true
             nav_Menu.findItem(R.id.cardView).isVisible = true
+            nav_Menu.findItem(R.id.logOut).isVisible = true
         }
     }
 
@@ -282,9 +281,12 @@ class DashBoardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             screenName!!.text = "Weekly Allotment List"
             replaceFragment(WeeklyAllotmentFragment())
         }
-
         else if (id == R.id.createTickets) {
             startActivity(Intent(this, ClientTicketCreationActivity::class.java))
+        }
+        else if (id == R.id.logOut) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            SharedPref.setUserLoggedIn(this, false)
         }
         binding!!.drawerLayout.closeDrawer(GravityCompat.START)
         return true

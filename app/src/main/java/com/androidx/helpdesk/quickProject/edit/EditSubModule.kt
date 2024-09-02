@@ -1,6 +1,5 @@
 package com.androidx.helpdesk.quickProject.edit
 
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Spinner
 import androidx.databinding.DataBindingUtil
@@ -679,21 +677,21 @@ class EditSubModule : AppCompatActivity() {
                     val dataArray = jsondata.getJSONArray("data")
                     for (i in 0 until dataArray.length()) {
                         val loginObject = dataArray.getJSONObject(i)
-                        detailsProjectId = loginObject.getInt("ProjectID")
-                        detailsModuleId = loginObject.getInt("ModuleID")
-                        detailsIssueTypeId = loginObject.getInt("ModuleTypeID")
-                        detailsTaskName = loginObject.getString("TaskName")
-                        detailsWorkFlowId = loginObject.getInt("TaskCategory")
-                        detailsIsActiveId = loginObject.getBoolean("Active")
-                        detailsIsBillableId = loginObject.getBoolean("Billable")
-                        detailsReportedBy = loginObject.getInt("ReportBy")
-                        detailsSprintId = loginObject.getInt("SprintID")
-                        detailsBoardId = loginObject.getInt("BoardID")
-                        detailsAnalysis = loginObject.getString("Analysis")
-                        detailsDescription = loginObject.getString("Description")
-                        detailsSource = loginObject.getString("Source")
-                        detailsTicketNumber = loginObject.getString("TicketNo")
-                        detailsPriority = loginObject.getString("Priority")
+                        detailsProjectId = loginObject.optInt("ProjectID")
+                        detailsModuleId = loginObject.optInt("ModuleID")
+                        detailsIssueTypeId = loginObject.optInt("ModuleTypeID")
+                        detailsTaskName = loginObject.optString("TaskName")
+                        detailsWorkFlowId = loginObject.optInt("TaskCategory")
+                        detailsIsActiveId = loginObject.optBoolean("Active")
+                        detailsIsBillableId = loginObject.optBoolean("Billable")
+                        detailsReportedBy = loginObject.optInt("ReportBy")
+                        detailsSprintId = loginObject.optInt("SprintID")
+                        detailsBoardId = loginObject.optInt("BoardID")
+                        detailsAnalysis = loginObject.optString("Analysis")
+                        detailsDescription = loginObject.optString("Description")
+                        detailsSource = loginObject.optString("Source")
+                        detailsTicketNumber = loginObject.optString("TicketNo")
+                        detailsPriority = loginObject.optString("Priority")
                     }
 
                     binding!!.etIssueName.setText(detailsTaskName)
