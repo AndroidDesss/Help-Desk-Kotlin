@@ -56,12 +56,12 @@ class OpenTickets : Fragment() {
 
     private fun openTicketList()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(context)
         binding!!.rlError.visibility = View.GONE
         openTicketModelList.clear()
         stringRequest = StringRequest(Request.Method.GET, Api.openTickets + SharedPref.getUserId(context) + "&EmpID=" + SharedPref.getEmployeeId(context) + "&CompanyID=" + SharedPref.getCompanyId(context),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(context)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -87,12 +87,12 @@ class OpenTickets : Fragment() {
                         binding!!.rlError.visibility = View.VISIBLE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.Companion.showToast(context, "Please Check your Internet")
         }

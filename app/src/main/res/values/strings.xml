@@ -151,6 +151,7 @@
     <string name="no_timesheet_allotted">No TimeSheet Allotted..!</string>
     <string name="task_timesheet">Task Timesheet</string>
     <string name="task_category">Task Category:</string>
+    <string name="please_wait">Please wait ...</string>
 
 
     <!--    clientLogin Credentials-->

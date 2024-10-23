@@ -57,12 +57,12 @@ class ClosedTickets : Fragment() {
 
     private fun closedTicketList()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(context)
         binding!!.rlError.visibility = View.GONE
         closedTicketModelList.clear()
         stringRequest = StringRequest(Request.Method.GET, Api.closedTickets + SharedPref.getUserId(context) + "&EmpID=" + SharedPref.getEmployeeId(context) + "&CompanyID=" + SharedPref.getCompanyId(context),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(context)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -89,12 +89,12 @@ class ClosedTickets : Fragment() {
                         binding!!.rlError.visibility = View.VISIBLE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(
                 100,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,

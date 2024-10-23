@@ -126,7 +126,7 @@ class EditModule : AppCompatActivity() {
 
     private fun updateModule(moduleName: String,estTotalHours: String,startDate: String,endDate: String,deliveryDate: String,actTotalHours : String)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.POST, Api.updateModule + projectId +"&ModuleID=" + moduleId + "&CompanyID="+ SharedPref.getCompanyId(this) +"&ModuleName=" + moduleName +"&EstTotalHours=" + estTotalHours +"&EstStartDate=" + startDate +"&EstEndDate=" + endDate + "&FinalEndDate="+ deliveryDate + "&ActTotalHours=" + actTotalHours + "&UserName=" + SharedPref.getFirstName(this),
             { ServerResponse ->
@@ -147,12 +147,12 @@ class EditModule : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -162,10 +162,10 @@ class EditModule : AppCompatActivity() {
 
     private fun getModuleListValues(pId : Int?, mId : Int?)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.POST, Api.editModuleById + SharedPref.getCompanyId(this) + "&ProjectID=" + pId + "&ModuleID=" + mId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -192,12 +192,12 @@ class EditModule : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }

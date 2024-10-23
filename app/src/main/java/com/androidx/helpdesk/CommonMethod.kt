@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import android.os.Build
 import android.app.Activity
+import android.app.Dialog
 import android.net.ConnectivityManager
 
 class CommonMethod(private val context: Context) {
@@ -73,6 +74,36 @@ class CommonMethod(private val context: Context) {
             val connectivityManager = act.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
             return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
+
+        fun showProgressDialog(activity: Context?) {
+            try {
+                cancelProgressDialog(activity)
+                if (Constants.dialog == null || !Constants.dialog!!.isShowing) {
+                    Constants.dialog = activity?.let { Dialog(it) }
+                    Constants.dialog?.setContentView(R.layout.layout_progress_dialog)
+                    Constants.dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                    Constants.dialog?.setCancelable(false)
+                    Constants.dialog?.show()
+                }
+            } catch (e: Exception) {
+                if (BuildConfig.DEBUG) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
+        fun cancelProgressDialog(activity: Context?) {
+            try {
+                if (Constants.dialog != null && Constants.dialog!!.isShowing) {
+                    Constants.dialog?.dismiss()
+                    Constants.dialog = null
+                }
+            } catch (e: Exception) {
+                if (BuildConfig.DEBUG) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 }

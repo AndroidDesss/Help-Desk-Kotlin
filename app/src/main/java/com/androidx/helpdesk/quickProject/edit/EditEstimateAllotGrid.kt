@@ -133,7 +133,7 @@ class EditEstimateAllotGrid : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_estimate_allot_grid)
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         getBundleData()
         initListener()
 
@@ -241,12 +241,12 @@ class EditEstimateAllotGrid : AppCompatActivity() {
                         getScrumList()
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -278,12 +278,12 @@ class EditEstimateAllotGrid : AppCompatActivity() {
 
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -317,12 +317,12 @@ class EditEstimateAllotGrid : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -356,12 +356,12 @@ class EditEstimateAllotGrid : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -395,12 +395,12 @@ class EditEstimateAllotGrid : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -434,12 +434,12 @@ class EditEstimateAllotGrid : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -512,7 +512,7 @@ class EditEstimateAllotGrid : AppCompatActivity() {
     {
         stringRequest = StringRequest(Request.Method.POST, Api.editGridAllotEdit +  pId + "&ModuleID=" + mId + "&PrjTaskID=" + prjTkId + "&PrjTaskAllotID=" + prjTkAtId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -543,12 +543,12 @@ class EditEstimateAllotGrid : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -558,7 +558,7 @@ class EditEstimateAllotGrid : AppCompatActivity() {
 
     private fun updateGridAllot()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.POST, Api.updateAllotGrid + projectTaskAllotId + "&CompanyID="+ SharedPref.getCompanyId(this) +"&ProjectID=" + projectId + "&ModuleID=" + moduleId + "&AllotedHrs=" + binding!!.hoursValue.text.toString() +"&DocCount=" + binding!!.docCountValue.text.toString() +"&EmpID=" + SharedPref.getEmployeeId(this) +"&TaskStausID=" + selectedTaskStatusId + "&TaskName=" + binding!!.screenNameValue.text.toString() + "&Assignedto=" + selectedAssignedToId + "&TaskType=" + selectedTaskTypeId + "&Billable=" +  binding!!.isBillable.isChecked + "&Task="+ binding!!.taskValue.text.toString() + "&Notes=" + binding!!.notesValue.text.toString() + "&TaskCategoryID=" + taskCategoryId + "&SubModuleID=" + projectTaskId + "&TaskDate=" + binding!!.taskDateValue.text.toString() + "&UserName=" + SharedPref.getFirstName(this) + "&EstdStartDate=" + binding!!.estStartDateValue.text.toString() + "&EstdEndDate=" + binding!!.estEndDateValue.text.toString() + "&SprintID=" + selectedScrumId+ "&BoardID="+ selectedBoardId,
             { ServerResponse ->
@@ -579,12 +579,12 @@ class EditEstimateAllotGrid : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }

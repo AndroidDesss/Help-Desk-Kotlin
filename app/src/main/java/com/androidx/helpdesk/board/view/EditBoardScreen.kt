@@ -105,7 +105,7 @@ class EditBoardScreen : AppCompatActivity() {
 
     private fun getBoardDetails()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.POST, Api.editBoardDetails + boardId,
             { ServerResponse ->
@@ -125,12 +125,12 @@ class EditBoardScreen : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -139,11 +139,11 @@ class EditBoardScreen : AppCompatActivity() {
     }
 
     private fun updateBoardDetails() {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.POST, Api.updateBoardDetails + boardId + "&ProjectID=" + selectedProjectId + "&BoardName="+ binding!!.etBoardName.text.toString(),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -158,7 +158,7 @@ class EditBoardScreen : AppCompatActivity() {
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -174,7 +174,7 @@ class EditBoardScreen : AppCompatActivity() {
             Api.getBackLogProjectList + SharedPref.getCompanyId(this)  + "&UserTypeID=" + SharedPref.getUserId(this) + "&Est&EmpID=" + SharedPref.getEmployeeId(this),
             { ServerResponse ->
                 try {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -192,12 +192,12 @@ class EditBoardScreen : AppCompatActivity() {
                         binding!!.etBoardName.setText(boardName)
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)

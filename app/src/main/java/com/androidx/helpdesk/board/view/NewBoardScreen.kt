@@ -91,11 +91,11 @@ class NewBoardScreen : AppCompatActivity() {
     }
 
     private fun insertBoardDetails() {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.POST, Api.insertNewBoard + selectedProjectId  + "&BoardName="+ binding!!.etBoardName.text.toString(),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -108,7 +108,7 @@ class NewBoardScreen : AppCompatActivity() {
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -117,7 +117,7 @@ class NewBoardScreen : AppCompatActivity() {
 
     private fun projectList()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         projectIdList.clear()
         projectNameList.clear()
         stringRequest = StringRequest(
@@ -125,7 +125,7 @@ class NewBoardScreen : AppCompatActivity() {
             Api.getBackLogProjectList + SharedPref.getCompanyId(this)  + "&UserTypeID=" + SharedPref.getUserId(this) + "&Est&EmpID=" + SharedPref.getEmployeeId(this),
             { ServerResponse ->
                 try {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -142,12 +142,12 @@ class NewBoardScreen : AppCompatActivity() {
                         setAdapter()
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)

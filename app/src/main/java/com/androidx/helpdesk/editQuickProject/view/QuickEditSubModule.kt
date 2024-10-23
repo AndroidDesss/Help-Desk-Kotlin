@@ -155,7 +155,7 @@ class QuickEditSubModule : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_quick_edit_sub_module)
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         getBundleData()
         initListener()
 
@@ -214,12 +214,12 @@ class QuickEditSubModule : AppCompatActivity() {
     }
     private fun getSubModuleList()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         binding!!.rlError.visibility = View.GONE
         editSubModuleList.clear()
         stringRequest = StringRequest(Request.Method.POST, Api.getSubModuleList + extendedUrl,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -261,12 +261,12 @@ class QuickEditSubModule : AppCompatActivity() {
                         binding!!.rlError.visibility = View.VISIBLE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -288,11 +288,11 @@ class QuickEditSubModule : AppCompatActivity() {
     }
 
     private fun subModuleDelete(id: Int?) {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.POST, Api.deleteBackLog + id,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -304,12 +304,12 @@ class QuickEditSubModule : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -357,7 +357,7 @@ class QuickEditSubModule : AppCompatActivity() {
                 {
                     if (parentView!!.getItemAtPosition(position) != "Select")
                     {
-                        binding!!.cardView.visibility = View.VISIBLE
+                        CommonMethod.showProgressDialog(parentView.context)
                         selectedProjectId = projectIdList[position]
                         getModuleType(popUpModuleEpicSpinner,selectedProjectId)
                         getBoardType(popUpBoardSpinner,selectedProjectId)
@@ -510,12 +510,12 @@ class QuickEditSubModule : AppCompatActivity() {
                         getIssueType()
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -547,12 +547,12 @@ class QuickEditSubModule : AppCompatActivity() {
                         getWorkFlowType()
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -584,12 +584,12 @@ class QuickEditSubModule : AppCompatActivity() {
                         getReportedByType()
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -605,7 +605,7 @@ class QuickEditSubModule : AppCompatActivity() {
             Api.getBackLogReportedType + SharedPref.getCompanyId(this) ,
             { ServerResponse ->
                 try {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -622,12 +622,12 @@ class QuickEditSubModule : AppCompatActivity() {
                         getSubModuleList()
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -659,12 +659,12 @@ class QuickEditSubModule : AppCompatActivity() {
                         setAdapter(5,popUpModuleEpicSpinner)
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -696,12 +696,12 @@ class QuickEditSubModule : AppCompatActivity() {
                         setAdapter(6,popUpBoardSpinner)
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -717,7 +717,7 @@ class QuickEditSubModule : AppCompatActivity() {
             Api.getBackLogSprintType + projectIdSelected ,
             { ServerResponse ->
                 try {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -734,12 +734,12 @@ class QuickEditSubModule : AppCompatActivity() {
                         setAdapter(7,popUpSprintSpinner)
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -796,11 +796,11 @@ class QuickEditSubModule : AppCompatActivity() {
 
     fun createBackLog(uploadIssueName: String,uploadProjectId: String,uploadWorkFlowId: String,uploadDescription: String,uploadTaskAnalysis: String,uploadModuleId: String,uploadIssueTypeId: String,uploadBoardId: String,uploadSprintId: String,uploadBillable: String,uploadSource: String,uploadPriority: String,uploadActive: String)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         val volleyMultipartRequest: VolleyMultipartRequest = object : VolleyMultipartRequest(
             Method.POST, Api.insertNewBackLog,
             Response.Listener<JSONObject> { jsondata ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -819,12 +819,12 @@ class QuickEditSubModule : AppCompatActivity() {
 
                 } catch (e: JSONException) {
                     CommonMethod.showToast(this, "Something Went Wrong")
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             },
             Response.ErrorListener {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 CommonMethod.showToast(this, "Error")
             }
         )

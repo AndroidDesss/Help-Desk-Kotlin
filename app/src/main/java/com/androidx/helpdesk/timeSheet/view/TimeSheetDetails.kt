@@ -148,7 +148,7 @@ class TimeSheetDetails : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_time_sheet_details)
         moduleNameType = ArrayAdapter(this, android.R.layout.simple_spinner_item, moduleDescriptionList)
         taskTypeDescriptionType = ArrayAdapter(this, android.R.layout.simple_spinner_item, taskTypeDescriptionList)
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         projectList()
         taskCategoryList()
         taskStatus()
@@ -278,12 +278,12 @@ class TimeSheetDetails : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             },
             Response.ErrorListener {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             }
         ) {
@@ -319,12 +319,12 @@ class TimeSheetDetails : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             },
             Response.ErrorListener {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             }
         ) {
@@ -360,12 +360,12 @@ class TimeSheetDetails : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             },
             Response.ErrorListener {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             }
         ) {
@@ -401,12 +401,12 @@ class TimeSheetDetails : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             },
             Response.ErrorListener {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             }
         ) {
@@ -443,12 +443,12 @@ class TimeSheetDetails : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             },
             Response.ErrorListener {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             }
         ) {
@@ -463,7 +463,7 @@ class TimeSheetDetails : AppCompatActivity() {
     fun getTimeSheetTaskDetails(id: Int) {
         stringRequest = object : StringRequest(Method.GET, Api.getTimeSheetDetails + id, Response.Listener
         { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -505,12 +505,12 @@ class TimeSheetDetails : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             },
             Response.ErrorListener {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             }
         ) {
@@ -546,12 +546,12 @@ class TimeSheetDetails : AppCompatActivity() {
                         CommonMethod.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             },
             Response.ErrorListener {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             }
         ) {
@@ -587,12 +587,12 @@ class TimeSheetDetails : AppCompatActivity() {
                         CommonMethod.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             },
             Response.ErrorListener {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             }
         ) {
@@ -763,10 +763,10 @@ class TimeSheetDetails : AppCompatActivity() {
 
     fun updateTimeSheetDetails()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = object : StringRequest(Method.GET, Api.updateTimeSheetDetails +taskIntentId+"&TaskName=" +binding!!.screenNameEt.text.toString()+"&Tools="+toolsTypeId+"&HoursSpend="+binding!!.hoursSpentEt.text.toString()+"&TaskStatus="+taskStatusTypeId+"&DocsCount="+binding!!.documentsCountEt.text.toString()+"&Billable="+binding!!.billableCb.isChecked+"&Comments="+binding!!.detailsCommentEt.text.toString()+"&KBNotes="+binding!!.kbNotesEt.text.toString(),
             Response.Listener { ServerResponse ->
-                binding!!.cardView.visibility = View.VISIBLE
+                CommonMethod.showProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -780,12 +780,12 @@ class TimeSheetDetails : AppCompatActivity() {
                     }
                 } catch (e: JSONException) {
                     CommonMethod.showToast(this, "Something Went Wrong")
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             },
              {
-                binding!!.cardView.visibility = View.GONE
+                 CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
                 CommonMethod.showToast(this, "Error")
             }

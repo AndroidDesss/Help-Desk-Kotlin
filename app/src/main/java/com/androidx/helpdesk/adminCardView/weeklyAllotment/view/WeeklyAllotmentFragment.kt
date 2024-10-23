@@ -193,7 +193,7 @@ class WeeklyAllotmentFragment : Fragment() {
 
     private fun departmentList()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(context)
         departmentIdList.clear()
         departmentNameList.clear()
         stringRequest = StringRequest(
@@ -201,7 +201,7 @@ class WeeklyAllotmentFragment : Fragment() {
             Api.getDeportment,
             { ServerResponse ->
                 try {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -218,12 +218,12 @@ class WeeklyAllotmentFragment : Fragment() {
                         setAdapter(1)
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(requireContext())
@@ -242,11 +242,11 @@ class WeeklyAllotmentFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getWeeklyAllotmentList(weeklyAllotmentListUrl: String?)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(context)
         weeklyAllotmentList.clear()
         stringRequest = StringRequest(Request.Method.GET, weeklyAllotmentListUrl + "&Dept=" + selectedDepartment,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(context)
                 try
                 {
                     val jsondata = JSONObject(ServerResponse)
@@ -283,12 +283,12 @@ class WeeklyAllotmentFragment : Fragment() {
                     binding!!.weeklyTaskRecyclerView.adapter = weeklyTaskAllotmentAdapter
                     weeklyTaskAllotmentAdapter!!.notifyDataSetChanged()
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
             CommonMethod.showToast(context, "Please Check your Internet")
         }
         stringRequest!!.retryPolicy = object : RetryPolicy {

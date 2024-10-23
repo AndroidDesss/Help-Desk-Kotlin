@@ -98,13 +98,13 @@ class BurnOutChartScreen : AppCompatActivity() {
 
     private fun getBurnOutChartData()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         dateList.clear()
         actualWorkList.clear()
         stringRequest = StringRequest(
             Request.Method.POST, Api.burnOutChart + sprintId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -134,12 +134,12 @@ class BurnOutChartScreen : AppCompatActivity() {
                         binding!!.chart.setNoDataTextTypeface(ResourcesCompat.getFont(this, R.font.just_sans_semibold))
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }

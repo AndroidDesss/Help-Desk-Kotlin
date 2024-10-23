@@ -13,6 +13,7 @@ import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.androidx.helpdesk.CommonMethod
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.adminCardView.timesheet.adapter.NotUpdatedTimesheetAdapter
 import com.androidx.helpdesk.adminCardView.timesheet.adapter.UpdatedTimeSheetAdapter
@@ -93,7 +94,7 @@ class TimeSheetFragment : Fragment() {
 
     private fun getNotUpdatedTimesheetDetails(formattedDate:String)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(context)
         notUpdatedTimeSheetModelList.clear()
         stringRequest = StringRequest(
             Request.Method.GET,
@@ -125,12 +126,12 @@ class TimeSheetFragment : Fragment() {
                         getUpdatedTimeSheetDetails(formattedDate)
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(requireContext())
@@ -148,7 +149,7 @@ class TimeSheetFragment : Fragment() {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
-                        binding!!.cardView.visibility = View.GONE
+                        CommonMethod.cancelProgressDialog(context)
                         val dataArray = jsondata.getJSONArray("data")
                         for (i in 0 until dataArray.length()) {
                             val loginObject = dataArray.getJSONObject(i)
@@ -172,15 +173,15 @@ class TimeSheetFragment : Fragment() {
                     else if (status == 400)
                     {
                         binding!!.updatedEmpty.visibility = View.VISIBLE
-                        binding!!.cardView.visibility = View.GONE
+                        CommonMethod.cancelProgressDialog(context)
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(requireContext())

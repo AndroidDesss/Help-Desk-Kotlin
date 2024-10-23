@@ -78,13 +78,13 @@ class BackLogTaskAlloted : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getBackLogTaskAllottedList(projectTaskId: Int)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         binding!!.rlError.visibility = View.GONE
         backLogTaskAllottedList.clear()
         stringRequest = StringRequest(
             Request.Method.POST, Api.backLogTaskAllottedList + projectTaskId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -112,12 +112,12 @@ class BackLogTaskAlloted : AppCompatActivity() {
                         binding!!.rlError.visibility = View.VISIBLE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }

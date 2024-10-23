@@ -123,7 +123,7 @@ class ChatScreen : AppCompatActivity() {
             R.id.actionSend ->
                 if (CommonMethod.Companion.isNetworkAvailable(this))
                 {
-                    binding!!.cardView.visibility = View.VISIBLE
+                    CommonMethod.showProgressDialog(this)
                     postMessage()
                 } else {
                     CommonMethod.Companion.showToast(this, "Check Internet")
@@ -133,11 +133,11 @@ class ChatScreen : AppCompatActivity() {
 
     private fun getChatList(tasKId: Int)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         chatList.clear()
         stringRequest = StringRequest(Request.Method.GET, Api.getChatList + tasKId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -161,12 +161,12 @@ class ChatScreen : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -196,7 +196,7 @@ class ChatScreen : AppCompatActivity() {
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Credentials Wrong")
         }
@@ -248,11 +248,11 @@ class ChatScreen : AppCompatActivity() {
 
 
     private fun saveFeedback(noOfStars: Float,name: String,email: String,comments: String) {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.POST, Api.postFeedBack + noOfStars + "&TicketId=" + taskMiscId+ "&Name=" + name+ "&email=" + email+ "&Comments=" + comments,
             { ServerResponse ->
                 try {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -270,7 +270,7 @@ class ChatScreen : AppCompatActivity() {
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Credentials Wrong")
         }
@@ -279,7 +279,7 @@ class ChatScreen : AppCompatActivity() {
     }
 
     private fun closeTicket(view: View) {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.POST, ticketsUrl + taskMiscId ,
             { ServerResponse ->
                 try {
@@ -308,7 +308,7 @@ class ChatScreen : AppCompatActivity() {
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Credentials Wrong")
         }
@@ -321,7 +321,7 @@ class ChatScreen : AppCompatActivity() {
         stringRequest = StringRequest(Request.Method.GET, Api.getUserNameEmail + SharedPref.getEmployeeId(this),
             { ServerResponse ->
                 try {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -336,12 +336,12 @@ class ChatScreen : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }

@@ -62,12 +62,12 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun clientProfile()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.GET,
             Api.getClientProfile + SharedPref.getClientId(this) + "&ClientUserID=" + SharedPref.getEmployeeId(this),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -103,12 +103,12 @@ class ProfileActivity : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
             )
             CommonMethod.Companion.showToast(this, "Please Check your Internet")
@@ -201,10 +201,10 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun updateProfile() {
         Log.d("ServerResponse", Api.updateProfile + SharedPref.getClientId(this) + "&City=" + binding!!.etCity.text.toString() + "&UserEmail=" + binding!!.etEmail.text.toString() + "&ClientPassword=" + binding!!.etPassword.text.toString() + "&FirstName=" + binding!!.etFirstName.text.toString() + "&LastName=" + binding!!.etLastName.text.toString() + "&ImagePath=" + "" + "&State=" + binding!!.etState.text.toString() + "&Zip=" + binding!!.etZip.text.toString() + "&Address=" + binding!!.etAddress.text.toString() + "&ClientUserID=" + SharedPref.getEmployeeId(this) + "&ClientName=" + binding!!.etCompanyName.text.toString() + "&CompanyID=" + SharedPref.getCompanyId(this))
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.POST, Api.updateProfile + SharedPref.getClientId(this) + "&City=" + binding!!.etCity.text.toString() + "&UserEmail=" + binding!!.etEmail.text.toString() + "&ClientPassword=" + binding!!.etPassword.text.toString() + "&FirstName=" + binding!!.etFirstName.text.toString() + "&LastName=" + binding!!.etLastName.text.toString() + "&ImagePath=" + "~/ChatImages/6_3.jpg" + "&State=" + binding!!.etState.text.toString() + "&Zip=" + binding!!.etZip.text.toString() + "&Address=" + binding!!.etAddress.text.toString() + "&ClientUserID=" + SharedPref.getEmployeeId(this) + "&ClientName=" + binding!!.etCompanyName.text.toString() + "&CompanyID=" + SharedPref.getCompanyId(this),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -221,7 +221,7 @@ class ProfileActivity : AppCompatActivity() {
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
             )
             CommonMethod.Companion.showToast(this, "Credentials Wrong..")

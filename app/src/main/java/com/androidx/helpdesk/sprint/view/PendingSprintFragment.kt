@@ -93,13 +93,13 @@ class PendingSprintFragment : Fragment() {
 
     private fun getPendingSprintList()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(context)
         binding!!.rlError.visibility = View.GONE
         pendingSprintModelList.clear()
         stringRequest = StringRequest(
             Request.Method.POST, Api.getPendingSprintList + SharedPref.getUserId(context)+"&BoardID"+"&EmpID",
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(context)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -129,12 +129,12 @@ class PendingSprintFragment : Fragment() {
                         binding!!.rlError.visibility = View.VISIBLE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(context, "Please Check your Internet")
         }

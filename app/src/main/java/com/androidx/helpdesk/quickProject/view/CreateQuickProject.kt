@@ -70,10 +70,10 @@ class CreateQuickProject : AppCompatActivity() {
     }
 
     private fun createProject() {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.POST, Api.createQuickProject + SharedPref.getCompanyId(this) + "&ProjectName=" + binding!!.etProjectName.text.toString() + "&TotalHrs=" + binding!!.etTotalHours.text.toString()+"&CreatedBy="+SharedPref.getFirstName(this),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -93,7 +93,7 @@ class CreateQuickProject : AppCompatActivity() {
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             binding!!.etProjectName.error = "Project Name Exists"
         }

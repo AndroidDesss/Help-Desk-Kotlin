@@ -81,7 +81,7 @@ class TicketDetails : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_ticket_details)
 
         initListener()
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         setAdapter(3)
         bundleData()
         projectList()
@@ -129,7 +129,6 @@ class TicketDetails : AppCompatActivity() {
             R.id.backButton -> finish()
             R.id.btnDelete -> CommonMethod.Companion.showAlertDialog(this, "", "Are you sure you want to delete?", "Yes", "No", object : CommonMethod.DialogClickListener {
                     override fun dialogOkBtnClicked(value: String?) {
-                        binding!!.cardView.visibility = View.VISIBLE
                         deleteTask(taskMiscId)
                     }
                     override fun dialogNoBtnClicked(value: String?) {}
@@ -138,7 +137,7 @@ class TicketDetails : AppCompatActivity() {
             R.id.btnSave -> if (validateDetails()) {
                 if (CommonMethod.Companion.isNetworkAvailable(this))
                 {
-                    binding!!.cardView.visibility = View.VISIBLE
+                    CommonMethod.showProgressDialog(this)
                     updateTicketDetails(taskMiscId)
                 } else {
                     CommonMethod.Companion.showToast(this, "Check Internet")
@@ -206,12 +205,12 @@ class TicketDetails : AppCompatActivity() {
                             CommonMethod.Companion.showToast(this, "No data")
                         }
                     } catch (e: JSONException) {
-                        binding!!.cardView.visibility = View.GONE
+                        CommonMethod.cancelProgressDialog(this)
                         e.printStackTrace()
                     }
                 }
             ) {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             }
             val requestQueue = Volley.newRequestQueue(this)
@@ -244,12 +243,12 @@ class TicketDetails : AppCompatActivity() {
                             CommonMethod.Companion.showToast(this, "No data")
                         }
                     } catch (e: JSONException) {
-                        binding!!.cardView.visibility = View.GONE
+                        CommonMethod.cancelProgressDialog(this)
                         e.printStackTrace()
                     }
                 }
             ) {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             }
             val requestQueue = Volley.newRequestQueue(this)
@@ -273,12 +272,12 @@ class TicketDetails : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -309,7 +308,7 @@ class TicketDetails : AppCompatActivity() {
         stringRequest = StringRequest(
             Request.Method.GET, Api.getTicketDetails + id,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -339,12 +338,12 @@ class TicketDetails : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -368,10 +367,11 @@ class TicketDetails : AppCompatActivity() {
     }
 
     fun deleteTask(id: Int) {
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.DELETE, Api.deleteTicketDetails + id,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -384,12 +384,12 @@ class TicketDetails : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
             )
         }
@@ -410,7 +410,7 @@ class TicketDetails : AppCompatActivity() {
         }
         stringRequest = StringRequest(Request.Method.POST, Api.updateTicketDetails + id + "&EmpID=" + SharedPref.getEmployeeId(this) + "&ToEmail=" + emailList + "&ProjectID=" + projectIdValue + "&Subject=" + binding!!.etSubject.text.toString() + "&HTMLBody=" + binding!!.tinBody.text.toString() + "&Body=" + binding!!.tinNotes.text.toString() + "&TicketSeverity=" + severityIdValue + "&TaskType=" + taskTypeIdValue + "&ClientName=" + SharedPref.getClientName(this),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -428,12 +428,12 @@ class TicketDetails : AppCompatActivity() {
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
             )
         }

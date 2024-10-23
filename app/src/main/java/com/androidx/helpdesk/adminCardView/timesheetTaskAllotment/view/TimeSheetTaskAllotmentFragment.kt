@@ -94,12 +94,12 @@ class TimeSheetTaskAllotmentFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getTaskAllotmentTimesheetList(currentDate: String?)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(context)
         taskAllotmentWeeklyAllotmentList.clear()
         stringRequest = StringRequest(
             Request.Method.GET, Api.taskAllotmentTimeSheetList + currentDate,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(context)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -148,13 +148,13 @@ class TimeSheetTaskAllotmentFragment : Fragment() {
                     binding!!.weeklyTaskRecyclerView.adapter = taskAllotmentTimeSheetAdapter
                     taskAllotmentTimeSheetAdapter!!.notifyDataSetChanged()
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
 
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
             CommonMethod.showToast(context, "Please Check your Internet")
         }
         stringRequest!!.retryPolicy = object : RetryPolicy {

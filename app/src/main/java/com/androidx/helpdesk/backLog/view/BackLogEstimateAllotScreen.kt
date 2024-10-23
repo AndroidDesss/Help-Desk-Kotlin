@@ -98,13 +98,13 @@ class BackLogEstimateAllotScreen : AppCompatActivity(), OnProgrammerListener {
     @SuppressLint("NotifyDataSetChanged")
     private fun getTaskList(projectId: Int, moduleId: Int, projectTaskId: Int, taskCategoryId: Int)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         binding!!.rlError.visibility = View.GONE
         taskList.clear()
         stringRequest = StringRequest(
             Request.Method.POST, Api.getBackLogTaskList + taskCategoryId + "&ProjectID=" + projectId + "&ModuleID=" + moduleId + "&PrjTaskID=" + projectTaskId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -129,12 +129,12 @@ class BackLogEstimateAllotScreen : AppCompatActivity(), OnProgrammerListener {
                         binding!!.rlError.visibility = View.VISIBLE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -156,11 +156,11 @@ class BackLogEstimateAllotScreen : AppCompatActivity(), OnProgrammerListener {
     private fun addTask(tId: ArrayList<Int>,tcId: Int,mId: Int,smId:Int)
     {
         val tIds = tId.joinToString(",")
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.POST, Api.addTaskEstimateAllot + tIds + "&CompanyID=" + SharedPref.getCompanyId(this) + "&ProjectID=" + projectId + "&ModuleID=" + mId + "&SubModuleID=" +smId+ "&EmpID=" + SharedPref.getEmployeeId(this) + "&TaskCategoryID=" + tcId + "&UserName=" + SharedPref.getCompanyId(this),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -179,12 +179,12 @@ class BackLogEstimateAllotScreen : AppCompatActivity(), OnProgrammerListener {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }

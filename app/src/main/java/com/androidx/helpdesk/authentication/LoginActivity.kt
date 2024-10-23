@@ -57,10 +57,10 @@ class LoginActivity : AppCompatActivity() {
     private val onClickListener = View.OnClickListener { view ->
         when (view.id) {
             R.id.btnLogin -> if (validateDetails()) {
-                if (CommonMethod.Companion.isNetworkAvailable(this)) {
+                if (CommonMethod.isNetworkAvailable(this)) {
                     validateUser()
                 } else {
-                    CommonMethod.Companion.showToast(this, "Check Internet")
+                    CommonMethod.showToast(this, "Check Internet")
                 }
             }
         }
@@ -86,10 +86,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validateUser() {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.POST, Api.login + binding!!.etCompany.text.toString() + "&EmailID=" + binding!!.etEmail.text.toString() + "&Password=" + binding!!.etPassword.text.toString(),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -144,7 +144,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Credentials Wrong")
         }

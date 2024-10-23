@@ -115,13 +115,13 @@ class QuickEditModule : AppCompatActivity() {
 
     private fun getModuleList()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         binding!!.rlError.visibility = View.GONE
         editModuleList.clear()
         stringRequest = StringRequest(
             Request.Method.POST, Api.getModuleList + SharedPref.getCompanyId(this) + "&ProjectID=" + projectId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -162,12 +162,12 @@ class QuickEditModule : AppCompatActivity() {
                         binding!!.rlError.visibility = View.VISIBLE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
         stringRequest!!.retryPolicy = object : RetryPolicy {
@@ -188,10 +188,10 @@ class QuickEditModule : AppCompatActivity() {
     }
 
     private fun moduleDelete(id: Int?) {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.DELETE, Api.deleteModuleById + id,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -208,12 +208,12 @@ class QuickEditModule : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -308,7 +308,7 @@ class QuickEditModule : AppCompatActivity() {
 
     private fun addModule(startDate: String,endDate: String,deliveryDate: String,moduleName: String,totalHours: String,sequenceNumber: String,isActive : Boolean)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.POST, Api.addModule +startDate+"&EndDate="+ endDate + "&DeliveryDate=" + deliveryDate + "&CompanyID=" +SharedPref.getCompanyId(this) + "&ProjectID=" + projectId+"&ModuleName="+moduleName + "&TotalHrs=" + totalHours + "&Active=" + isActive +"&Sequence=" + sequenceNumber +"&UserName=" +SharedPref.getFirstName(this) ,
             { ServerResponse ->
                 try {
@@ -328,12 +328,12 @@ class QuickEditModule : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }

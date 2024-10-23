@@ -88,7 +88,7 @@ class QuickEditEstimate : AppCompatActivity(), OnProgrammerListener {
                 override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
                     if (parentView.getItemAtPosition(position) == "Select") {
                     } else {
-                        binding!!.cardView.visibility = View.VISIBLE
+                        CommonMethod.showProgressDialog(parentView.context)
                         spinnerModuleId = moduleIdList[position]
                         getScreenNameList(spinnerModuleId)
                     }
@@ -146,7 +146,7 @@ class QuickEditEstimate : AppCompatActivity(), OnProgrammerListener {
     {
         moduleIdList.clear()
         moduleNameList.clear()
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.GET, Api.getEstimateModule + SharedPref.getCompanyId(this)+"&ProjectID="+projectId,
             { ServerResponse ->
@@ -164,18 +164,18 @@ class QuickEditEstimate : AppCompatActivity(), OnProgrammerListener {
                             moduleIdList.add(moduleId)
                             moduleNameList.add(moduleName)
                         }
-                        binding!!.cardView.visibility = View.GONE
+                        CommonMethod.cancelProgressDialog(this)
                         setAdapter(1)
                     } else {
                         CommonMethod.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -204,19 +204,19 @@ class QuickEditEstimate : AppCompatActivity(), OnProgrammerListener {
                             projectTaskIdList.add(projectTaskId)
                             projectTaskNameList.add(projectTaskName)
                         }
-                        binding!!.cardView.visibility = View.GONE
+                        CommonMethod.cancelProgressDialog(this)
                         setAdapter(2)
                     } else {
-                        binding!!.cardView.visibility = View.GONE
+                        CommonMethod.cancelProgressDialog(this)
                         CommonMethod.Companion.showToast(this, "No data")
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -238,7 +238,7 @@ class QuickEditEstimate : AppCompatActivity(), OnProgrammerListener {
 
     private fun searchProjectTaskId(mId: Int,sName: String,pId: Int)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.GET, Api.getEstimateAllotProjectTaskId + mId + "&screenname=" + sName + "&ProjectID=" + pId,
             { ServerResponse ->
@@ -257,12 +257,12 @@ class QuickEditEstimate : AppCompatActivity(), OnProgrammerListener {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -277,7 +277,7 @@ class QuickEditEstimate : AppCompatActivity(), OnProgrammerListener {
         stringRequest = StringRequest(
             Request.Method.POST, Api.getEstimateAllotTaskList + taskCategoryId + "&ProjectID=" + pId + "&ModuleID=" + mId + "&PrjTaskID=" + prjId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -303,12 +303,12 @@ class QuickEditEstimate : AppCompatActivity(), OnProgrammerListener {
                         binding!!.rlError.visibility = View.VISIBLE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -331,11 +331,11 @@ class QuickEditEstimate : AppCompatActivity(), OnProgrammerListener {
     private fun addTask(tId: ArrayList<Int>,tcId: Int,mId: Int,smId:Int)
     {
         val tIds = tId.joinToString(",")
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.POST, Api.addTaskEstimateAllot + tIds + "&CompanyID=" + SharedPref.getCompanyId(this) + "&ProjectID=" + projectId + "&ModuleID=" + mId + "&SubModuleID=" +smId+ "&EmpID=" + SharedPref.getEmployeeId(this) + "&TaskCategoryID=" + tcId + "&UserName=" + SharedPref.getCompanyId(this),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -354,12 +354,12 @@ class QuickEditEstimate : AppCompatActivity(), OnProgrammerListener {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }

@@ -119,12 +119,12 @@ class CreateAssignResources : AppCompatActivity(), OnProgrammerListener,OnDelete
 
     private fun getAssignedResources()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         binding!!.rlError.visibility = View.GONE
         assignedResourceList.clear()
         stringRequest = StringRequest(Request.Method.POST, Api.getAssignedProjectMembers + SharedPref.getCompanyId(this) + "&ProjectID=" + projectId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -151,12 +151,12 @@ class CreateAssignResources : AppCompatActivity(), OnProgrammerListener,OnDelete
                         binding!!.btnContainer.visibility = View.GONE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -166,12 +166,12 @@ class CreateAssignResources : AppCompatActivity(), OnProgrammerListener,OnDelete
 
     private fun getAvailableProgrammers(view: View)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         binding!!.rlError.visibility = View.GONE
         availableResourceList.clear()
         stringRequest = StringRequest(Request.Method.POST, Api.getAvailableProgrammers + SharedPref.getCompanyId(this) + "&ProjectID=" + projectId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -195,12 +195,12 @@ class CreateAssignResources : AppCompatActivity(), OnProgrammerListener,OnDelete
                         binding!!.rlError.visibility = View.VISIBLE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -257,7 +257,7 @@ class CreateAssignResources : AppCompatActivity(), OnProgrammerListener,OnDelete
     {
         val projectMembers = members.joinToString(",")
 
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.POST, Api.addAvailableProgrammers + SharedPref.getCompanyId(this) + "&ProjectID=" + projectId+"&EmpID="+projectMembers,
             { ServerResponse ->
                 try {
@@ -278,12 +278,12 @@ class CreateAssignResources : AppCompatActivity(), OnProgrammerListener,OnDelete
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -294,10 +294,10 @@ class CreateAssignResources : AppCompatActivity(), OnProgrammerListener,OnDelete
     private fun deleteResources(deleteMembers: ArrayList<Int>) {
 
         val projectDeleteMembers = deleteMembers.joinToString(",")
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.DELETE, Api.deleteAssignResourcesById + projectDeleteMembers,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -315,12 +315,12 @@ class CreateAssignResources : AppCompatActivity(), OnProgrammerListener,OnDelete
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }

@@ -81,7 +81,7 @@ class EditSprintScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_sprint_screen)
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         bundleData()
         getSprintDetails(sprintId)
         initListener()
@@ -91,7 +91,7 @@ class EditSprintScreen : AppCompatActivity() {
             {
                 if (parentView.getItemAtPosition(position) != "Select")
                 {
-                    binding!!.cardView.visibility = View.VISIBLE
+                    CommonMethod.showProgressDialog(parentView.context)
                     selectedProjectId = projectIdList[position]
                     getBoardType(selectedProjectId)
                 }
@@ -132,7 +132,7 @@ class EditSprintScreen : AppCompatActivity() {
             R.id.btnSave -> if (validateDetails()) {
                 if (CommonMethod.Companion.isNetworkAvailable(this))
                 {
-                    binding!!.cardView.visibility = View.VISIBLE
+                    CommonMethod.showProgressDialog(this)
                     updateSprint()
                 } else {
                     CommonMethod.Companion.showToast(this, "Check Internet")
@@ -216,12 +216,12 @@ class EditSprintScreen : AppCompatActivity() {
                         setAdapter(1)
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -251,15 +251,15 @@ class EditSprintScreen : AppCompatActivity() {
                             boardNameList.add(boardName)
                         }
                         setAdapter(2)
-                        binding!!.cardView.visibility = View.GONE
+                        CommonMethod.cancelProgressDialog(this)
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -350,12 +350,12 @@ class EditSprintScreen : AppCompatActivity() {
                     CommonMethod.Companion.showToast(this, "No data")
                 }
             } catch (e: JSONException) {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 e.printStackTrace()
             }
         },
             Response.ErrorListener {
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             }
         ) {
@@ -385,13 +385,13 @@ class EditSprintScreen : AppCompatActivity() {
 
     private fun updateSprint()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.POST,
             Api.updateSprint + selectedProjectId  + "&BoardID=" + selectedBoardId + "&SprintID=" + sprintId + "&SprintName=" + binding!!.etSprintStartDate.text.toString() +  "&DeliveryDate=" + binding!!.etSprintDeliveryDate.text.toString() + "&EstimatedHours=" + binding!!.etSprintEstimatedHours.text.toString() + "&CompletedHours=" + binding!!.etSprintCompleteHoursName.text.toString() + "&Comments=" + binding!!.etCommentsName.text.toString() +"&EndDate="+ binding!!.etSprintEndDate.text.toString()+"&StartDate="+ binding!!.etSprintStartDate.text.toString(),
             { ServerResponse ->
                 try {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -406,12 +406,12 @@ class EditSprintScreen : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)

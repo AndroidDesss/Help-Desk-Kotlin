@@ -59,7 +59,7 @@ class NewSprintScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_sprint_screen)
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         projectList()
         initListener()
 
@@ -68,7 +68,7 @@ class NewSprintScreen : AppCompatActivity() {
             {
                 if (parentView.getItemAtPosition(position) != "Select")
                 {
-                    binding!!.cardView.visibility = View.VISIBLE
+                    CommonMethod.showProgressDialog(parentView.context)
                     selectedProjectId = projectIdList[position]
                     getBoardType(selectedProjectId)
                 }
@@ -103,7 +103,7 @@ class NewSprintScreen : AppCompatActivity() {
             R.id.btnSave -> if (validateDetails()) {
                 if (CommonMethod.Companion.isNetworkAvailable(this))
                 {
-                    binding!!.cardView.visibility = View.VISIBLE
+                    CommonMethod.showProgressDialog(this)
                     createSprint()
                 } else {
                     CommonMethod.Companion.showToast(this, "Check Internet")
@@ -194,15 +194,15 @@ class NewSprintScreen : AppCompatActivity() {
                             projectNameList.add(projectName)
                         }
                         setAdapter(1)
-                        binding!!.cardView.visibility = View.GONE
+                        CommonMethod.cancelProgressDialog(this)
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -217,7 +217,7 @@ class NewSprintScreen : AppCompatActivity() {
             Request.Method.POST,
             Api.getBackLogBoardType + projectIdSelected ,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -235,12 +235,12 @@ class NewSprintScreen : AppCompatActivity() {
                         setAdapter(2)
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)
@@ -265,13 +265,13 @@ class NewSprintScreen : AppCompatActivity() {
 
     private fun createSprint()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(
             Request.Method.POST,
             Api.createSprint + selectedProjectId  + "&BoardID=" + selectedBoardId + "&SprintName=" + binding!!.etSprintStartDate.text.toString() + "&StartDate=" + binding!!.etSprintStartDate.text.toString() + "&DeliveryDate=" + binding!!.etSprintDeliveryDate.text.toString() + "&EstimatedHours=" + binding!!.etSprintEstimatedHours.text.toString() + "&CompletedHours=" + binding!!.etSprintCompleteHoursName.text.toString() + "&Comments=" + binding!!.etCommentsName.text.toString() +"&EndDate="+ binding!!.etSprintEndDate.text.toString(),
             { ServerResponse ->
                 try {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -286,12 +286,12 @@ class NewSprintScreen : AppCompatActivity() {
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(this)

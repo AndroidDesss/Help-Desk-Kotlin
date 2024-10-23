@@ -113,13 +113,13 @@ class BoardMembersScreen : AppCompatActivity(), OnProgrammerListener, OnDeleteLi
     @SuppressLint("NotifyDataSetChanged")
     private fun getBoardMembers()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         binding!!.rlError.visibility = View.GONE
         boardMembersList.clear()
         stringRequest = StringRequest(
             Request.Method.POST, Api.getBoardMembersList +  boardId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -146,12 +146,12 @@ class BoardMembersScreen : AppCompatActivity(), OnProgrammerListener, OnDeleteLi
                         binding!!.btnContainer.visibility = View.GONE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -184,10 +184,10 @@ class BoardMembersScreen : AppCompatActivity(), OnProgrammerListener, OnDeleteLi
     private fun deleteBoardMembers(deleteMembers: ArrayList<Int>) {
 
         val boardDeleteMembers = deleteMembers.joinToString(",")
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.DELETE, Api.deleteBoardMembers + boardDeleteMembers,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -205,12 +205,12 @@ class BoardMembersScreen : AppCompatActivity(), OnProgrammerListener, OnDeleteLi
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -220,12 +220,12 @@ class BoardMembersScreen : AppCompatActivity(), OnProgrammerListener, OnDeleteLi
 
     private fun getBoardAvailableProgrammers(view: View)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         binding!!.rlError.visibility = View.GONE
         availableBoardMembersList.clear()
         stringRequest = StringRequest(Request.Method.POST, Api.getAvailableBoardProjectMembers + projectId + "&CompanyID=" + SharedPref.getCompanyId(this) + "&BoardID=" + boardId,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(this)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -247,12 +247,12 @@ class BoardMembersScreen : AppCompatActivity(), OnProgrammerListener, OnDeleteLi
                         binding!!.rlError.visibility = View.VISIBLE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }
@@ -297,7 +297,7 @@ class BoardMembersScreen : AppCompatActivity(), OnProgrammerListener, OnDeleteLi
     {
         val projectMembers = members.joinToString(",")
 
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(this)
         stringRequest = StringRequest(Request.Method.POST, Api.addAvailableBoardMembers + projectMembers + "&CompanyID=" + SharedPref.getCompanyId(this) + "&BoardID=" + boardId,
             { ServerResponse ->
                 try {
@@ -318,12 +318,12 @@ class BoardMembersScreen : AppCompatActivity(), OnProgrammerListener, OnDeleteLi
                         }
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(this)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(this)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.showToast(this, "Please Check your Internet")
         }

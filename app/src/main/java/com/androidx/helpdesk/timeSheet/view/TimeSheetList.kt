@@ -115,7 +115,7 @@ class TimeSheetList : Fragment() {
 
     private fun projectList()
     {
-            binding!!.cardView.visibility = View.VISIBLE
+            CommonMethod.showProgressDialog(context)
             projectIdList.clear()
             projectNameList.clear()
             stringRequest = object : StringRequest(Method.POST, Api.projectListByUser + SharedPref.getCompanyId(context) + "&EmpID=" + SharedPref.getEmployeeId(context),
@@ -134,16 +134,16 @@ class TimeSheetList : Fragment() {
                                 setAdapter(1)
                             }
                         } else {
-                            binding!!.cardView.visibility = View.GONE
+                            CommonMethod.cancelProgressDialog(context)
                             CommonMethod.Companion.showToast(context, "No data")
                         }
                     } catch (e: JSONException) {
-                        binding!!.cardView.visibility = View.GONE
+                        CommonMethod.cancelProgressDialog(context)
                         e.printStackTrace()
                     }
                 },
                 Response.ErrorListener {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
                 }
             ) {
@@ -159,11 +159,11 @@ class TimeSheetList : Fragment() {
 
     fun getTimeSheetList(pId: Int, pName: String?,selectedDate: String?) {
         timeSheetModelList.clear()
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(context)
         binding!!.rlError.visibility = View.GONE
         stringRequest = StringRequest(Request.Method.GET, Api.getTimeSheetList + pName + "&ProjectId=" + pId + "&Emp_Id=" + SharedPref.getEmployeeId(context) + "&usertype_id=" + SharedPref.getUserId(context) + "&dept_id=" + SharedPref.getDepartmentId(context)+ "&date=" + selectedDate,
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(context)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -191,12 +191,12 @@ class TimeSheetList : Fragment() {
                     binding!!.recyclerView.adapter = timeSheetAdapter
                     timeSheetAdapter!!.notifyDataSetChanged()
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             CommonMethod.Companion.showToast(context, "Please Check your Internet")
         }

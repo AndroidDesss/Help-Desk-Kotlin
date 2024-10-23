@@ -16,6 +16,7 @@ import com.android.volley.RetryPolicy
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.androidx.helpdesk.CommonMethod
 import com.androidx.helpdesk.R
 import com.androidx.helpdesk.adminTimeSheetTask.adapter.HaveTaskAdapter
 import com.androidx.helpdesk.adminTimeSheetTask.adapter.HourTaskAdapter
@@ -117,7 +118,7 @@ class TaskAllotmentFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getNoTaskDetails(formattedDate:String)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(context)
         noTaskModelList.clear()
         stringRequest = StringRequest(
             Request.Method.GET,
@@ -151,12 +152,12 @@ class TaskAllotmentFragment : Fragment() {
                     noTaskAdapter!!.notifyDataSetChanged()
                     hourTaskValue(formattedDate)
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
         }
         stringRequest!!.retryPolicy = object : RetryPolicy {
             override fun getCurrentTimeout(): Int {
@@ -216,12 +217,12 @@ class TaskAllotmentFragment : Fragment() {
                     lessHourTaskAdapter!!.notifyDataSetChanged()
                     haveTaskValue(formattedDate)
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
         }
         stringRequest!!.retryPolicy = object : RetryPolicy {
             override fun getCurrentTimeout(): Int {
@@ -277,14 +278,14 @@ class TaskAllotmentFragment : Fragment() {
                     haveTaskAdapter = HaveTaskAdapter(requireContext(), haveTaskModelList)
                     binding!!.haveTaskRecycler.adapter = haveTaskAdapter
                     haveTaskAdapter!!.notifyDataSetChanged()
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
         }
         stringRequest!!.retryPolicy = object : RetryPolicy {
             override fun getCurrentTimeout(): Int {

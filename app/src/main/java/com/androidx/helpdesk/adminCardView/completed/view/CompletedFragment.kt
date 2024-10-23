@@ -100,7 +100,7 @@ class CompletedFragment : Fragment() {
 
     private fun projectList()
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(context)
         projectIdList.clear()
         projectNameList.clear()
         stringRequest = StringRequest(
@@ -108,7 +108,7 @@ class CompletedFragment : Fragment() {
             Api.getBackLogProjectList + SharedPref.getCompanyId(context)  + "&UserTypeID=" + SharedPref.getUserId(context) + "&Est&EmpID=" + SharedPref.getEmployeeId(context),
             { ServerResponse ->
                 try {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
                     if (status == 200) {
@@ -125,12 +125,12 @@ class CompletedFragment : Fragment() {
                         setAdapter()
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
             stringRequest!!.retryPolicy = DefaultRetryPolicy(100, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         }
         val requestQueue = Volley.newRequestQueue(context)
@@ -140,13 +140,13 @@ class CompletedFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getCompletedList(selectedProjectName: String,selectedProjectId: Int)
     {
-        binding!!.cardView.visibility = View.VISIBLE
+        CommonMethod.showProgressDialog(context)
         binding!!.rlError.visibility = View.GONE
         completedSummaryModelList.clear()
         stringRequest = StringRequest(
             Request.Method.GET, Api.getCompletedSummary + SharedPref.getEmployeeId(context) + "&user_projectname=" + selectedProjectName + "&user_projectid=" + selectedProjectId + "&UserTypeID=" + SharedPref.getUserId(context) + "&DeptID=" + SharedPref.getDepartmentId(context),
             { ServerResponse ->
-                binding!!.cardView.visibility = View.GONE
+                CommonMethod.cancelProgressDialog(context)
                 try {
                     val jsondata = JSONObject(ServerResponse)
                     status = jsondata.getInt("status")
@@ -182,12 +182,12 @@ class CompletedFragment : Fragment() {
                         binding!!.rlError.visibility = View.VISIBLE
                     }
                 } catch (e: JSONException) {
-                    binding!!.cardView.visibility = View.GONE
+                    CommonMethod.cancelProgressDialog(context)
                     e.printStackTrace()
                 }
             }
         ) {
-            binding!!.cardView.visibility = View.GONE
+            CommonMethod.cancelProgressDialog(context)
             CommonMethod.showToast(context, "Please Check your Internet")
         }
         stringRequest!!.retryPolicy = object : RetryPolicy {
