@@ -87,9 +87,7 @@ class CommonMethod(private val context: Context) {
                     Constants.dialog?.show()
                 }
             } catch (e: Exception) {
-                if (BuildConfig.DEBUG) {
-                    e.printStackTrace()
-                }
+                e.printStackTrace()
             }
         }
 
@@ -100,9 +98,7 @@ class CommonMethod(private val context: Context) {
                     Constants.dialog = null
                 }
             } catch (e: Exception) {
-                if (BuildConfig.DEBUG) {
-                    e.printStackTrace()
-                }
+                e.printStackTrace()
             }
         }
     }
